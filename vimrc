@@ -6,6 +6,7 @@ Plug 'morhetz/gruvbox'
 Plug 'mbbill/undotree'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 Plug 'mattn/emmet-vim'
 Plug 'leafgarland/typescript-vim'
@@ -78,6 +79,8 @@ let g:prettier#config#trailing_comma = "none"
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html Prettier
 
+" Enable AutoCompletion.
+set omnifunc=syntaxcomplete#complete
 
 
 
