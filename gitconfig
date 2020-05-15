@@ -1,0 +1,11 @@
+[user]
+	name = kokou kpadenou
+	email = kokou2kpadenou@gmail.com
+[color]
+	ui = auto
+[merge]
+	conflictstyle = diff3
+[core]
+	editor = vim
+[push]
+	default = simple
