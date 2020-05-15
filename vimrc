@@ -8,7 +8,10 @@ Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
-Plug 'mattn/emmet-vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-surround'
+Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+Plug 'mattn/emmet-vim', { 'for': ['html', 'css'] }
 Plug 'leafgarland/typescript-vim'
 Plug 'ycm-core/YouCompleteMe'
 Plug 'mlaursen/vim-react-snippets'
