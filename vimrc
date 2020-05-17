@@ -14,6 +14,7 @@ Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'type
 Plug 'mattn/emmet-vim', { 'for': ['html', 'css'] }
 Plug 'leafgarland/typescript-vim'
 Plug 'ycm-core/YouCompleteMe'
+Plug 'SirVer/ultisnips'
 Plug 'mlaursen/vim-react-snippets'
 
 call plug#end()
