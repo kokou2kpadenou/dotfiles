@@ -48,7 +48,7 @@ set magic
 set colorcolumn=80                                                              
 highlight ColorColumn ctermbg=0 guibg=lightgrey 
 
-" FILES EARCHING
+" FILES SEARCHING
 set path+=**
 set wildmenu
 set wildignore+=**/node_modules/** 
