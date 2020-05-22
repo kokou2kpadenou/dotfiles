@@ -1,0 +1,13 @@
+--recurse=yes
+--exclude=.git
+--exclude=BUILD
+--exclude=.svn
+--exclude=\*.swp
+--exclude=\*.bak
+--exclude=node_modules
+--exclude=vendor
+--languages=-javascript
+--langdef=js
+--langmap=js:.js
+--langmap=js:+.jsx
+--regex-js=/[ \t.]([A-Z][A-Z0-9._$]+)[ \t]*[=:][ \t]*([0-9"'\[\{]|null)/\1/n,constant/
