@@ -1,4 +1,6 @@
 autoload
 plugged
 undodir
+sessions
+UltiSnips
 .netrwhist
