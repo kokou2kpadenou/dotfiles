@@ -55,6 +55,7 @@ set wildmenu
 set wildignore+=**/node_modules/** 
 set hidden
 
+" Color
 colorscheme gruvbox
 set background=dark
 
@@ -93,6 +94,8 @@ let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 " Enable AutoCompletion.
 set omnifunc=syntaxcomplete#complete
 
+" Mapping
+nnoremap <leader><space> :nohlsearch<CR>
 
 
 
