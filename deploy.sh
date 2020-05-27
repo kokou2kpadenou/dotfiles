@@ -9,21 +9,18 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # Links
-ln -s ~/.vim/vimrc ~/.vimrc
-ln -s ~/.vim/tmux.conf ~/.tmux.conf
-# ln -s ~/.vim/tmuxp ~/.tmuxp
+ln -s $PWD/ctags ~/.ctags
+ln -s $PWD/vimrc ~/.vimrc
+ln -s $PWD/tmux.conf ~/.tmux.conf
+ln -s $PWD/gitconfig ~/.gitconfig
 
 # Create undodir directory
 mkdir ~/.vim/undodir -p
-
-# Create tmuxp directory
-mkdir ~/.tmuxp
-
-# Install tmuxp
-pip3 install --user tmuxp
 
 # Message
 echo Please add the following line to your ~/.bash_profile
 echo export TERM=xterm-256color
 
 echo Make sure the following applications are installed 
+sudo dnf install cmake
+sudo dnf install python3-devel
