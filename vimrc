@@ -9,6 +9,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 Plug 'terryma/vim-multiple-cursors'
+Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-surround'
 Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 Plug 'mattn/emmet-vim', { 'for': ['html', 'css'] }
@@ -98,5 +99,17 @@ set omnifunc=syntaxcomplete#complete
 nnoremap <leader><space> :nohlsearch<CR>
 
 
+" JavaScript Simple AutoClose ', ", (, {, [
+fun! AutoCloseJavaScript()
+    inoremap " ""<left>
+    inoremap ' ''<left>
+    inoremap ( ()<left>
+    inoremap [ []<left>
+    inoremap { {}<left>
+    inoremap {<CR> {<CR>}<ESC>O
+    inoremap {;<CR> {<CR>};<ESC>O
+endfun
+
+autocmd FileType javascript :call AutoCloseJavaScript()
 
 
