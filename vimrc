@@ -12,7 +12,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-surround'
 Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
-Plug 'mattn/emmet-vim', { 'for': ['html', 'css'] }
+Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'javascript'] }
 "Plug 'sheerun/vim-polyglot'
 Plug 'leafgarland/typescript-vim'
 Plug 'ycm-core/YouCompleteMe'
@@ -112,4 +112,10 @@ endfun
 
 autocmd FileType javascript :call AutoCloseJavaScript()
 
-
+" Emmet
+let g:user_emmet_leader_key = ','
+let g:user_emmet_settings = {
+\  'javascript' : {
+\      'extends' : 'jsx',
+\  },
+\}
