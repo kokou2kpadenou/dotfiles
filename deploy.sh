@@ -28,7 +28,8 @@ do
         [ ! $old_t = $t ] && { rm $f && ln -s ${t} ${f} }
     fi
     # Do this if only the file exist and is not a link
-    [ -f $f ] && { mv $f ${PWD}/backup/.${f}.${DATE} && ln -s ${t} ${f} }
+    date=`date +%m%d%Y_%H%M%S%N`
+    [ -f $f ] && { mv $f ${PWD}/backup/.${f}.${date} && ln -s ${t} ${f} }
 done
 
 # Create undodir directory
