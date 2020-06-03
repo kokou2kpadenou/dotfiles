@@ -34,10 +34,11 @@ done
 # Create undodir directory
 mkdir ~/.vim/undodir -p
 
+# Set terminal Color
+[ ! grep -q "export TERM=xterm-256color" "${HOME}/.bash_profile" ] && echo "export TERM=xterm-256color" >> "${HOME}/.bash_profile"
+# Set terminal editor to vi
+[ ! grep -q "set -o vi" "${HOME}/.bashrc" ] && echo "set -o vi" >> "${HOME}/.bashrc"
+
 echo Make sure the following applications are installed 
 sudo dnf install cmake
 sudo dnf install python3-devel
-
-# Message
-echo Please add the following line to your ~/.bash_profile
-echo export TERM=xterm-256color
