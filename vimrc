@@ -99,8 +99,8 @@ set omnifunc=syntaxcomplete#complete
 nnoremap <leader><space> :nohlsearch<CR>
 
 
-" JavaScript Simple AutoClose ', ", (, {, [
-fun! AutoCloseJavaScript()
+" Simple AutoClose ', ", (, {, [
+fun! SimpleAutoClose()
     inoremap " ""<left>
     inoremap ' ''<left>
     inoremap ( ()<left>
@@ -110,7 +110,7 @@ fun! AutoCloseJavaScript()
     inoremap {;<CR> {<CR>};<ESC>O
 endfun
 
-autocmd FileType javascript :call AutoCloseJavaScript()
+autocmd FileType javascript,typescript,css :call SimpleAutoClose()
 
 " Emmet
 let g:user_emmet_leader_key = ','
