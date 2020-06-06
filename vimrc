@@ -12,6 +12,8 @@ endfunction
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'nanotech/jellybeans.vim'
+Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
 Plug 'mbbill/undotree'
 Plug 'vim-airline/vim-airline'
@@ -26,8 +28,7 @@ Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'javascript'] }
 "Plug 'sheerun/vim-polyglot'
 Plug 'leafgarland/typescript-vim'
 Plug 'ycm-core/YouCompleteMe', { 'do': function('BuildYCM') }
-Plug 'SirVer/ultisnips'
-Plug 'mlaursen/vim-react-snippets'
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' | Plug 'mlaursen/vim-react-snippets'
 
 call plug#end()
 
@@ -61,12 +62,13 @@ set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey 
 
 " FILES SEARCHING
-set path+=**
+set path+=$PWD/**
 set wildmenu
 set wildignore+=**/node_modules/** 
 set hidden
 
 " Color
+"colorscheme onedark
 colorscheme gruvbox
 set background=dark
 
@@ -107,10 +109,11 @@ set omnifunc=syntaxcomplete#complete
 
 " Mapping
 nnoremap <leader><space> :nohlsearch<CR>
+nnoremap <F5> :buffers<CR>:buffer<Space>
 
 
 " Simple AutoClose ', ", (, {, [
-fun! SimpleAutoClose()
+function! SimpleAutoClose()
     inoremap " ""<left>
     inoremap ' ''<left>
     inoremap ( ()<left>
@@ -118,7 +121,7 @@ fun! SimpleAutoClose()
     inoremap { {}<left>
     inoremap {<CR> {<CR>}<ESC>O
     inoremap {;<CR> {<CR>};<ESC>O
-endfun
+endfunction
 
 autocmd FileType javascript,typescript,css :call SimpleAutoClose()
 
