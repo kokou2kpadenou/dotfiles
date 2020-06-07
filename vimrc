@@ -26,6 +26,7 @@ Plug 'tpope/vim-surround'
 Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'javascript'] }
 "Plug 'sheerun/vim-polyglot'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
 Plug 'ycm-core/YouCompleteMe', { 'do': function('BuildYCM') }
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' | Plug 'mlaursen/vim-react-snippets'
@@ -91,7 +92,7 @@ command! MakeTags !ctags -R .
 let g:netrw_banner=0        " disable annoying banner
 let g:netrw_liststyle=3     " tree view
 let g:netrw_bufsettings="noma nomod nonu nobl nowrap ro rnu"
-let g:netrw_list_hide= 'node_modules,.git'
+let g:netrw_list_hide= 'node_modules,.git,tags'
 
 " Prettier
 let g:prettier#config#single_quote = "false"
