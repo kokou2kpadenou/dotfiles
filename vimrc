@@ -36,11 +36,9 @@ call plug#end()
 
 " Setup
 """"""""""""""""""""""""""""""""""""""""""""""""""
-
 set nocompatible
 syntax on                                                                       
 filetype plugin indent on
-
                                                                                
 set noerrorbells                                                                
 set tabstop=4 softtabstop=4                                                     
@@ -69,7 +67,6 @@ set wildignore+=**/node_modules/**
 set hidden
 
 " Color
-"colorscheme onedark
 colorscheme gruvbox
 set background=dark
 
@@ -80,10 +77,12 @@ endif
 
 " Section folding
 set foldenable
-set foldlevelstart=10
+set foldlevelstart=99
 set foldnestmax=10
 set foldmethod=syntax
-nnoremap <space> za
+set foldcolumn=1
+let javaScript_fold=1
+let sh_fold_enabled=1
 
 " commands
 command! MakeTags !ctags -R .
