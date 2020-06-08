@@ -110,6 +110,7 @@ set omnifunc=syntaxcomplete#complete
 " Mapping
 nnoremap <leader><space> :nohlsearch<CR>
 nnoremap <F5> :buffers<CR>:buffer<Space>
+map <F7> gg=G<C-o><C-o>
 
 
 " Simple AutoClose ', ", (, {, [
