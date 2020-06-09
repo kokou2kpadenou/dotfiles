@@ -41,6 +41,7 @@ syntax on
 filetype plugin indent on
                                                                                
 set noerrorbells                                                                
+"set showcmd
 set tabstop=4 softtabstop=4                                                     
 set shiftwidth=4                                                                
 set expandtab                                                                   
