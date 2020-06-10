@@ -47,6 +47,14 @@ grep -q "set -o vi" "${HOME}/.bashrc" && echo "yes" || echo "set -o vi" >> ${HOM
 # Reload bashrc
 . ~/.bash_profile
 
-echo Installation of cmake and python3-devel
+echo Installation of cmake ctags tmux python3-devel gvim
 echo You should have admin privilege
-sudo dnf install cmake python3-devel
+# ctags:                     for tags jump
+# cmake and python3-devel:   for YouCompleteMe installation
+# tmux:                      terminal multiplexer
+# gvim:                      To activate copy to/from clipboard
+sudo dnf install cmake ctags tmux python3-devel gvim
+
+
+# Alias
+[ -x "$(command -v vimx)" ] && alias vim='vimx'
