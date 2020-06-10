@@ -44,6 +44,8 @@ mkdir ~/.vim/undodir -p
 grep -q "export TERM=xterm-256color" "${HOME}/.bash_profile" && echo "yes" || echo "export TERM=xterm-256color" >> ${HOME}/.bash_profile
 # Set terminal editor to vi
 grep -q "set -o vi" "${HOME}/.bashrc" && echo "yes" || echo "set -o vi" >> ${HOME}/.bashrc
+# vim alias to vimx if vimx exist
+grep -q "alias vim='vimx'" "${HOME}/.bashrc" && echo "yes" || echo "if [[ -x "$(command -v vimx)" ]]; then alias vim='vimx'; fi" >> ${HOME}/.bashrc
 # Reload bashrc
 . ~/.bash_profile
 
@@ -54,7 +56,3 @@ echo You should have admin privilege
 # tmux:                      terminal multiplexer
 # gvim:                      To activate copy to/from clipboard
 sudo dnf install cmake ctags tmux python3-devel gvim
-
-
-# Alias
-[ -x "$(command -v vimx)" ] && alias vim='vimx'
