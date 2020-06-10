@@ -112,6 +112,9 @@ set omnifunc=syntaxcomplete#complete
 nnoremap <leader><space> :nohlsearch<CR>
 nnoremap <F5> :buffers<CR>:buffer<Space>
 map <F7> gg=G<C-o><C-o>
+map <F9> :bel term ++rows=10 <CR>
+vnoremap <C-c> "*y :let @+=@*<CR>
+map <C-p> "+p
 
 
 " Simple AutoClose ', ", (, {, [
