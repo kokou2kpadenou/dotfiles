@@ -26,6 +26,7 @@ Plug 'tpope/vim-surround'
 Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'javascript'] }
 "Plug 'sheerun/vim-polyglot'
+Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
 Plug 'ycm-core/YouCompleteMe', { 'do': function('BuildYCM') }
