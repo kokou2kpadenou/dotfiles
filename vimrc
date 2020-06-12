@@ -65,7 +65,7 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 " FILES SEARCHING
 set path+=$PWD/**
 set wildmenu
-set wildignore+=**/node_modules/** 
+set wildignore+=**/node_modules/**,.next/**,out/**,.git/**,tags
 set hidden
 
 " Color
@@ -93,7 +93,7 @@ command! MakeTags !ctags -R .
 let g:netrw_banner=0        " disable annoying banner
 let g:netrw_liststyle=3     " tree view
 let g:netrw_bufsettings="noma nomod nonu nobl nowrap ro rnu"
-let g:netrw_list_hide= 'node_modules,.git,tags'
+let g:netrw_list_hide= 'node_modules,.git,tags,.next,out,build,dist'
 
 " Prettier
 let g:prettier#config#single_quote = "false"
@@ -111,6 +111,7 @@ set omnifunc=syntaxcomplete#complete
 
 " Mapping
 nnoremap <leader><space> :nohlsearch<CR>
+map <F2> :MakeTags <CR>
 nnoremap <F5> :buffers<CR>:buffer<Space>
 map <F7> gg=G<C-o><C-o>
 map <F9> :bel term ++rows=10 <CR>
