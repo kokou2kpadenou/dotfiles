@@ -6,6 +6,8 @@
 --exclude=\*.bak
 --exclude=node_modules
 --exclude=vendor
+--exclude=.next
+--exclude=out
 
 --languages=-javascript
 
