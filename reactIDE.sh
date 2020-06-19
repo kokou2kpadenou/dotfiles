@@ -7,14 +7,25 @@
 ###############################################################################
 
 # Read the project directory
-read -e -p "Project Directory: " wrkdir
-# Get the last directory from the path
-subdir=$(basename $wrkdir)
-session=${subdir^^}
-sessionexist=$(tmux ls | grep $session)
+wrkdir=""
+
+while [ "$wrkdir" = "" ]; do
+    if [ "$#" -gt "0" ]; then
+        wrkdir=$1
+    else
+        read -e -p "Project Directory: " wrkdir
+    fi
+done
+
+echo $wrkdir
 
 if [ -d $wrkdir ]
 then
+    # Get the last directory from the path
+    subdir=$(basename $wrkdir)
+    session=${subdir^^}
+    sessionexist=$(tmux ls | grep $session)
+
     if [ "$sessionexist" = "" ]; then
         tmux new -s $session -d -n DEV -c $wrkdir -x $(tput cols) -y $(tput lines)
         tmux send-keys -t $session:1 'vim .' Enter
