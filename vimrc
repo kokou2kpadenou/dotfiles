@@ -1,13 +1,13 @@
 " Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""
 function! BuildYCM(info)
-  " info is a dictionary with 3 fields
-  " - name:   name of the plugin
-  " - status: 'installed', 'updated', or 'unchanged'
-  " - force:  set on PlugInstall! or PlugUpdate!
-  if a:info.status == 'installed' || a:info.force
-    !./install.py
-  endif
+    " info is a dictionary with 3 fields
+    " - name:   name of the plugin
+    " - status: 'installed', 'updated', or 'unchanged'
+    " - force:  set on PlugInstall! or PlugUpdate!
+    if a:info.status == 'installed' || a:info.force
+        !./install.py
+    endif
 endfunction
 
 call plug#begin('~/.vim/plugged')
@@ -21,6 +21,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 Plug 'terryma/vim-multiple-cursors'
+Plug 'tyru/caw.vim'
 Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-surround'
 Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
@@ -40,7 +41,7 @@ call plug#end()
 set nocompatible
 syntax on                                                                       
 filetype plugin indent on
-                                                                               
+
 set noerrorbells                                                                
 set tabstop=4 softtabstop=4                                                     
 set shiftwidth=4                                                                
@@ -57,7 +58,7 @@ set incsearch
 set hlsearch                                                                    
 set nolazyredraw 
 set magic
-                                                                                 
+
 set colorcolumn=80                                                              
 highlight ColorColumn ctermbg=0 guibg=lightgrey 
 
@@ -71,7 +72,7 @@ set hidden
 colorscheme gruvbox
 set background=dark
 if (has("termguicolors"))
-  set termguicolors
+    set termguicolors
 endif
 
 
@@ -112,12 +113,16 @@ set omnifunc=syntaxcomplete#complete
 
 " Mapping
 nnoremap <leader><space> :nohlsearch<CR>
-map <F2> :MakeTags <CR>
-nnoremap <F5> :buffers<CR>:buffer<Space>
-map <F7> gg=G<C-o><C-o>
-map <F9> :bel term ++rows=10 <CR>
-vnoremap <C-c> "*y :let @+=@*<CR>
-map <C-p> "+p
+map <F2> :set rnu!<cr>|                             "toggle relative number
+"map <F3>
+"map <F4>
+nnoremap <F5> :ls<CR>:buffer<Space>|                "List of buffers
+"map <F6>
+map <F7> gg=G<C-o><C-o>|                            "Reformat the whole page
+map <F8> :MakeTags <CR>|                            "Run ctags command
+map <F9> :bel term ++rows=10 <CR>|                  "Open vim terminal with 10 rows in bottom
+vnoremap <C-c> "*y :let @+=@*<CR>|                  "Copy to system clipboard
+map <C-p> "+p|                                      "Paste from system clipboard
 
 
 " Simple AutoClose ', ", (, {, [
@@ -136,7 +141,7 @@ autocmd FileType javascript,typescript,css :call SimpleAutoClose()
 " Emmet
 let g:user_emmet_leader_key = ','
 let g:user_emmet_settings = {
-\  'javascript' : {
-\      'extends' : 'jsx',
-\  },
-\}
+            \  'javascript' : {
+            \      'extends' : 'jsx',
+            \  },
+            \}
