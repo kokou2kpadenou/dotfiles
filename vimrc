@@ -113,14 +113,16 @@ set omnifunc=syntaxcomplete#complete
 
 " Mapping
 nnoremap <leader><space> :nohlsearch<CR>
+
 map <F2> :set rnu!<cr>|                             "toggle relative number
-"map <F3>
-"map <F4>
+map <F3> :set nu!<cr>|                              "toggle number
+nnoremap <F4> :bdelete <CR>|                        "Close the current buffer
 nnoremap <F5> :ls<CR>:buffer<Space>|                "List of buffers
-"map <F6>
+nnoremap <F6> :e .<CR>|                             "Open netrw
 map <F7> gg=G<C-o><C-o>|                            "Reformat the whole page
 map <F8> :MakeTags <CR>|                            "Run ctags command
 map <F9> :bel term ++rows=10 <CR>|                  "Open vim terminal with 10 rows in bottom
+
 vnoremap <C-c> "*y :let @+=@*<CR>|                  "Copy to system clipboard
 map <C-p> "+p|                                      "Paste from system clipboard
 
