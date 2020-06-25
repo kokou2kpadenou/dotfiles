@@ -39,28 +39,32 @@ call plug#end()
 " Setup
 """"""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
-syntax on                                                                       
+syntax on
 filetype plugin indent on
 
-set noerrorbells                                                                
-set tabstop=4 softtabstop=4                                                     
-set shiftwidth=4                                                                
-set expandtab                                                                   
-set smartindent                                                                 
-set nu rnu                                                                          
-set nowrap                                                                      
-set smartcase                                                                   
-set noswapfile                                                                  
-set nobackup                                                                    
-set undodir=~/.vim/undodir                                                      
-set undofile                                                                    
+set noerrorbells
+set tabstop=4 softtabstop=4
+set shiftwidth=4
+set expandtab
+set smartindent
+set nu rnu
+set nowrap
+set smartcase
+set noswapfile
+set nobackup
+set undodir=~/.vim/undodir
+set undofile
 set incsearch
-set hlsearch                                                                    
-set nolazyredraw 
+set hlsearch
+set nolazyredraw
 set magic
 
-set colorcolumn=80                                                              
+" set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey 
+match ColorColumn /\%80v.\+/
+
+set list
+set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 
 " FILES SEARCHING
 set path+=$PWD/**
@@ -96,6 +100,7 @@ let g:netrw_list_hide= 'node_modules,.git,tags,.next,out,build,dist'
 " Per default, netrw leaves unmodified buffers open. this autocommand
 " deletes netrw's buffer once it's hidden (using ':q;, for example)
 autocmd FileType netrw setl bufhidden=delete " or use :qa!
+autocmd FileType netrw set nolist
 
 " Prettier
 let g:prettier#config#single_quote = "false"
@@ -113,15 +118,20 @@ set omnifunc=syntaxcomplete#complete
 
 " Mapping
 nnoremap <leader><space> :nohlsearch<CR>
+map <leader>, gg=G<C-o><C-o>|                       "Reformat the whole page
 
 map <F2> :set rnu!<cr>|                             "toggle relative number
 map <F3> :set nu!<cr>|                              "toggle number
 nnoremap <F4> :bdelete <CR>|                        "Close the current buffer
 nnoremap <F5> :ls<CR>:buffer<Space>|                "List of buffers
 nnoremap <F6> :e .<CR>|                             "Open netrw
-map <F7> gg=G<C-o><C-o>|                            "Reformat the whole page
+nnoremap <F7> :UndotreeToggle<CR>|                  "Toggle undotree
 map <F8> :MakeTags <CR>|                            "Run ctags command
 map <F9> :bel term ++rows=10 <CR>|                  "Open vim terminal with 10 rows in bottom
+
+noremap <F10> :set list!<CR>|                       "toggle list - normal mode
+inoremap <F10> <C-o>:set list!<CR>|                 "toggle list - insert mode
+cnoremap <F10> <C-c>:set list!<CR>|                 "toggle list - command mode
 
 vnoremap <C-c> "*y :let @+=@*<CR>|                  "Copy to system clipboard
 map <C-p> "+p|                                      "Paste from system clipboard
