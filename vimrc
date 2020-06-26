@@ -100,7 +100,7 @@ let g:netrw_list_hide= 'node_modules,.git,tags,.next,out,build,dist'
 " Per default, netrw leaves unmodified buffers open. this autocommand
 " deletes netrw's buffer once it's hidden (using ':q;, for example)
 autocmd FileType netrw setl bufhidden=delete " or use :qa!
-autocmd FileType netrw set nolist
+autocmd FileType netrw setl nolist
 
 " Prettier
 let g:prettier#config#single_quote = "false"
@@ -119,6 +119,8 @@ set omnifunc=syntaxcomplete#complete
 " Mapping
 nnoremap <leader><space> :nohlsearch<CR>
 map <leader>, gg=G<C-o><C-o>|                       "Reformat the whole page
+map <leader>/ :find<space>|                         "Find file by name
+map <leader>\ :vim // **/* <left><left><left><left><left><left><left>|                          "Find file by contain match
 
 map <F2> :set rnu!<cr>|                             "toggle relative number
 map <F3> :set nu!<cr>|                              "toggle number
