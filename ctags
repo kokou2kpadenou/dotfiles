@@ -8,6 +8,7 @@
 --exclude=vendor
 --exclude=.next
 --exclude=out
+--fields=+l
 
 --languages=-javascript
 
