@@ -6,7 +6,7 @@ function! BuildYCM(info)
     " - status: 'installed', 'updated', or 'unchanged'
     " - force:  set on PlugInstall! or PlugUpdate!
     if a:info.status == 'installed' || a:info.force
-        !./install.py
+        !./install.py --ts-completer
     endif
 endfunction
 
@@ -159,3 +159,6 @@ let g:user_emmet_settings = {
             \      'extends' : 'jsx',
             \  },
             \}
+
+" YouCompleteMe
+let g:ycm_collect_identifiers_from_tags_files = 1
