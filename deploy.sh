@@ -3,6 +3,9 @@
 # Script to deploy the dotfiles.
 #
 
+# TODO: Change the script to support others distribution of linux in the futur.
+#       The script supports and only tested for Centos8 and Fefora latest version.
+
 # Plug.vim Installation
 # Download plug.vim and put it in the "autoload" directory.
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -49,10 +52,10 @@ grep -q "alias vim='vimx'" "${HOME}/.bashrc" && echo "yes" || echo "if [[ -x "$(
 # Reload bashrc
 . ~/.bash_profile
 
-echo Installation of cmake ctags tmux python3-devel gvim
+echo Installation of cmake ctags tmux python3-devel gvim make gcc-c++
 echo You should have admin privilege
-# ctags:                     for tags jump
-# cmake and python3-devel:   for YouCompleteMe installation
-# tmux:                      terminal multiplexer
-# gvim:                      To activate copy to/from clipboard
-sudo dnf install cmake ctags tmux python3-devel gvim
+# ctags:                                                for tags jump
+# cmake, make, gcc-c++, python3-devel:                  for YouCompleteMe installation
+# tmux:                                                 terminal multiplexer
+# gvim:                                                 To activate copy to/from clipboard
+sudo dnf install cmake ctags tmux python3-devel gvim make gcc-c++
