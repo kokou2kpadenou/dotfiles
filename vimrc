@@ -143,6 +143,7 @@ map <C-p> "+p|                                      "Paste from system clipboard
 function! SimpleAutoClose()
     inoremap " ""<left>
     inoremap ' ''<left>
+    inoremap ` ``<left>
     inoremap ( ()<left>
     inoremap [ []<left>
     inoremap { {}<left>
