@@ -49,8 +49,8 @@ grep -q "export TERM=xterm-256color" "${HOME}/.bash_profile" && echo "yes" || ec
 grep -q "set -o vi" "${HOME}/.bashrc" && echo "yes" || echo "set -o vi" >> ${HOME}/.bashrc
 # vim alias to vimx if vimx exist
 grep -q "alias vim='vimx'" "${HOME}/.bashrc" && echo "yes" || echo "if [[ -x "$(command -v vimx)" ]]; then alias vim='vimx'; fi" >> ${HOME}/.bashrc
-# Reload bashrc
-. ~/.bash_profile
+# ctags alias for javascript
+#grep -q "jtags" "${HOME}/.bashrc" && echo "yes" || alias jtags=”ctags -R app config lib && sed -i ‘’ -E ‘/^(if|switch|function|module\.exports|it|describe).+language:js$/d’ tags”
 
 echo Installation of cmake ctags tmux python3-devel gvim make gcc-c++
 echo You should have admin privilege
