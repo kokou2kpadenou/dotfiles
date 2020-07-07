@@ -151,7 +151,7 @@ function! SimpleAutoClose()
     inoremap {;<CR> {<CR>};<ESC>O
 endfunction
 
-autocmd FileType javascript,typescript,css :call SimpleAutoClose()
+autocmd FileType javascript,typescript,css,json,scss :call SimpleAutoClose()
 
 " Emmet
 let g:user_emmet_leader_key = ','
