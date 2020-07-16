@@ -31,7 +31,7 @@ then
 
     if [ "$sessionexist" = "" ]; then
         tmux new -s $session -d -n DEV -c $wrkdir -x $(tput cols) -y $(tput lines)
-        tmux send-keys -t $session:1 'vim' Enter
+        tmux send-keys -t $session:1 'vim .' Enter
         tmux split-window -p 18 -t $session:1 -c $wrkdir
         tmux split-window -h -t $session:1 -c $wrkdir
         tmux select-pane -t 0 
