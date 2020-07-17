@@ -121,6 +121,7 @@ nnoremap <leader><space> :nohlsearch<CR>
 map <leader>, gg=G<C-o><C-o>|                       "Reformat the whole page
 map <leader>/ :find<space>|                         "Find file by name
 map <leader>\ :vim // **/* <left><left><left><left><left><left><left>|                          "Find file by contain match
+nnoremap <leader>] :YcmCompleter GoTo<CR>|          "YCM's GoTo
 
 map <F2> :set rnu!<cr>|                             "toggle relative number
 map <F3> :set nu!<cr>|                              "toggle number
