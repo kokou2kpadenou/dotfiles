@@ -24,14 +24,16 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tyru/caw.vim'
 Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-surround'
-Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'javascript'] }
+Plug 'ycm-core/YouCompleteMe', { 'do': function('BuildYCM') }
+Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' | Plug 'mlaursen/vim-react-snippets'
+Plug 'dense-analysis/ale'
+
 "Plug 'sheerun/vim-polyglot'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
-Plug 'ycm-core/YouCompleteMe', { 'do': function('BuildYCM') }
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' | Plug 'mlaursen/vim-react-snippets'
 
 call plug#end()
 
@@ -107,6 +109,11 @@ let g:prettier#config#single_quote = "false"
 let g:prettier#config#trailing_comma = "none"
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html Prettier
+
+" Ale
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_open_list = 1
 
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<c-e>"
