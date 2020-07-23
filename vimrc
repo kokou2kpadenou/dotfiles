@@ -111,8 +111,8 @@ let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html Prettier
 
 " Ale
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
+"let g:ale_set_loclist = 0
+"let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
 
 " UltiSnips
