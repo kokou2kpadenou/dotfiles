@@ -1,5 +1,3 @@
-setl tabstop=2 softtabstop=2
-setl shiftwidth=2
 setl wrap
 setl linebreak
 setl textwidth=0
