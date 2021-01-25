@@ -34,6 +34,8 @@ Plug 'sheerun/vim-polyglot'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+Plug 'vimwiki/vimwiki'
+
 call plug#end()
 
 " Install the plugins if Plug is just installed
