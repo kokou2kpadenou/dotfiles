@@ -3,6 +3,9 @@ fun! Start()
   "Create a new unnamed buffer to display our splash screen inside of.
   enew
 
+  " Set filetype to banner
+  set ft=banner
+
   " Set some options for this buffer to make sure that does not act like a
   " normal winodw.
   setlocal
@@ -15,10 +18,20 @@ fun! Start()
     \ nonumber
     \ noswapfile
     \ norelativenumber
+    \ foldcolumn=0
+    \ signcolumn=no
 
-  " Our message goes here. Mine is simple.
-  " call append('$', "hello")
-  exec ":r ~/.config/nvim/banner.txt"
+  " Set color
+  highlight ColorColumn NONE
+
+
+  " Our message goes here.
+  call append('0', "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
+  call append('1', "::: [q] <quit>  [e] <new buffer> [i] or [o] <insert in new buffer> [h] <history> [s] <search> :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
+  call append('2', "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
+  call append('3', "::: [<space>d] <file explorer> | Current directory: " . getcwd() . " ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
+  silent exec "4:r ~/.config/nvim/banner.txt"
+  silent exec ":1"
 
   " When we are done writing out message set the buffer to readonly.
   setlocal
@@ -30,6 +43,19 @@ fun! Start()
   nnoremap <buffer><silent> e :enew<CR>
   nnoremap <buffer><silent> i :enew <bar> startinsert<CR>
   nnoremap <buffer><silent> o :enew <bar> startinsert<CR>
+  nnoremap <buffer><silent> q :quit<CR>
+  nnoremap <buffer><silent> s :Files<CR>
+  nnoremap <buffer><silent> h :History<CR>
+
+
+  " Disable some motions command
+  " Left/Right/End
+  noremap <buffer><silent> <Left> <Nop>
+  noremap <buffer><silent> <Right> <Nop>
+  noremap <buffer><silent> <End> <Nop>
+  " h/l
+  " noremap <buffer><silent> h <NOP>
+  noremap <buffer><silent> l <NOP>
 
 endfun
 
