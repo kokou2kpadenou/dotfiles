@@ -23,10 +23,15 @@ set hlsearch
 set nolazyredraw
 set magic
 
-" set colorcolumn=80
-highlight ColorColumn ctermbg=0 guibg=lightgrey 
-match ColorColumn /\%80v.\+/
+" Set colorcolumn to 80
+fun! Matchs()
+  highlight ColorColumn ctermbg=0 guibg=Black
+  match ColorColumn /\%80v.\+/
+endfun
 
+autocmd BufNewFile,BufRead * call Matchs()
+
+" Set space, end of line, tabulation, trail, precedes and extends
 set list
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 
@@ -41,14 +46,13 @@ colorscheme gruvbox
 set background=dark
 set termguicolors
 
-
-" transparent bg
+" Transparent Backgfround
 autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 
-" Clipboard
+" Clipboard - Copy/Paste from/to System
 set clipboard+=unnamedplus
 
-" Section folding
+" Section folding - Javascript
 set foldenable
 set foldlevelstart=99
 set foldnestmax=10
