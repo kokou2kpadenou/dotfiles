@@ -25,7 +25,10 @@ sh ./node.sh
 # NerdFonts DejaVuSansMono installation
 sh ./fonts.sh
 
-# Change Gnome Terminal configution manually - Font, transparency and remove menu bar
+# Change Gnome Terminal configution manually 
+# - Font, transparency and remove menu bar
+# - theme variant: Dark
+# - uncheck show menubar
 # TODO
 
 

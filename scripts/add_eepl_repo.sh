@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# TODO: Make sure all devel tools are install
+
 sudo dnf -y install dnf-plugins-core
 
 sudo dnf install epel-release

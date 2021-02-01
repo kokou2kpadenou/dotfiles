@@ -20,3 +20,4 @@ npm i -D prettier
 # Install prettier plugin (optional, so that prettier doesn't mess up with linting)
 npm i -D eslint-config-prettier eslint-plugin-prettier
 
+# TODO: Copy eslint and prettier configution files from others to destination
