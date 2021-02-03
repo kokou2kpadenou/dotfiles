@@ -23,14 +23,6 @@ set hlsearch
 set nolazyredraw
 set magic
 
-" Set colorcolumn to 80
-fun! Matchs()
-  highlight ColorColumn ctermbg=0 guibg=Black
-  match ColorColumn /\%80v.\+/
-endfun
-
-autocmd BufNewFile,BufRead * call Matchs()
-
 " Set space, end of line, tabulation, trail, precedes and extends
 set list
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
@@ -45,6 +37,10 @@ set hidden
 colorscheme gruvbox
 set background=dark
 set termguicolors
+
+" Set colorcolumn to 80
+highlight ColorColumn ctermbg=0 guibg=Black
+match ColorColumn /\%80v.\+/
 
 " Transparent Backgfround
 autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
