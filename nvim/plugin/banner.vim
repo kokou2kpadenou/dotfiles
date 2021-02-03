@@ -1,36 +1,27 @@
 fun! Start()
 
-  "Create a new unnamed buffer to display our splash screen inside of.
+  " Create a new unnamed buffer to display our splash screen inside of.
   enew
 
   " Set filetype to banner
   set ft=banner
 
-  " Set some options for this buffer to make sure that does not act like a
-  " normal winodw.
-  setlocal
-    \ bufhidden=wipe
-    \ buftype=nofile
-    \ nobuflisted
-    \ nocursorcolumn
-    \ nocursorline
-    \ nolist
-    \ nonumber
-    \ noswapfile
-    \ norelativenumber
-    \ foldcolumn=0
-    \ signcolumn=no
+  " Set the buffer file name
+  silent exec ":file screen.banner"
 
-  " Set color
+  " Disable ColorColumn highlight
   highlight ColorColumn NONE
 
 
   " Our message goes here.
+  " Commands display
   call append('0', "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
-  call append('1', "::: [q] <quit>  [e] <new buffer> [i] or [o] <insert in new buffer> [h] <history> [s] <search> :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
+  call append('1', "::: [q] <quit>  [e] <new buffer> [i] or [o] <insert in new buffer> [H] <history> [s] <search> :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
   call append('2', "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
   call append('3', "::: [<space>d] <file explorer> | Current directory: " . getcwd() . " ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
+  " Load content of banner.txt start from line 4
   silent exec "4:r ~/.config/nvim/banner.txt"
+  " Move to 1st line
   silent exec ":1"
 
   " When we are done writing out message set the buffer to readonly.
@@ -38,26 +29,27 @@ fun! Start()
     \ nomodifiable
     \ nomodified
 
-  " Just like with the default start page, when we switch to insert mode
-  " a new buffer should be opened which we can then later save.
-  nnoremap <buffer><silent> e :enew<CR>
-  nnoremap <buffer><silent> i :enew <bar> startinsert<CR>
-  nnoremap <buffer><silent> o :enew <bar> startinsert<CR>
-  nnoremap <buffer><silent> q :quit<CR>
-  nnoremap <buffer><silent> s :Files<CR>
-  nnoremap <buffer><silent> h :History<CR>
 
+  " Set the search register to object between []
+  let @/= "\\[\\zs\\(.\\{-}\\)\\ze\\]"
+  " Move to the next match object
+  silent exec ":normal n"
 
-  " Disable some motions command
-  " Left/Right/End
-  noremap <buffer><silent> <Left> <Nop>
-  noremap <buffer><silent> <Right> <Nop>
-  noremap <buffer><silent> <End> <Nop>
-  " h/l
-  " noremap <buffer><silent> h <NOP>
-  noremap <buffer><silent> l <NOP>
 
 endfun
+
+
+fun! End()
+  " Activate the ColorColumn highlight
+  highlight ColorColumn ctermbg=0 guibg=Black
+  " Activate the search highlight
+  set hlsearch
+  " Empty the search register
+  let @/= ""
+endfun
+
+" Run End() function when quitting banner for another files (buffers)
+autocmd BufWipeout *.banner ++once call End()
 
 " http://learnvimscriptthehardway.stevelosh.com/chapters/12.html
 " Autocommands are a way of setting handlers for certain events.
