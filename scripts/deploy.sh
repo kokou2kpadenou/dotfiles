@@ -67,13 +67,13 @@ sh ./chrome.sh
 
 # Symbolic Links Creation
 
-ln -s -b ~/${dotfiles_dir}/gitconfig ~/.gitconfig
+ln -s -b ${dotfiles_dir}/gitconfig ~/.gitconfig
 
-ln -s -b ~/${dotfiles_dir}/gitignore_global ~/.gitignore_global
+ln -s -b ${dotfiles_dir}/gitignore_global ~/.gitignore_global
 
-ln -s -b ~/${dotfiles_dir}/tmux.conf ~/.tmux.conf
+ln -s -b ${dotfiles_dir}/tmux.conf ~/.tmux.conf
 
-ln -s -b ~/${dotfiles_dir}/nvim ~/.config/nvim
+ln -s -b ${dotfiles_dir}/nvim ~/.config/nvim
 
 #
 # Set Git - name and email
