@@ -20,4 +20,4 @@ fi
 
 git clone https://github.com/kokou2kpadenou/dotfiles.git "$entry"
 
-sh ${DOTFILES}/scripts/deploy.sh
+./${DOTFILES}/scripts/deploy.sh
