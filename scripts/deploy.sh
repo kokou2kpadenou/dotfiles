@@ -36,34 +36,34 @@ echo "$dotfiles_dir" "$git_name" "$git_email"
 read
 
 # Install GCC and Development Tools
-sh ./development_tools.sh
+sh ${dotfiles_dir}/development_tools.sh
 
 # installation of eepl repo
-sh ./add_eepl_repo.sh
+sh ${dotfiles_dir}/add_eepl_repo.sh
 
 # install neovim
-sh ./nvim.sh
+sh ${dotfiles_dir}/nvim.sh
 
 # install application
-sh ./application.sh
+sh ${dotfiles_dir}/application.sh
 
 # install Python
-sh ./python.sh
+sh ${dotfiles_dir}/python.sh
 
 # install ruby
-sh ./ruby.sh
+sh ${dotfiles_dir}/ruby.sh
 
 # install node
-sh ./node.sh
+sh ${dotfiles_dir}/node.sh
 
 # NerdFonts DejaVuSansMono installation
-sh ./fonts.sh "$dotfiles_dir"
+sh ${dotfiles_dir}/fonts.sh "$dotfiles_dir"
 
 # visual studio code installation
-sh ./vscode.sh
+sh ${dotfiles_dir}/vscode.sh
 
 # chrome installation
-sh ./chrome.sh
+sh ${dotfiles_dir}/chrome.sh
 
 # Symbolic Links Creation
 
@@ -104,7 +104,7 @@ sudo dnf autoremove
 # To read
 # https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc
 
-sh ./nodejsENOSPCerrorFix.sh
+sh ${dotfiles_dir}/nodejsENOSPCerrorFix.sh
 
 # Change Gnome Terminal configution manually 
 # - Font, transparency and remove menu bar
