@@ -18,8 +18,4 @@ if [[ ! -d "$DOTFILES" ]]; then
   # fi
 fi
 
-git clone https://github.com/kokou2kpadenou/dotfiles.git "$entry"
-
-cd ${DOTFILES}/scripts
-
-sh deploy.sh
+git clone https://github.com/kokou2kpadenou/dotfiles.git "$entry" && sh ${DOTFILES}/scripts/deploy.sh
