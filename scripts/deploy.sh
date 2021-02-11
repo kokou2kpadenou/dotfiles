@@ -35,35 +35,37 @@ echo "$dotfiles_dir" "$git_name" "$git_email"
 
 read
 
+scripts_dir="$dotfiles_dir/scripts"
+
 # Install GCC and Development Tools
-sh ${dotfiles_dir}/development_tools.sh
+sh ${scripts_dir}/development_tools.sh
 
 # installation of eepl repo
-sh ${dotfiles_dir}/add_eepl_repo.sh
+sh ${scripts_dir}/add_eepl_repo.sh
 
 # install neovim
-sh ${dotfiles_dir}/nvim.sh
+sh ${scripts_dir}/nvim.sh
 
 # install application
-sh ${dotfiles_dir}/application.sh
+sh ${scripts_dir}/application.sh
 
 # install Python
-sh ${dotfiles_dir}/python.sh
+sh ${scripts_dir}/python.sh
 
 # install ruby
-sh ${dotfiles_dir}/ruby.sh
+sh ${scripts_dir}/ruby.sh
 
 # install node
-sh ${dotfiles_dir}/node.sh
+sh ${scripts_dir}/node.sh
 
 # NerdFonts DejaVuSansMono installation
-sh ${dotfiles_dir}/fonts.sh "$dotfiles_dir"
+sh ${scripts_dir}/fonts.sh "$dotfiles_dir"
 
 # visual studio code installation
-sh ${dotfiles_dir}/vscode.sh
+sh ${scripts_dir}/vscode.sh
 
 # chrome installation
-sh ${dotfiles_dir}/chrome.sh
+sh ${scripts_dir}/chrome.sh
 
 # Symbolic Links Creation
 
@@ -104,7 +106,7 @@ sudo dnf autoremove
 # To read
 # https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc
 
-sh ${dotfiles_dir}/nodejsENOSPCerrorFix.sh
+sh ${scripts_dir}/nodejsENOSPCerrorFix.sh
 
 # Change Gnome Terminal configution manually 
 # - Font, transparency and remove menu bar
