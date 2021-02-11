@@ -8,4 +8,4 @@ if [ "$entry" = "" ]; then
   entry=".dotfiles"
 fi
 
-git clone https://github.com/kokou2kpadenou/dotfiles.git "$entry" && pwd
+git clone https://github.com/kokou2kpadenou/dotfiles.git "$entry" && sh ${entry}/scripts/deploy.sh
