@@ -8,4 +8,4 @@ if [ "$entry" = "" ]; then
   entry=".dotfiles"
 fi
 
-git clone https://github.com/kokou2kpadenou/dotfiles.git "$entry" && cd $_ && sh scripts/deploy.sh
+git clone https://github.com/kokou2kpadenou/dotfiles.git "$entry" && cd $_
