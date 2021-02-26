@@ -1,0 +1,161 @@
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Xft settings
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!Xft.dpi:        110
+Xft.dpi:        96
+Xft.antialias:  true
+Xft.rgba:       rgb
+Xft.hinting:    true
+Xft.hintstyle:  hintslight
+Xft.autohint:   false
+Xft.lcdfilter:  lcddefault
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Xterm settings
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+! Allow sixel graphics. (Try: "convert -colors 16 foo.jpg sixel:-").
+xterm*decTerminalID:            vt340
+
+! Allow lsix to read the terminal window size (op #14)
+xterm*allowWindowOps:           False
+xterm*disallowedWindowOps:      1,2,3,4,5,6,7,8,9,11,13,18,19,20,21,GetSelection,SetSelection,SetWinLines,SetXprop
+
+xterm*BorderWidth:              25
+xterm*colorMode:true
+xterm*transparent:true
+xterm*shading:50
+xterm*scrollBar:false
+xterm*fade: 60
+!xterm*font: 9x15
+!xterm*font: 8x13
+xterm*saveLines:4500
+xterm*geometry:85x30
+xterm*truetintingType:True
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Xft settings
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+URxvt.depth:                            32
+URxvt*termName:                         screen-256color
+! URxvt*geometry:                         240x84
+URxvt.loginShell:                       true
+URxvt*scrollColor:                      #777777
+URxvt.scrollStyle:                      rxvt
+URxvt*scrollTtyKeypress:        true
+URxvt*scrollTtyOutput:          false
+URxvt*scrollWithBuffer:         true
+URxvt*skipScroll:                       true
+URxvt*scrollBar:                        false
+URxvt*fading:                           30
+URxvt*urgentOnBell:                     false
+URxvt*visualBell:                       true
+URxvt*mapAlert:                         true
+URxvt*mouseWheelScrollPage:     true
+! URxvt.foreground:                       #eeeeee
+! URxvt.background:                       #000000
+URxvt*colorUL:                          yellow
+URxvt*underlineColor:           yellow
+URxvt.saveLines:                        65535
+URxvt.cursorBlink:                      false
+URxvt.utf8:                             true
+URxvt.locale:                           true
+URxvt.letterSpace:              -1
+URxvt.font: xft:DejaVuSansMono Nerd Font Mono:style=Book:size=12
+URxvt.boldFont: xft:DejaVuSansMono Nerd Font Mono:style=bold:size=10
+! URxvt.font:             xft:monospace:pixelsize=16:style=regular
+! URxvt.boldFont:         xft:monospace:pixelsize=14:style=bold
+
+! Perl extensions
+! ----------------
+URxvt.perl-ext:
+URxvt.perl-ext-common:
+! URxvt.perl-ext: default,url-select
+! URxvt.keysym.M-u: perl:url-select:select_next
+! URxvt.url-select.launcher: chromium
+! URxvt.url-select.underline: true
+! URxvt.perl-ext-common:     default,matcher
+! URxvt.matcher.button:      1
+! URxvt.urlLauncher:         chromium
+! URxvt.perl-ext-common:          ...,font-size
+! URxvt.keysym.C-Up:              perl:font-size:increase
+! URxvt.keysym.C-Down:            perl:font-size:decrease
+! URxvt.keysym.C-S-Up:            perl:font-size:incglobal
+! URxvt.keysym.C-S-Down:          perl:font-size:decglobal
+! URxvt.keysym.Home: \033[1~
+! URxvt.keysym.End: \033[4~
+! URxvt.keysym.KP_Home: \033[1~
+! URxvt.keysym.KP_End:  \033[4~
+
+! Adding transparency
+urxvt*transparent: true
+urxvt*shading: 30
+!
+
+! COLOR
+!--------
+!
+! hard contrast: *background: #1d2021
+*background: #282828
+! soft contrast: *background: #32302f
+*foreground: #ebdbb2
+! Black + DarkGrey
+*color0:  #282828
+*color8:  #928374
+! DarkRed + Red
+*color1:  #cc241d
+*color9:  #fb4934
+! DarkGreen + Green
+*color2:  #98971a
+*color10: #b8bb26
+! DarkYellow + Yellow
+*color3:  #d79921
+*color11: #fabd2f
+! DarkBlue + Blue
+*color4:  #458588
+*color12: #83a598
+! DarkMagenta + Magenta
+*color5:  #b16286
+*color13: #d3869b
+! DarkCyan + Cyan
+*color6:  #689d6a
+*color14: #8ec07c
+! LightGrey + White
+*color7:  #a89984
+*color15: #ebdbb2
+
+URxvt.color24:  #076678
+URxvt.color66:  #427b58
+URxvt.color88:  #9d0006
+URxvt.color96:  #8f3f71
+URxvt.color100: #79740e
+URxvt.color108: #8ec07c
+URxvt.color109: #83a598
+URxvt.color130: #af3a03
+URxvt.color136: #b57614
+URxvt.color142: #b8bb26
+URxvt.color167: #fb4934
+URxvt.color175: #d3869b
+URxvt.color208: #fe8019
+URxvt.color214: #fabd2f
+URxvt.color223: #ebdbb2
+URxvt.color228: #f2e5bc
+URxvt.color229: #fbf1c7
+URxvt.color230: #f9f5d7
+URxvt.color234: #1d2021
+URxvt.color235: #282828
+URxvt.color236: #32302f
+URxvt.color237: #3c3836
+URxvt.color239: #504945
+URxvt.color241: #665c54
+URxvt.color243: #7c6f64
+URxvt.color244: #928374
+URxvt.color245: #928374
+URxvt.color246: #a89984
+URxvt.color248: #bdae93
+URxvt.color250: #d5c4a1
