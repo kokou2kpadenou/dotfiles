@@ -222,3 +222,9 @@ mode "$mode_system" {
 }
 
 bindsym $mod+Pause mode "$mode_system"
+
+
+#interactive screenshot by pressing printscreen
+bindsym Print exec gnome-screenshot -i 
+#crop-area screenshot by pressing Mod + printscreen
+bindsym $mod+Print exec gnome-screenshot -a
