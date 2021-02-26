@@ -1,7 +1,7 @@
 #!/bin/bash
 
 while true; do 
-  feh --bg-scale --randomize ~/wallpapers/*
+  feh --bg-scale --randomize ~/.dotfiles/wallpapers/*
   sleep 1800
 done
 
