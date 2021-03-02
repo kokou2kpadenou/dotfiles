@@ -33,18 +33,6 @@ set wildmenu
 set wildignore+=**/node_modules/**,**/.next/**,**/out/**,**/.git/**,**/tags,**/dist/**,**/tmp/**
 set hidden
 
-" Color
-colorscheme gruvbox
-set background=dark
-set termguicolors
-
-" Set colorcolumn to 80
-highlight ColorColumn ctermbg=0 guibg=Black
-match ColorColumn /\%80v.\+/
-
-" Transparent Backgfround
-autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
-
 " Clipboard - Copy/Paste from/to System
 set clipboard+=unnamedplus
 
@@ -60,10 +48,18 @@ let sh_fold_enabled=1
 " Enable AutoCompletion.
 set omnifunc=syntaxcomplete#complete
 
+fun! SetColorSheme()
+  " Set colorscheme to gruvbox
+  colorscheme gruvbox
+  " Set ColorColumn from 80 characters
+  match ColorColumn /\%80v.\+/
+  " Transparent Backgfround
+  hi Normal guibg=NONE ctermbg=NONE
+endfun
+
+" Set colorscheme after enter vim
+autocmd vimenter * ++nested call SetColorSheme()
+
 " Highlighting for large files
 autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
 autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
-
-" Lang
-" set spell
-" set spelllang=en-us,fr_ch
