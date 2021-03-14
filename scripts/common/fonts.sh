@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 dotfiles_dir_fonts="$1"
 default_dotfiles_dir="$HOME/.dotfiles"
 
@@ -15,8 +14,6 @@ fi
 
 FONTS_INSTALL_PATH="/usr/share/fonts"
 FONTS_DIR="${dotfiles_dir_fonts}/fonts/DejaVuSansMono"
-
-echo "$FONTS_DIR"
 
 sudo mv "$FONTS_DIR" "$FONTS_INSTALL_PATH"
 
