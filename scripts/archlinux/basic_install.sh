@@ -68,15 +68,15 @@ echo
 layout=""
 
 PS3='Please layout: '
-options=("BIOS" "UEFI")
+options=("BIOS/MBR" "UEFI/GPT")
 select opt in "${options[@]}"
 do
   case $opt in
-    "BIOS")
+    "BIOS/MBR")
       layout=1
       break
       ;;
-    "UEFI")
+    "UEFI/GPT")
       layout=2
       break
       ;;
@@ -124,9 +124,10 @@ swap_end=$(( $swap_size + 260 + 1 ))MiB
 case $layout in
   1)
     # BIOS
-    parted --script "${device}" -- mklabel gpt \
+    parted --script "${device}" -- mklabel msdos \
       mkpart primary linux-swap 1Mib ${swap_end} \
-      mkpart primary ext4 ${swap_end} 100%
+      mkpart primary ext4 ${swap_end} 100% \
+      set 1 boot on
 
     # Simple globbing was not enough as on one device I needed to match /dev/mmcblk0p1
     # but not /dev/mmcblk0boot1 while being able to match /dev/sda1 on other devices.
@@ -228,17 +229,21 @@ echo "$user:$password" | chpasswd --root /mnt
 echo "root:$root_password" | chpasswd --root /mnt
 
 
-case $layout in
-  1)
-    #BIOS
-    umount /mnt
-    ;;
-  2)
-    #UEFI
-    umount /mnt/boot/efi && umount /mnt
-    ;;
-esac
+# case $layout in
+#   1)
+#     #BIOS
+#     umount /mnt
+#     ;;
+#   2)
+#     #UEFI
+#     umount /mnt/boot/efi && umount /mnt
+#     ;;
+# esac
+
+umount ${device}
 
 echo -e "${GREEN}Done! Hit Enter to reboot the machine.${NC}"
 
-# reboot
+read
+
+reboot
