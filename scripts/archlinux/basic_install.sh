@@ -4,41 +4,112 @@
 set -uo pipefail
 trap 's=$?; echo "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
 
+# Color
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m'  # No Color
+
 
 ### Get infomation from user ###
-hostname=$(dialog --stdout --inputbox "Enter hostname" 0 0) || exit 1
 clear
-: ${hostname:?"hostname cannot be empty"}
+echo "Welcome Archlinux Basic Installation"
+echo
+# Get hotname
+hostname=""
+while [ "$hostname" = "" ]; do
+  read -p "Enter hostname: " hostname
+done
+echo
 
-user=$(dialog --stdout --inputbox "Enter admin username" 0 0) || exit 1
-clear
-: ${user:?"user cannot be empty"}
+# Get user
+user=""
+while [ "$user" = "" ]; do
+  read -p "Enter admin username: " user
+done
+echo
 
-password=$(dialog --stdout --passwordbox "Enter admin password" 0 0) || exit 1
-clear
-: ${password:?"password cannot be empty"}
-password2=$(dialog --stdout --passwordbox "Enter admin password again" 0 0) || exit 1
-clear
-[[ "$password" == "$password2" ]] || ( echo "Passwords did not match"; exit 1; )
+# Get admin password
+password=""
+password2="2"
+while [[ "$password" = "" || "$password" != "$password2" ]]; do
+  read -s -p "Enter admin password: " password
+  echo
+  read -s -p "Enter admin password again: " password2
+  echo
+  [[ "$password" = "" ]] && echo -e "${RED}Admin password cannot be empty${NC}" || \
+  [[ "$password" == "$password2" ]] || echo -e "${RED}Passwords did not match${NC}"
+done
+echo
 
+# Get root password
+root_password=""
+root_password2="2"
+while [[ "$root_password" = "" || "$root_password" != "$root_password2" ]]; do
+  read -s -p "Enter root password: " root_password
+  echo
+  read -s -p "Enter root password again: " root_password2
+  echo
+  [[ "$root_password" = "" ]] && echo -e "${RED}Root password cannot be empty${NC}" || \
+  [[ "$root_password" == "$root_password2" ]] || echo -e "${RED}Passwords did not match${NC}"
+done
+echo
 
-root_password=$(dialog --stdout --passwordbox "Enter root password" 0 0) || exit 1
-clear
-: ${password:?"password cannot be empty"}
-root_password2=$(dialog --stdout --passwordbox "Enter root password again" 0 0) || exit 1
-clear
-[[ "$root_password" == "$root_password2" ]] || ( echo "Passwords did not match"; exit 1; )
+# Get device
+device=""
+echo Physic Disks Disponible:
+lsblk -dplnx size -o name,size | grep -Ev "boot|rpmb|loop" | tac
+echo
+while [ "$device" = "" ]; do
+  read -p "Select installation disk: " device
+done
+echo
 
+# Get layout
+layout=""
 
-devicelist=$(lsblk -dplnx size -o name,size | grep -Ev "boot|rpmb|loop" | tac)
-device=$(dialog --stdout --menu "Select installation disk" 0 0 0 ${devicelist}) || exit 1
-clear
+PS3='Please layout: '
+options=("BIOS" "UEFI")
+select opt in "${options[@]}"
+do
+  case $opt in
+    "BIOS")
+      layout=1
+      break
+      ;;
+    "UEFI")
+      layout=2
+      break
+      ;;
+    *) echo "invalid option $REPLY";;
+  esac
+done
+echo
 
-layout=$(dialog --stdout --menu "Select layout" 0 0 0 1 BIOS 2 UEFI) || exit 1
-clear
+# Get processor
+processor=""
 
-processor=$(dialog --stdout --menu "Select processor" 0 0 0 amd-ucode "amd processor" intel-ucode "intel processor")
-clear
+PS3='Please select processor: '
+options=("amd" "intel")
+select opt in "${options[@]}"
+do
+  case $opt in
+    "amd")
+      processor="amd-ucode"
+      break
+      ;;
+    "intel")
+      processor="intel-ucode"
+      break
+      ;;
+    *) echo "invalid option $REPLY";;
+  esac
+done
+echo
+
+echo -e "I ${RED}love ${GREEN}LINUX${NC}"
+echo -e "${RED}WARNING: this script will destroy data on the selected disk $device.${NC}"
+echo -e "Hit ${GREEN}enter${NC} to start the installation or ${RED}^c${NC} to abort."
+read
 
 ### Set up logging ###
 exec 1> >(tee "stdout.log")
@@ -167,6 +238,6 @@ case $layout in
     ;;
 esac
 
-echo -e "\e[1;32mDone! Hit Enter to reboot the machine.\e[0m"
+echo -e "${GREEN}Done! Hit Enter to reboot the machine.${NC}"
 
 reboot
