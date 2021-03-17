@@ -125,13 +125,13 @@ case $layout in
   1)
     # BIOS
     parted --script "${device}" -- mklabel gpt \
-      mkpart primary linux-swap 1MiB ${swap_end} \
+      mkpart primary linux-swap 1Mib ${swap_end} \
       mkpart primary ext4 ${swap_end} 100%
 
     # Simple globbing was not enough as on one device I needed to match /dev/mmcblk0p1
     # but not /dev/mmcblk0boot1 while being able to match /dev/sda1 on other devices.
-    part_swap="$(ls ${device}* | grep -E "^${device}p?2$")"
-    part_root="$(ls ${device}* | grep -E "^${device}p?3$")"
+    part_swap="$(ls ${device}* | grep -E "^${device}p?1$")"
+    part_root="$(ls ${device}* | grep -E "^${device}p?2$")"
 
     wipefs "${part_swap}"
     wipefs "${part_root}"
@@ -209,9 +209,6 @@ case $layout in
   1)
     #BIOS
     arch-chroot /mnt grub-install --target=i386-pc ${device}
-    # TODO
-    echo bios
-    read
     ;;
   2)
     #UEFI
