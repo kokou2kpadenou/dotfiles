@@ -179,6 +179,8 @@ esac
 
 pacstrap /mnt base linux linux-firmware vim ${processor}
 
+read
+
 genfstab -U /mnt >> /mnt/etc/fstab
 
 arch-chroot /mnt ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
@@ -207,6 +209,9 @@ case $layout in
   1)
     #BIOS
     arch-chroot /mnt grub-install --target=i386-pc ${device}
+    # TODO
+    echo bios
+    read
     ;;
   2)
     #UEFI
@@ -240,4 +245,4 @@ esac
 
 echo -e "${GREEN}Done! Hit Enter to reboot the machine.${NC}"
 
-reboot
+# reboot
