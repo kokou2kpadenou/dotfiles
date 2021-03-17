@@ -137,12 +137,11 @@ case $layout in
     wipefs "${part_root}"
 
     mkswap "${part_swap}"
-    mkfs.ext4 -f "${part_root}"
+    mkfs.ext4 "${part_root}"
 
     swapon "${part_swap}"
     mount "${part_root}" /mnt
 
-    echo "colo toure"
     ;;
 
   2)
@@ -165,7 +164,7 @@ case $layout in
 
     mkfs.fat -F32 "${part_boot}"
     mkswap "${part_swap}"
-    mkfs.ext4 -f "${part_root}"
+    mkfs.ext4 "${part_root}"
 
     swapon "${part_swap}"
     mount "${part_root}" /mnt
