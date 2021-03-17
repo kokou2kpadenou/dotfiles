@@ -1,11 +1,9 @@
 #!/bin/bash
 # WARNING: this script will destroy data on the selected disk.
-# This script can be run by executing the following:
-#   curl -sL https://git.io/vNxbN | bash
+
 set -uo pipefail
 trap 's=$?; echo "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
 
-# REPO_URL="https://s3.eu-west-2.amazonaws.com/mdaffin-arch/repo/x86_64"
 
 ### Get infomation from user ###
 hostname=$(dialog --stdout --inputbox "Enter hostname" 0 0) || exit 1
@@ -23,6 +21,15 @@ password2=$(dialog --stdout --passwordbox "Enter admin password again" 0 0) || e
 clear
 [[ "$password" == "$password2" ]] || ( echo "Passwords did not match"; exit 1; )
 
+
+root_password=$(dialog --stdout --passwordbox "Enter root password" 0 0) || exit 1
+clear
+: ${password:?"password cannot be empty"}
+root_password2=$(dialog --stdout --passwordbox "Enter root password again" 0 0) || exit 1
+clear
+[[ "$root_password" == "$root_password2" ]] || ( echo "Passwords did not match"; exit 1; )
+
+
 devicelist=$(lsblk -dplnx size -o name,size | grep -Ev "boot|rpmb|loop" | tac)
 device=$(dialog --stdout --menu "Select installation disk" 0 0 0 ${devicelist}) || exit 1
 clear
@@ -30,7 +37,7 @@ clear
 layout=$(dialog --stdout --menu "Select layout" 0 0 0 1 BIOS 2 UEFI) || exit 1
 clear
 
-processor=$(dialog --stdout --menu "Select processor ucode" 0 0 0 amd-ucode "amd processor" intel-ucode "intel processor")
+processor=$(dialog --stdout --menu "Select processor" 0 0 0 amd-ucode "amd processor" intel-ucode "intel processor")
 clear
 
 ### Set up logging ###
@@ -91,8 +98,8 @@ case $layout in
 
     swapon "${part_swap}"
     mount "${part_root}" /mnt
-    mkdir /mnt/boot
-    mount "${part_boot}" /mnt/boot
+    mkdir /mnt/boot/efi
+    mount "${part_boot}" /mnt/boot/efi
     ;;
 esac
 
@@ -107,7 +114,7 @@ arch-chroot /mnt ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 
 arch-chroot /mnt hwclock --systohc
 
-echo "en_US.UTF-8 UTF-8" >> /mnt/etc/locale.gen
+sed -i '/^#en_US.UTF-8 UTF-8/s/^#//g' /mnt/etc/locale.gen
 
 echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf
 
@@ -121,10 +128,9 @@ cat >> /mnt/etc/hosts <<EOF
 127.0.1.1   ${hostname}.localdomain    ${hostname}
 EOF
 
-arch-chroot /mnt pacman -S grub networkmanager dialog mtools \
+arch-chroot /mnt pacman -S --noconfirm grub networkmanager dialog mtools \
   dosfstools base-devel linux-headers cups alsa-utils \
   pulseaudio git reflector xdg-utils xdg-user-dirs
-
 
 case $layout in
   1)
@@ -133,19 +139,34 @@ case $layout in
     ;;
   2)
     #UEFI
-    arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot
+    arch-chroot /mnt pacman -S --noconfirm efibootmgr
+    arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
     ;;
 esac
 
-arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg && \
-            systemctl enable NetworkManager && \
-            systemctl enable cups.service && \
-            useradd -mG wheel ${user}
+arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
+arch-chroot /mnt systemctl enable NetworkManager
+arch-chroot /mnt systemctl enable cups.service
+arch-chroot /mnt useradd -m ${user}
+arch-chroot /mnt usermod -aG libvirt ${user}
 
+echo "$user ALL=(ALL) ALL" >> /mnt/etc/sudoers.d/${user}
 
 echo "$user:$password" | chpasswd --root /mnt
-echo "root:$password" | chpasswd --root /mnt
+echo "root:$root_password" | chpasswd --root /mnt
 
-umount /mnt/boot && umount /mnt
+
+case $layout in
+  1)
+    #BIOS
+    umount /mnt
+    ;;
+  2)
+    #UEFI
+    umount /mnt/boot/efi && umount /mnt
+    ;;
+esac
+
+echo -e "\e[1;32mDone! Hit Enter to reboot the machine.\e[0m"
 
 reboot
