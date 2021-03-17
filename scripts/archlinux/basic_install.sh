@@ -1,12 +1,14 @@
 #!/bin/bash
 # WARNING: this script will destroy data on the selected disk.
+# COMMAND: bash <(curl -sL https://git.io/Jm3xB)
 
-# set -uo pipefail
-# trap 's=$?; echo "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
+set -uo pipefail
+trap 's=$?; echo "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
 
 # Color
 RED='\033[0;31m'
 GREEN='\033[0;32m'
+LIGHTGRAY='\033[0;37m'
 NC='\033[0m'  # No Color
 
 
@@ -14,7 +16,7 @@ NC='\033[0m'  # No Color
 clear
 echo "Welcome Archlinux Basic Installation"
 echo
-# Get hotname
+# Get hostname
 hostname=""
 while [ "$hostname" = "" ]; do
   read -p "Enter hostname: " hostname
@@ -59,15 +61,16 @@ device=""
 echo Physic Disks Disponible:
 lsblk -dplnx size -o name,size | grep -Ev "boot|rpmb|loop" | tac
 echo
-while [ "$device" = "" ]; do
-  read -p "Select installation disk: " device
+while [[ "$device" = "" || $(lsblk -dpln -o name | grep ${device}) = "" ]]; do
+  read -p "Select installation disk (ex. /dev/sdX): " device
+  [[ $(lsblk -dpln -o name | grep ${device}) ]] || echo "${RED}invalid disk, please choose from the list${NC}"
 done
 echo
 
 # Get layout
 layout=""
 
-PS3='Please layout: '
+PS3='Please select layout: '
 options=("BIOS/MBR" "UEFI/GPT")
 select opt in "${options[@]}"
 do
@@ -80,7 +83,7 @@ do
       layout=2
       break
       ;;
-    *) echo "invalid option $REPLY";;
+    *) echo "${RED}invalid option $REPLY${NC}";;
   esac
 done
 echo
@@ -88,7 +91,7 @@ echo
 # Get processor
 processor=""
 
-PS3='Please select processor: '
+PS3='Please select processor type: '
 options=("amd" "intel")
 select opt in "${options[@]}"
 do
@@ -101,11 +104,22 @@ do
       processor="intel-ucode"
       break
       ;;
-    *) echo "invalid option $REPLY";;
+    *) echo "${RED}invalid option $REPLY${NC}";;
   esac
 done
 echo
 
+clear
+echo Inputs Summary
+echo --------------
+echo "Hostname: ${LIGHTGRAY}$hostname${NC}"
+echo "Admin user: ${LIGHTGRAY}$user${NC}"
+echo "Admin user password: ${LIGHTGRAY}set${NC}"
+echo "Root password ${LIGHTGRAY}set${NC}"
+echo "Select Device: ${LIGHTGRAY}$device${NC}"
+echo "Selected Layout: ${LIGHTGRAY}$layout${NC}"
+echo "Selected processor: ${LIGHTGRAY}$processor${NC}"
+echo
 echo -e "I ${RED}love ${GREEN}LINUX${NC}"
 echo -e "${RED}WARNING: this script will destroy data on the selected disk $device.${NC}"
 echo -e "Hit ${GREEN}enter${NC} to start the installation or ${RED}^c${NC} to abort."
@@ -179,8 +193,6 @@ esac
 
 pacstrap /mnt base linux linux-firmware vim ${processor}
 
-read
-
 genfstab -U /mnt >> /mnt/etc/fstab
 
 arch-chroot /mnt ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
@@ -221,24 +233,15 @@ arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 arch-chroot /mnt systemctl enable NetworkManager
 arch-chroot /mnt systemctl enable cups.service
 arch-chroot /mnt useradd -m ${user}
-arch-chroot /mnt usermod -aG libvirt ${user}
+
+# TODO
+# arch-chroot /mnt usermod -aG libvirt ${user}
 
 echo "$user ALL=(ALL) ALL" >> /mnt/etc/sudoers.d/${user}
 
 echo "$user:$password" | chpasswd --root /mnt
 echo "root:$root_password" | chpasswd --root /mnt
 
-
-# case $layout in
-#   1)
-#     #BIOS
-#     umount /mnt
-#     ;;
-#   2)
-#     #UEFI
-#     umount /mnt/boot/efi && umount /mnt
-#     ;;
-# esac
 
 umount ${device}
 
