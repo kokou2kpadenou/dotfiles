@@ -119,6 +119,7 @@ cd ~/Downloads
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si PKGBUILD
+cd ~
 
 
 sudo pacman -S --noconfirm reflector rsync
