@@ -14,7 +14,13 @@ NC='\033[0m'  # No Color
 ### User input ###
 
 # Get dotfiles folder name
-dotfiles_dir="$1"
+dotfiles_dir=""
+if [ $# -ge 1 ] && [ -n "$1" ]; then
+  dotfiles_dir="$1"
+  echo -e "the dotfiles folder is ${LIGHTGRAY}${dotfiles_dir}${NC}"
+  echo "Enter to continue..."
+  read
+fi
 default_dotfiles_dir="$HOME/.dotfiles"
 if [ "$dotfiles_dir" = "" ]; then
 
