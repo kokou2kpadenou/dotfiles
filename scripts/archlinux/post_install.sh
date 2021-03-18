@@ -179,4 +179,4 @@ sh ${scripts_dir}/common/bash_setting.sh "$dotfiles_dir"
 # Increase the limit of number of files to be watched by inotify
 sh ${scripts_dir}/common/nodejsENOSPCerrorFix.sh
 
-echo -e "${GREEN}Bravo!!!!!"
+echo -e "${GREEN}Bravo!!!!!${NC}"
