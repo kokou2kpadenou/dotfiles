@@ -119,7 +119,7 @@ exec 2> >(tee "~/post_install/stderr.log")
 ### Installation of packages ###
 
 if [ "$video_driver" != "" ]; then 
-  sudo pacman -S ${video_driver}
+  sudo pacman -S --noconfirm ${video_driver}
 fi
 
 cd ~/Downloads
@@ -132,7 +132,7 @@ sudo pacman -S --noconfirm reflector rsync
 
 sudo reflector -c "United States" -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 
-sudo pacman -Syyuu && yay -Syyuu
+sudo pacman -Syyuu --noconfirm && yay -Syyuu
 
 
 sudo pacman -S --noconfirm xorg numlockx i3 xorg-xinit rxvt-unicode rofi ranger \
@@ -145,7 +145,7 @@ sudo pacman -S --noconfirm xorg numlockx i3 xorg-xinit rxvt-unicode rofi ranger 
 # Installing additional fonts (Optional) but highly recommended
 sudo pacman -S --noconfirm noto-fonts ttf-ubuntu-font-family ttf-dejavu ttf-freefont \
   ttf-liberation ttf-droid ttf-inconsolata ttf-roboto terminus-font \
-  ttf-font-awesome -noconfirm -needed
+  ttf-font-awesome
 
 # # Installing sound drivers and tools
 # sudo pacman -S alsa-utils alsa-plugins alsa-lib pavucontrol -noconfirm -needed
