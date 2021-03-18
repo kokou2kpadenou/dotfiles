@@ -30,5 +30,5 @@ do
 done
 
 clear
-
-git clone https://github.com/kokou2kpadenou/dotfiles.git "$entry" && sh ${entry}/scripts/${os}/post_install.sh "$entry"
+cd ~
+git clone https://github.com/kokou2kpadenou/dotfiles.git "$entry" && sh ${entry}/scripts/${os}/post_install.sh "~/$entry"
