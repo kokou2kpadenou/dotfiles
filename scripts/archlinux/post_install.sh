@@ -166,7 +166,7 @@ ln -s -b ${dotfiles_dir}/ranger ~/.config/ranger
 ln -s -b ${dotfiles_dir}/rofi ~/.config/rofi
 ln -s -b ${dotfiles_dir}/tmux.conf ~/.tmux.conf
 ln -s -b ${dotfiles_dir}/.xinitrc ~/.xinitrc
-ln -s -b ${dotfiles_dir}/.Xressources ~/.Xressources
+ln -s -b ${dotfiles_dir}/.Xresources ~/.Xresources
 ln -s -b ${dotfiles_dir}/gitconfig ~/.gitconfig
 ln -s -b ${dotfiles_dir}/gitignore_global ~/.gitignore_global
 
