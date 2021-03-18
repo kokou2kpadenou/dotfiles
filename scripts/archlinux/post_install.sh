@@ -180,3 +180,8 @@ sh ${scripts_dir}/common/bash_setting.sh "$dotfiles_dir"
 sh ${scripts_dir}/common/nodejsENOSPCerrorFix.sh
 
 echo -e "${GREEN}Bravo!!!!!${NC}"
+
+echo "Hit enter to start nvim"
+read
+
+nvim
