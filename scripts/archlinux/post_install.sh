@@ -158,7 +158,7 @@ gem install neovim
 sh ${scripts_dir}/common/nvm_installer.sh
 
 # NerdFonts DejaVuSansMono installation
-sh ${scripts_dir}/fonts.sh "$dotfiles_dir"
+sh ${scripts_dir}/common/fonts.sh "$dotfiles_dir"
 
 ln -s -b ${dotfiles_dir}/i3 ~/.config/i3
 ln -s -b ${dotfiles_dir}/nvim ~/.config/nvim
