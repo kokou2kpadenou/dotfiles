@@ -53,12 +53,6 @@ if [ "$git_editor" = "" ]; then
   git_editor=vim
 fi
 
-# Get node version 
-node_ver=""
-while [ "$node_ver" = "" ]; do
-  read -p "Node version to install: " node_ver
-done
-
 
 
 echo
@@ -106,7 +100,6 @@ echo
 echo -e "Dotfiles location: ${LIGHTGRAY}$dotfiles_dir${NC}"
 echo -e "Git Name: ${LIGHTGRAY}$git_name${NC}"
 echo -e "Git Email: ${LIGHTGRAY}$git_email${NC}"
-echo -e "Node version: ${LIGHTGRAY}$node_ver${NC}"
 echo -e "Video Graphics driver: ${LIGHTGRAY}$video_driver${NC}"
 
 
@@ -160,8 +153,8 @@ python2 -m pip install --user --upgrade pynvim
 
 gem install neovim
 
-# Install node version manager, node 12 by defaut and neovim
-sh ${scripts_dir}/common/nvm_installer.sh "$node_ver"
+# Install node version manager, node lts/erbium by defaut and neovim
+sh ${scripts_dir}/common/nvm_installer.sh
 
 # NerdFonts DejaVuSansMono installation
 sh ${scripts_dir}/fonts.sh "$dotfiles_dir"
