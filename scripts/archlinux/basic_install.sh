@@ -63,7 +63,7 @@ lsblk -dplnx size -o name,size | grep -Ev "boot|rpmb|loop" | tac
 echo
 while [[ "$device" = "" || $(lsblk -dpln -o name | grep ${device}) = "" ]]; do
   read -p "Select installation disk (ex. /dev/sdX): " device
-  [[ $(lsblk -dpln -o name | grep ${device}) ]] || echo "${RED}invalid disk, please choose from the list${NC}"
+  [[ $(lsblk -dpln -o name | grep ${device}) ]] || echo -e "${RED}invalid disk, please choose from the list${NC}"
 done
 echo
 
@@ -83,7 +83,7 @@ do
       layout=2
       break
       ;;
-    *) echo "${RED}invalid option $REPLY${NC}";;
+    *) echo -e "${RED}invalid option $REPLY${NC}";;
   esac
 done
 echo
@@ -104,7 +104,7 @@ do
       processor="intel-ucode"
       break
       ;;
-    *) echo "${RED}invalid option $REPLY${NC}";;
+    *) echo -e "${RED}invalid option $REPLY${NC}";;
   esac
 done
 echo
@@ -112,13 +112,13 @@ echo
 clear
 echo Inputs Summary
 echo --------------
-echo "Hostname: ${LIGHTGRAY}$hostname${NC}"
-echo "Admin user: ${LIGHTGRAY}$user${NC}"
-echo "Admin user password: ${LIGHTGRAY}set${NC}"
-echo "Root password ${LIGHTGRAY}set${NC}"
-echo "Select Device: ${LIGHTGRAY}$device${NC}"
-echo "Selected Layout: ${LIGHTGRAY}$layout${NC}"
-echo "Selected processor: ${LIGHTGRAY}$processor${NC}"
+echo -e "Hostname: ${LIGHTGRAY}$hostname${NC}"
+echo -e "Admin user: ${LIGHTGRAY}$user${NC}"
+echo -e "Admin user password: ${LIGHTGRAY}set${NC}"
+echo -e "Root password ${LIGHTGRAY}set${NC}"
+echo -e "Select Device: ${LIGHTGRAY}$device${NC}"
+echo -e "Selected Layout: ${LIGHTGRAY}$layout${NC}"
+echo -e "Selected processor: ${LIGHTGRAY}$processor${NC}"
 echo
 echo -e "I ${RED}love ${GREEN}LINUX${NC}"
 echo -e "${RED}WARNING: this script will destroy data on the selected disk $device.${NC}"
@@ -243,7 +243,18 @@ echo "$user:$password" | chpasswd --root /mnt
 echo "root:$root_password" | chpasswd --root /mnt
 
 
-umount ${device}
+# umount ${device}*
+case $layout in
+  1)
+    #BIOS
+    umount /mnt
+    ;;
+  2)
+    #UEFI
+    umount /mnt/boot/efi && umount /mnt
+    ;;
+esac
+
 
 echo -e "${GREEN}Done! Hit Enter to reboot the machine.${NC}"
 
