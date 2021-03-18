@@ -104,8 +104,8 @@ echo -e "Video Graphics driver: ${LIGHTGRAY}$video_driver${NC}"
 
 
 # ### Set up logging ###
-exec 1> >(tee "~/post_install/stdout.log")
-exec 2> >(tee "~/post_install/stderr.log")
+exec 1> >(tee "~/Downloads/stdout.log")
+exec 2> >(tee "~/Downloads/stderr.log")
 
 
 
