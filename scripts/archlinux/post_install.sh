@@ -167,6 +167,7 @@ ln -s -b ${dotfiles_dir}/i3 ~/.config/i3
 ln -s -b ${dotfiles_dir}/nvim ~/.config/nvim
 ln -s -b ${dotfiles_dir}/ranger ~/.config/ranger
 ln -s -b ${dotfiles_dir}/alacritty ~/.config/alacritty
+ln -s -b ${dotfiles_dir}/picom ~/.config/picom
 ln -s -b ${dotfiles_dir}/rofi ~/.config/rofi
 ln -s -b ${dotfiles_dir}/tmux.conf ~/.tmux.conf
 ln -s -b ${dotfiles_dir}/.xinitrc ~/.xinitrc
