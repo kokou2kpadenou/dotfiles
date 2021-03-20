@@ -131,7 +131,8 @@ sudo pacman -Syyuu --noconfirm && yay -Syyuu
 
 sudo pacman -S --noconfirm xorg numlockx i3 xorg-xinit rxvt-unicode rofi ranger \
   feh w3m atool chromium firefox vlc openssh xss-lock gnome-screenshot \
-  tmux inkscape gimp wget xsel
+  tmux inkscape gimp wget xsel alacritty picom papirus-icon-theme \
+  gnome-calculator acpi
 
 # # Installing Xorg packages, i3 and video drivers
 # # sudo pacman -S nvidia nvidia-utils nvidia-settings xorg-server xorg-apps xorg-xinit i3 numlockx -noconfirm -needed
@@ -146,6 +147,8 @@ sudo pacman -S --noconfirm noto-fonts ttf-ubuntu-font-family ttf-dejavu ttf-free
 # # Installing additional tools for shell and ranger (Optional) but highly recommended
 # # sudo pacman -S atool highlight browsh elinks mediainfo w3m ffmpegthumbnailer mupdf -noconfirm -needed
 # 
+
+yay -S visual-studio-code-bin
 
 sudo pacman -S --noconfirm neovim python python2 python-pip python2-pip ruby rubygems
 
@@ -163,6 +166,7 @@ sh ${scripts_dir}/common/fonts.sh "$dotfiles_dir"
 ln -s -b ${dotfiles_dir}/i3 ~/.config/i3
 ln -s -b ${dotfiles_dir}/nvim ~/.config/nvim
 ln -s -b ${dotfiles_dir}/ranger ~/.config/ranger
+ln -s -b ${dotfiles_dir}/alacritty ~/.config/alacritty
 ln -s -b ${dotfiles_dir}/rofi ~/.config/rofi
 ln -s -b ${dotfiles_dir}/tmux.conf ~/.tmux.conf
 ln -s -b ${dotfiles_dir}/.xinitrc ~/.xinitrc
