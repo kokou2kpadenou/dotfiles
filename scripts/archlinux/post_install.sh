@@ -103,7 +103,7 @@ echo -e "Git Email: ${LIGHTGRAY}$git_email${NC}"
 echo -e "Video Graphics driver: ${LIGHTGRAY}$video_driver${NC}"
 
 
-# ### Set up logging ###
+### Set up logging ###
 exec 1> >(tee "~/Downloads/stdout.log")
 exec 2> >(tee "~/Downloads/stderr.log")
 
@@ -132,7 +132,7 @@ sudo pacman -Syyuu --noconfirm && yay -Syyuu
 sudo pacman -S --noconfirm xorg numlockx i3 xorg-xinit rxvt-unicode rofi ranger \
   feh w3m atool chromium firefox vlc openssh xss-lock gnome-screenshot \
   tmux inkscape gimp wget xsel alacritty picom papirus-icon-theme \
-  gnome-calculator acpi
+  gnome-calculator acpi bash-completion
 
 # # Installing Xorg packages, i3 and video drivers
 # # sudo pacman -S nvidia nvidia-utils nvidia-settings xorg-server xorg-apps xorg-xinit i3 numlockx -noconfirm -needed
@@ -184,9 +184,6 @@ sh ${scripts_dir}/common/bash_setting.sh "$dotfiles_dir"
 # Increase the limit of number of files to be watched by inotify
 sh ${scripts_dir}/common/nodejsENOSPCerrorFix.sh
 
-echo -e "${GREEN}Bravo!!!!!${NC}"
+echo -e "${GREEN}Bravo!!!!!, The system is ready${NC}"
 
-echo "Hit enter to start nvim"
-read
-
-nvim
+echo "You can start x environment with startx."
