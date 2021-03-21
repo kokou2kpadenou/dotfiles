@@ -13,8 +13,8 @@ fi
 
 
 FONTS_INSTALL_PATH="/usr/share/fonts"
-FONTS_DIR="${dotfiles_dir_fonts}/fonts/DejaVuSansMono"
+FONTS_DIR="${dotfiles_dir_fonts}/fonts/*"
 
-sudo mv "$FONTS_DIR" "$FONTS_INSTALL_PATH"
+sudo cp -r "$FONTS_DIR" "$FONTS_INSTALL_PATH"
 
 sudo fc-cache -f -v
