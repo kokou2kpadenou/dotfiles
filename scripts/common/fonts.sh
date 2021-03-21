@@ -13,7 +13,7 @@ fi
 
 
 FONTS_INSTALL_PATH="/usr/share/fonts"
-FONTS_DIR="${dotfiles_dir_fonts}/fonts/*"
+FONTS_DIR="${dotfiles_dir_fonts}/fonts/."
 
 sudo cp -r "$FONTS_DIR" "$FONTS_INSTALL_PATH"
 
