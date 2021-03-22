@@ -132,12 +132,12 @@ sudo pacman -Syyuu --noconfirm && yay -Syyuu
 sudo pacman -S --noconfirm xorg numlockx i3 xorg-xinit rxvt-unicode rofi ranger \
   feh w3m atool chromium firefox vlc openssh xss-lock gnome-screenshot \
   tmux inkscape gimp wget xsel alacritty picom papirus-icon-theme \
-  gnome-calculator acpi bash-completion
+  gnome-calculator acpi bash-completion highlight
 
 # # Installing Xorg packages, i3 and video drivers
 # # sudo pacman -S nvidia nvidia-utils nvidia-settings xorg-server xorg-apps xorg-xinit i3 numlockx -noconfirm -needed
 
-# Installing additional fonts (Optional) but highly recommended
+# Installing additional fonts
 sudo pacman -S --noconfirm noto-fonts ttf-ubuntu-font-family ttf-dejavu ttf-freefont \
   ttf-liberation ttf-droid ttf-inconsolata ttf-roboto terminus-font \
   ttf-font-awesome
