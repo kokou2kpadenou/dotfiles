@@ -100,7 +100,12 @@ echo
 echo -e "Dotfiles location: ${LIGHTGRAY}$dotfiles_dir${NC}"
 echo -e "Git Name: ${LIGHTGRAY}$git_name${NC}"
 echo -e "Git Email: ${LIGHTGRAY}$git_email${NC}"
+echo -e "Git Editor: ${LIGHTGRAY}$git_email${NC}"
 echo -e "Video Graphics driver: ${LIGHTGRAY}$video_driver${NC}"
+echo
+echo "Press enter to continue"
+
+read
 
 
 ### Set up logging ###
@@ -185,4 +190,4 @@ sh ${scripts_dir}/common/nodejsENOSPCerrorFix.sh
 
 echo -e "${GREEN}Bravo!!!!!, The system is ready${NC}"
 
-echo "You can start x environment with startx."
+echo "You can start x environment with startx and enjoy."
