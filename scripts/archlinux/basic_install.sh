@@ -215,7 +215,7 @@ EOF
 
 arch-chroot /mnt pacman -S --noconfirm grub networkmanager dialog mtools \
   dosfstools base-devel linux-headers cups alsa-utils \
-  pulseaudio git reflector xdg-utils xdg-user-dirs
+  pulseaudio git reflector xdg-utils xdg-user-dirs ipset ebtables firewalld
 
 case $layout in
   1)
@@ -232,10 +232,8 @@ esac
 arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 arch-chroot /mnt systemctl enable NetworkManager
 arch-chroot /mnt systemctl enable cups.service
+arch-chroot /mnt systemctl enable firewalld.service
 arch-chroot /mnt useradd -m ${user}
-
-# TODO
-# arch-chroot /mnt usermod -aG libvirt ${user}
 
 echo "$user ALL=(ALL) ALL" >> /mnt/etc/sudoers.d/${user}
 
