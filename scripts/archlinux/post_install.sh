@@ -137,7 +137,7 @@ sudo pacman -Syyuu --noconfirm && yay -Syyuu
 sudo pacman -S --noconfirm xorg numlockx i3 xorg-xinit rxvt-unicode rofi ranger \
   feh w3m atool chromium firefox vlc openssh xss-lock gnome-screenshot \
   tmux inkscape gimp wget xsel alacritty picom papirus-icon-theme \
-  gnome-calculator acpi bash-completion highlight
+  gnome-calculator acpi bash-completion highlight dunst
 
 # # Installing Xorg packages, i3 and video drivers
 # # sudo pacman -S nvidia nvidia-utils nvidia-settings xorg-server xorg-apps xorg-xinit i3 numlockx -noconfirm -needed
@@ -174,7 +174,9 @@ ln -s -b ${dotfiles_dir}/ranger ~/.config/ranger
 ln -s -b ${dotfiles_dir}/alacritty ~/.config/alacritty
 ln -s -b ${dotfiles_dir}/picom ~/.config/picom
 ln -s -b ${dotfiles_dir}/rofi ~/.config/rofi
+ln -s -b ${dotfiles_dir}/dunst ~/.config/dunst
 ln -s -b ${dotfiles_dir}/tmux.conf ~/.tmux.conf
+ln -s -b ${dotfiles_dir}/.bash_aliases ~/.bash_aliases
 ln -s -b ${dotfiles_dir}/.xinitrc ~/.xinitrc
 ln -s -b ${dotfiles_dir}/.Xresources ~/.Xresources
 ln -s -b ${dotfiles_dir}/gitignore_global ~/.gitignore_global
