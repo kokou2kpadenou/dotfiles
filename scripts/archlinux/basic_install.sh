@@ -215,7 +215,11 @@ EOF
 
 arch-chroot /mnt pacman -S --noconfirm grub networkmanager dialog mtools \
   dosfstools base-devel linux-headers cups alsa-utils \
-  pulseaudio git reflector xdg-utils xdg-user-dirs ipset ebtables firewalld
+  pulseaudio git reflector rsync xdg-utils xdg-user-dirs ipset ebtables firewalld
+  
+arch-chroot /mnt sudo reflector -c "United States" -a 6 --sort rate --save /etc/pacman.d/mirrorlist
+
+arch-chroot /mnt sudo pacman -Syyuu
 
 case $layout in
   1)
@@ -231,8 +235,8 @@ esac
 
 arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 arch-chroot /mnt systemctl enable NetworkManager
-arch-chroot /mnt systemctl enable cups.service
-arch-chroot /mnt systemctl enable firewalld.service
+arch-chroot /mnt systemctl enable cups
+arch-chroot /mnt systemctl enable firewalld
 arch-chroot /mnt useradd -m ${user}
 
 echo "$user ALL=(ALL) ALL" >> /mnt/etc/sudoers.d/${user}
