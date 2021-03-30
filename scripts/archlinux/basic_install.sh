@@ -241,8 +241,11 @@ arch-chroot /mnt useradd -m ${user}
 
 echo "$user ALL=(ALL) ALL" >> /mnt/etc/sudoers.d/${user}
 
-echo "$user:$password" | chpasswd --root /mnt
-echo "root:$root_password" | chpasswd --root /mnt
+# echo "$user:$password" | chpasswd --root /mnt
+# echo "root:$root_password" | chpasswd --root /mnt
+
+arch-chroot /mnt echo "$user:$password" | chpasswd
+arch-chroot /mnt echo "root:$root_password" | chpasswd
 
 
 # umount ${device}*
