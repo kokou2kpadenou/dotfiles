@@ -217,9 +217,9 @@ arch-chroot /mnt pacman -S --noconfirm grub networkmanager dialog mtools \
   dosfstools base-devel linux-headers cups alsa-utils \
   pulseaudio git reflector rsync xdg-utils xdg-user-dirs ipset ebtables firewalld
   
-arch-chroot /mnt sudo reflector -c "United States" -a 6 --sort rate --save /etc/pacman.d/mirrorlist
+# arch-chroot /mnt sudo reflector -c "United States" -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 
-arch-chroot /mnt sudo pacman -Syyuu
+# arch-chroot /mnt sudo pacman -Syyuu
 
 case $layout in
   1)
@@ -241,11 +241,8 @@ arch-chroot /mnt useradd -m ${user}
 
 echo "$user ALL=(ALL) ALL" >> /mnt/etc/sudoers.d/${user}
 
-# echo "$user:$password" | chpasswd --root /mnt
-# echo "root:$root_password" | chpasswd --root /mnt
-
-arch-chroot /mnt echo "$user:$password" | chpasswd
-arch-chroot /mnt echo "root:$root_password" | chpasswd
+echo "$user:$password" | chpasswd --root /mnt
+echo "root:$root_password" | chpasswd --root /mnt
 
 
 # umount ${device}*
