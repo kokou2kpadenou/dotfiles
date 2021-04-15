@@ -213,7 +213,7 @@ cat >> /mnt/etc/hosts <<EOF
 127.0.1.1   ${hostname}.localdomain    ${hostname}
 EOF
 
-arch-chroot /mnt pacman -S --noconfirm grub networkmanager dialog mtools \
+arch-chroot /mnt pacman -S grub networkmanager dialog mtools \
   dosfstools base-devel linux-headers cups alsa-utils \
   pulseaudio git reflector rsync xdg-utils xdg-user-dirs ipset ebtables firewalld
   
