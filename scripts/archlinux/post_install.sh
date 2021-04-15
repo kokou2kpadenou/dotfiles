@@ -153,7 +153,7 @@ sudo pacman -S --noconfirm noto-fonts ttf-ubuntu-font-family ttf-dejavu ttf-free
 # # sudo pacman -S atool highlight browsh elinks mediainfo w3m ffmpegthumbnailer mupdf -noconfirm -needed
 # 
 
-yay -S visual-studio-code-bin
+yay -S visual-studio-code-bin google-chrome
 
 sudo pacman -S --noconfirm neovim python python2 python-pip python2-pip ruby rubygems
 
