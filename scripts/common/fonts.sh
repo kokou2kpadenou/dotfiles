@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 dotfiles_dir_fonts="$1"
 default_dotfiles_dir="$HOME/.dotfiles"

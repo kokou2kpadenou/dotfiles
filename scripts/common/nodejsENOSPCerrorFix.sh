@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Delete the setting if it exists
 [[ -f /etc/sysctl.conf ]] && sudo sed '/fs.inotify.max_user_watches/d' /etc/sysctl.conf
