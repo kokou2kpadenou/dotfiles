@@ -193,6 +193,22 @@ sh ${scripts_dir}/common/bash_setting.sh "$dotfiles_dir"
 # Increase the limit of number of files to be watched by inotify
 sh ${scripts_dir}/common/nodejsENOSPCerrorFix.sh
 
+
+
+### User Services ###
+
+# link service and timer files
+ln -s -b ${dotfiles_dir}/systemd/user/wallpaper.service ~/.config/systemd/user/wallpaper.service
+ln -s -b ${dotfiles_dir}/systemd/user/wallpaper.timer ~/.config/systemd/user/wallpaper.timer
+# Reload units
+systemctl --user daemon-reload
+# Enable and start timers
+systemctl --user enable --now wallpaper.timer
+
+
+
+### Ending Messages ###
+
 echo -e "${GREEN}Bravo!!!!!, The system is ready${NC}"
 
 echo "You can start x environment with startx and enjoy."
