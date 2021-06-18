@@ -1,0 +1,9 @@
+[Unit]
+Description=Wallpaper System
+
+[Service]
+Type=oneshot
+ExecStart=/home/kkokou/.dotfiles/i3/scripts/wallpapper_service.sh
+
+[Install]
+WantedBy=graphical.target

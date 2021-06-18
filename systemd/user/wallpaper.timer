@@ -1,0 +1,9 @@
+[Unit]
+Description=Change the wallpaper every 30 minutes
+
+[Timer]
+OnActiveSec=5m
+OnUnitActiveSec=30m
+
+[Install]
+WantedBy=timers.target
