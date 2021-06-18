@@ -165,6 +165,9 @@ gem install neovim
 # Install node version manager, node lts/erbium by defaut and neovim
 sh ${scripts_dir}/common/nvm_installer.sh
 
+# Installation of Docker and Docker-compose
+sh ${scripts_dir}/archlinux/docker_install.sh
+
 # NerdFonts DejaVuSansMono installation
 sh ${scripts_dir}/common/fonts.sh "$dotfiles_dir"
 
