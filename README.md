@@ -4,6 +4,12 @@
 
 ### Automatic Installation
 
-bash <(curl -o- https://raw.githubusercontent.com/kokou2kpadenou/dotfiles/master/scripts/start.sh)
+#### Archlinux
+
+##### Basic Installation
+bash <(curl -sL https://git.io/Jm3xB)
+
+##### Post Installation
+bash <(curl -sL https://git.io/JqZDW)
 
 ### Details and Manual Installation
