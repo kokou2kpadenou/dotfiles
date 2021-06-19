@@ -197,6 +197,8 @@ sh ${scripts_dir}/common/nodejsENOSPCerrorFix.sh
 
 ### User Services ###
 
+#create user systemd folder
+mkdir -p ~/.config/systemd/user
 # link service and timer files
 ln -s -b ${dotfiles_dir}/systemd/user/wallpaper.service ~/.config/systemd/user/wallpaper.service
 ln -s -b ${dotfiles_dir}/systemd/user/wallpaper.timer ~/.config/systemd/user/wallpaper.timer
