@@ -191,7 +191,7 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
   position top
-  status_command SCRIPT_DIR=~/.dotfiles/i3/scripts/i3blocks i3blocks -c ~/.config/i3/i3blocks.conf
+  status_command SCRIPT_DIR=~/.config/i3/scripts/i3blocks i3blocks -c ~/.config/i3/i3blocks.conf
 
   colors {
     # Whole color settings
