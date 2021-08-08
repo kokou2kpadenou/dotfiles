@@ -3,7 +3,7 @@ Description=Wallpaper System
 
 [Service]
 Type=oneshot
-ExecStart=/home/kkokou/.config/i3/scripts/wallpapper_service.sh
+ExecStart=/home/kkokou/.config/i3/scripts/wallpapper.sh service
 
 [Install]
 WantedBy=graphical.target
