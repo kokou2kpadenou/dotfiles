@@ -1,0 +1,13 @@
+[color]
+	status = auto
+	branch = auto
+	interactive = auto
+	diff = auto
+	ui = auto
+[merge]
+	conflictstyle = diff3
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore_global
+[include]
+	path = ~/.gitconfig.local
