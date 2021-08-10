@@ -46,13 +46,6 @@ while [ "$git_email" = "" ]; do
   read -p "Git global user email: " git_email
 done
 
-# Get git global default editor
-git_editor=""
-read -p "Git global editor (default vim): " git_editor
-if [ "$git_editor" = "" ]; then
-  git_editor=vim
-fi
-
 
 
 echo
@@ -98,9 +91,8 @@ echo "Summary of inputs"
 echo "-----------------"
 echo
 echo -e "Dotfiles location: ${LIGHTGRAY}$dotfiles_dir${NC}"
-echo -e "Git Name: ${LIGHTGRAY}$git_name${NC}"
+echo -e "Git User Name: ${LIGHTGRAY}$git_name${NC}"
 echo -e "Git Email: ${LIGHTGRAY}$git_email${NC}"
-echo -e "Git Editor: ${LIGHTGRAY}$git_email${NC}"
 echo -e "Video Graphics driver: ${LIGHTGRAY}$video_driver${NC}"
 echo
 echo "Press enter to continue"
@@ -120,27 +112,26 @@ if [ "$video_driver" != "" ]; then
   sudo pacman -S --noconfirm ${video_driver}
 fi
 
+## Installation of yay
 cd ~/Downloads
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si PKGBUILD
 cd ~
 
-
+## Update / Upgrade packages
 sudo pacman -S --noconfirm reflector rsync
 
 sudo reflector -c "United States" -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 
 sudo pacman -Syyuu --noconfirm && yay -Syyuu
 
-
+## Installation of packages
 sudo pacman -S --noconfirm xorg numlockx i3 xorg-xinit rxvt-unicode rofi ranger \
   feh w3m atool chromium firefox vlc openssh xss-lock gnome-screenshot \
   tmux inkscape gimp wget xsel alacritty picom papirus-icon-theme \
-  gnome-calculator acpi bash-completion highlight dunst
+  gnome-calculator acpi bash-completion highlight dunst stow
 
-# # Installing Xorg packages, i3 and video drivers
-# # sudo pacman -S nvidia nvidia-utils nvidia-settings xorg-server xorg-apps xorg-xinit i3 numlockx -noconfirm -needed
 
 # Installing additional fonts
 sudo pacman -S --noconfirm noto-fonts ttf-ubuntu-font-family ttf-dejavu ttf-freefont \
@@ -155,12 +146,11 @@ sudo pacman -S --noconfirm noto-fonts ttf-ubuntu-font-family ttf-dejavu ttf-free
 
 yay -S visual-studio-code-bin google-chrome
 
-sudo pacman -S --noconfirm neovim python python2 python-pip python2-pip ruby rubygems
+sudo pacman -S --noconfirm neovim python python2 python-pip python2-pip 
 
 python -m pip install --user --upgrade pynvim
 python2 -m pip install --user --upgrade pynvim
 
-gem install neovim
 
 # Install node version manager, node lts/erbium by defaut and neovim
 sh ${scripts_dir}/common/nvm_installer.sh
@@ -168,24 +158,25 @@ sh ${scripts_dir}/common/nvm_installer.sh
 # Installation of Docker and Docker-compose
 sh ${scripts_dir}/archlinux/docker_install.sh
 
-# NerdFonts DejaVuSansMono installation
-sh ${scripts_dir}/common/fonts.sh "$dotfiles_dir"
+## Dploying the symbolic links farm
+# Create user fonts direction if it is not existed.
+mkdir ~/.fonts
 
-ln -s -b ${dotfiles_dir}/i3 ~/.config/i3
-ln -s -b ${dotfiles_dir}/nvim ~/.config/nvim
-ln -s -b ${dotfiles_dir}/ranger ~/.config/ranger
-ln -s -b ${dotfiles_dir}/alacritty ~/.config/alacritty
-ln -s -b ${dotfiles_dir}/picom ~/.config/picom
-ln -s -b ${dotfiles_dir}/rofi ~/.config/rofi
-ln -s -b ${dotfiles_dir}/dunst ~/.config/dunst
-ln -s -b ${dotfiles_dir}/tmux.conf ~/.tmux.conf
-ln -s -b ${dotfiles_dir}/.bash_aliases ~/.bash_aliases
-ln -s -b ${dotfiles_dir}/.xinitrc ~/.xinitrc
-ln -s -b ${dotfiles_dir}/.Xresources ~/.Xresources
-ln -s -b ${dotfiles_dir}/gitignore_global ~/.gitignore_global
+#create user systemd folder if it is not existed.
+mkdir -p ~/.config/systemd/user
+
+# To avoid any conflit with stow delete all existing config files
+rm -rf ~/.config/nvim ~/.config/alacritty ~/.config/dunst ~/.config/i3 ~/.config/picom ~/.config/ranger ~/.config/rofi 
+rm ~/.bash_aliases ~/.gitignore_global ~/.gitconfig ~/.stowrc ~/.tmux.conf ~/.xinitrc ~/.Xresources
+
+# Create the symbolic links
+stow -d ${dotfiles_dir}/settings -t ~ --ignore='w_o_*' *
+
+## Install fonts manually fonts
+sudo fc-cache -f -v
 
 # Git settings
-sh ${scripts_dir}/common/git.sh "$git_name" "$git_email" "$git_editor"
+sh ${scripts_dir}/common/git.sh "$git_name" "$git_email"
 
 # bash setup
 sh ${scripts_dir}/common/bash_setting.sh "$dotfiles_dir"
@@ -197,15 +188,11 @@ sh ${scripts_dir}/common/nodejsENOSPCerrorFix.sh
 
 ### User Services ###
 
-#create user systemd folder
-mkdir -p ~/.config/systemd/user
-# link service and timer files
-ln -s -b ${dotfiles_dir}/systemd/user/wallpaper.service ~/.config/systemd/user/wallpaper.service
-ln -s -b ${dotfiles_dir}/systemd/user/wallpaper.timer ~/.config/systemd/user/wallpaper.timer
 # Reload units
 systemctl --user daemon-reload
 # Enable and start timers
 systemctl --user enable --now wallpaper.timer
+systemctl --user enable --now alert_battery.timer
 
 
 
