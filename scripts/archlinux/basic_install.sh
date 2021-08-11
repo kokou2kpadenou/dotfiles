@@ -183,7 +183,7 @@ case $layout in
 
     swapon "${part_swap}"
     mount "${part_root}" /mnt
-    mkdir /mnt/boot/efi
+    mkdir -p /mnt/boot/efi
     mount "${part_boot}" /mnt/boot/efi
     ;;
 esac
