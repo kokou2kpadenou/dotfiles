@@ -165,10 +165,6 @@ mkdir ~/.fonts
 #create user systemd folder if it is not existed.
 mkdir -p ~/.config/systemd/user
 
-# To avoid any conflit with stow delete all existing config files
-rm -rf ~/.config/nvim ~/.config/alacritty ~/.config/dunst ~/.config/i3 ~/.config/picom ~/.config/ranger ~/.config/rofi 
-rm ~/.bash_aliases ~/.gitignore_global ~/.gitconfig ~/.stowrc ~/.tmux.conf ~/.xinitrc ~/.Xresources
-
 # Create the symbolic links
 stow -d ${dotfiles_dir}/settings -t ~ --ignore='w_o_*' *
 
