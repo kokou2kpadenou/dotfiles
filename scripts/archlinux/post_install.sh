@@ -166,7 +166,7 @@ mkdir ~/.fonts
 mkdir -p ~/.config/systemd/user
 
 # Create the symbolic links
-stow -d ${dotfiles_dir}/settings -t ~ --ignore='w_o_*' *
+cd ${dotfiles_dir}/settings && stow -t ~ --ignore='w_o_*' *
 
 ## Install fonts manually fonts
 sudo fc-cache -f -v
