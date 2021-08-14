@@ -16,6 +16,12 @@ g.loaded_python_provider = 0
 g.loaded_python3_provider = 0
 
 -- Packages manager Paq
+local install_path = fn.stdpath('data') .. '/site/pack/paqs/start/paq-nvim'
+
+if fn.empty(fn.glob(install_path)) > 0 then
+  fn.system({'git', 'clone', '--depth=1', 'https://github.com/savq/paq-nvim.git', install_path})
+end
+
 require "paq" {
     "savq/paq-nvim";                  -- Let Paq manage itself
 
