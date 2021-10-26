@@ -12,34 +12,14 @@ end
 
 g.loaded_ruby_provider = 0
 g.loaded_perl_provider = 0
+-- g.perl_host_prog = '/usr/bin/perl'
 g.loaded_python_provider = 0
 g.loaded_python3_provider = 0
 
--- Packages manager Paq
-local install_path = fn.stdpath('data') .. '/site/pack/paqs/start/paq-nvim'
 
-if fn.empty(fn.glob(install_path)) > 0 then
-  fn.system({'git', 'clone', '--depth=1', 'https://github.com/savq/paq-nvim.git', install_path})
-end
-
-require "paq" {
-    "savq/paq-nvim";                  -- Let Paq manage itself
-
-    "neovim/nvim-lspconfig";          -- Mind the semi-colons
-    "hrsh7th/nvim-compe";
-
-    --{"lervag/vimtex", opt=true};      -- Use braces when passing options
-    'nvim-lua/plenary.nvim';
-    'lewis6991/gitsigns.nvim';
-    'sheerun/vim-polyglot';
-    'hoob3rt/lualine.nvim';
-    'kyazdani42/nvim-web-devicons';
-    "tpope/vim-surround";
-    'tjdevries/colorbuddy.vim';
-}
 
 -- Options
-vim.o.completeopt = "menuone,noselect"
+vim.o.completeopt = "menu,menuone,noselect"
 opt.cursorline = true
 opt.errorbells = false
 opt.tabstop = 2
@@ -64,7 +44,7 @@ opt.shortmess = opt.shortmess + 'c'
 opt.signcolumn = "yes"
 opt.showcmd = true
 
-opt.list = false
+opt.list = true
 opt.listchars = { eol = '¬', tab = '>.', trail = '~', extends = '>', space = '␣', precedes = '<'}
 
 opt.clipboard = "unnamedplus"
@@ -86,42 +66,119 @@ g.netrw_liststyle = 3     -- tree
 g.netrw_bufsettings = 'noma nomod nonu nobl nowrap ro rnu'
 g.netrw_list_hide = {'node_modules'}
 
--- gruvbudy - colorscheme
-require('colorbuddy').colorscheme('gruvbuddy')
--- gitsigns
-require('gitsigns').setup()
+opt.undodir = fn.stdpath('config') .. '/undodir'
+opt.undofile = true
 
--- compe
-require'compe'.setup {
-  enabled = true;
-  autocomplete = true;
-  debug = false;
-  min_length = 1;
-  preselect = 'enable';
-  throttle_time = 80;
-  source_timeout = 200;
-  resolve_timeout = 800;
-  incomplete_delay = 400;
-  max_abbr_width = 100;
-  max_kind_width = 100;
-  max_menu_width = 100;
-  documentation = {
-    border = { '', '' ,'', ' ', '', '', '', ' ' }, -- the border option is the same as `|help nvim_open_win|`
-    winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
-    max_width = 120,
-    min_width = 60,
-    max_height = math.floor(vim.o.lines * 0.3),
-    min_height = 1,
-  };
 
-  source = {
-    path = true;
-    buffer = true;
-    calc = true;
-    nvim_lsp = true;
-    nvim_lua = true;
-    vsnip = true;
-    ultisnips = true;
-    luasnip = true;
-  };
-}
+-- Packer.vim
+local fn = vim.fn
+
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+end
+
+return require('packer').startup(function(use)
+  -- My plugins here
+  -- use 'foo1/bar1.nvim'
+  -- use 'foo2/bar2.nvim'
+
+  -- Packer can manage itself
+  use 'wbthomason/packer.nvim'
+
+  -- FILES MANAGEMENT
+  -- Git Decorations Integration
+  use {
+    'lewis6991/gitsigns.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim'
+    },
+    config = function()
+      require('gitsigns').setup()
+    end
+  }
+
+  -- Git Commands Integration
+  use 'tpope/vim-fugitive';
+
+  -- Fuzzy Finder
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = { {'nvim-lua/plenary.nvim'} }
+  }
+
+  -- APPARENCE
+  -- TreeSitter
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate'
+  }
+  -- Status Line
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = {'kyazdani42/nvim-web-devicons', opt = true}
+  }
+  -- Color highlighter for Neovim
+  use {
+    'norcalli/nvim-colorizer.lua',
+    config = function()
+      require'colorizer'.setup()
+    end
+  }
+
+  -- colorscheme
+  use {
+    'Th3Whit3Wolf/onebuddy',
+    requires = {
+      'tjdevries/colorbuddy.vim'
+    },
+    config = function()
+      require('colorbuddy').colorscheme('onebuddy')
+    end
+  }
+
+
+  -- AUTO COMPLETION
+  -- Native LSP
+  use 'neovim/nvim-lspconfig'
+
+  use {
+    'hrsh7th/nvim-cmp',
+    requires = {
+      {'L3MON4D3/LuaSnip', requires = {'rafamadriz/friendly-snippets'} }, -- Snippets
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'saadparwaiz1/cmp_luasnip',
+      'hrsh7th/cmp-path',
+      {'kristijanhusak/vim-dadbod-completion', opt = true},
+      'onsails/lspkind-nvim' -- This tiny plugin adds vscode-like pictograms to neovim built-in lsp
+    },
+  }
+  -- Emmet
+  use 'mattn/emmet-vim'
+  -- Autopairs for Neovim
+  use 'windwp/nvim-autopairs'
+
+  -- DATABASES
+  use {
+    'kristijanhusak/vim-dadbod-ui',
+    requires = {
+      'tpope/vim-dadbod'
+    },
+  }
+
+
+  -- OTHERS
+  -- Visualizes undo history and makes it easier to browse and switch between different undo branches
+  use 'mbbill/undotree'
+  -- Comment test in and out
+  use 'tpope/vim-commentary'
+  -- Surroundings
+  use 'tpope/vim-surround'
+
+  -- Automatically set up your configuration after cloning packer.nvim
+  -- Put this at the end after all plugins
+  if packer_bootstrap then
+    require('packer').sync()
+  end
+end)
