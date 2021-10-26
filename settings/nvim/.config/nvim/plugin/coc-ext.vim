@@ -7,6 +7,7 @@ let g:coc_global_extensions = [
   \ 'coc-pairs',
   \ 'coc-snippets',
   \ 'coc-explorer',
+  \ 'coc-tailwindcss',
   \ ]
 
 if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
