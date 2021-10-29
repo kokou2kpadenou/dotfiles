@@ -489,7 +489,7 @@ ls.filetype_set("cpp", { "c" })
 require("luasnip/loaders/from_vscode").load({ 
   path = { vim.fn.stdpath("data").."/site/pack/packer/start/friendly-snippets" },
   include = {
-    "javaScript",
+    "javascript",
     "typescript",
     "javascriptreact",
     "typescriptreact",
@@ -505,3 +505,10 @@ require("luasnip/loaders/from_vscode").load({
 
 -- You can also use lazy loading so you only get in memory snippets of languages you use
 -- require("luasnip/loaders/from_vscode").lazy_load() -- You can pass { paths = "./my-snippets/"} as well
+vim.cmd [[
+  imap <silent><expr> <c-k> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<c-k>'
+  inoremap <silent> <c-j> <cmd>lua require('luasnip').jump(-1)<CR>
+  imap <silent><expr> <C-l> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-l>'
+  snoremap <silent> <c-k> <cmd>lua require('luasnip').jump(1)<CR>
+  snoremap <silent> <c-j> <cmd>lua require('luasnip').jump(-1)<CR>
+]]

@@ -18,11 +18,12 @@ cmp.setup({
     format = lspkind.cmp_format {
       with_text = true,
       menu = {
-        buffer = "[buf]",
-        nvim_lsp = "[LSP]",
-        nvim_lua = "[api]",
-        path = "[path]",
-        luasnip = "[snip]",
+        buffer = '[buf]',
+        nvim_lsp = '[LSP]',
+        nvim_lua = '[api]',
+        path = '[path]',
+        luasnip = '[snip]',
+        cmdline = '[CMD]'
       },
     },
   },
@@ -36,12 +37,29 @@ cmp.setup({
   },
 
   sources = {
-    { name = "nvim_lua" },
+    { name = 'nvim_lua' },
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
-    { name = "path" },
+    { name = 'path' },
     { name = 'buffer', keyword_length = 5  },
   }
+})
+
+
+-- Use buffer source for `/`.
+cmp.setup.cmdline('/', {
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+-- Use cmdline & path source for ':'.
+cmp.setup.cmdline(':', {
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
 })
 
 -- Setup lspconfig.
@@ -58,12 +76,12 @@ vim.cmd [[
 ]]
 
 -- nvim-cmp highlight groups.
--- local Group = require("colorbuddy.group").Group
--- local g = require("colorbuddy.group").groups
--- local s = require("colorbuddy.style").styles
--- 
--- Group.new("CmpItemAbbr", g.Comment)
--- Group.new("CmpItemAbbrDeprecated", g.Error)
--- Group.new("CmpItemAbbrMatchFuzzy", g.CmpItemAbbr.fg:dark(), nil, s.italic)
--- Group.new("CmpItemKind", g.Special)
--- Group.new("CmpItemMenu", g.NonText)
+ -- local Group = require("colorbuddy.group").Group
+ -- local g = require("colorbuddy.group").groups
+ -- local s = require("colorbuddy.style").styles
+ 
+ -- Group.new("CmpItemAbbr", g.Comment)
+ -- Group.new("CmpItemAbbrDeprecated", g.Error)
+ -- Group.new("CmpItemAbbrMatchFuzzy", g.CmpItemAbbr.fg:dark(), nil, s.italic)
+ -- Group.new("CmpItemKind", g.Special)
+ -- Group.new("CmpItemMenu", g.NonText)

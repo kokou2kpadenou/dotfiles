@@ -70,12 +70,17 @@ time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
   LuaSnip = {
+    config = { "\27LJ\1\2(\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\rsnippets\frequire\0" },
     loaded = true,
     path = "/home/kkokou/.local/share/nvim/site/pack/packer/start/LuaSnip"
   },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/home/kkokou/.local/share/nvim/site/pack/packer/start/cmp-buffer"
+  },
+  ["cmp-cmdline"] = {
+    loaded = true,
+    path = "/home/kkokou/.local/share/nvim/site/pack/packer/start/cmp-cmdline"
   },
   ["cmp-nvim-lsp"] = {
     loaded = true,
@@ -85,13 +90,13 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/kkokou/.local/share/nvim/site/pack/packer/start/cmp-path"
   },
+  ["cmp-spell"] = {
+    loaded = true,
+    path = "/home/kkokou/.local/share/nvim/site/pack/packer/start/cmp-spell"
+  },
   cmp_luasnip = {
     loaded = true,
     path = "/home/kkokou/.local/share/nvim/site/pack/packer/start/cmp_luasnip"
-  },
-  ["colorbuddy.vim"] = {
-    loaded = true,
-    path = "/home/kkokou/.local/share/nvim/site/pack/packer/start/colorbuddy.vim"
   },
   ["emmet-vim"] = {
     loaded = true,
@@ -111,14 +116,21 @@ _G.packer_plugins = {
     path = "/home/kkokou/.local/share/nvim/site/pack/packer/start/lspkind-nvim"
   },
   ["lualine.nvim"] = {
+    config = { "\27LJ\1\2-\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\18lualineconfig\frequire\0" },
     loaded = true,
     path = "/home/kkokou/.local/share/nvim/site/pack/packer/start/lualine.nvim"
   },
+  ["material.nvim"] = {
+    loaded = true,
+    path = "/home/kkokou/.local/share/nvim/site/pack/packer/start/material.nvim"
+  },
   ["nvim-autopairs"] = {
+    config = { "\27LJ\1\2)\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\14autopairs\frequire\0" },
     loaded = true,
     path = "/home/kkokou/.local/share/nvim/site/pack/packer/start/nvim-autopairs"
   },
   ["nvim-cmp"] = {
+    config = { "\27LJ\1\2*\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\15completion\frequire\0" },
     loaded = true,
     path = "/home/kkokou/.local/share/nvim/site/pack/packer/start/nvim-cmp"
   },
@@ -138,11 +150,6 @@ _G.packer_plugins = {
   ["nvim-web-devicons"] = {
     loaded = true,
     path = "/home/kkokou/.local/share/nvim/site/pack/packer/start/nvim-web-devicons"
-  },
-  onebuddy = {
-    config = { "\27LJ\1\2K\0\0\2\0\4\0\a4\0\0\0%\1\1\0>\0\2\0027\0\2\0%\1\3\0>\0\2\1G\0\1\0\ronebuddy\16colorscheme\15colorbuddy\frequire\0" },
-    loaded = true,
-    path = "/home/kkokou/.local/share/nvim/site/pack/packer/start/onebuddy"
   },
   ["packer.nvim"] = {
     loaded = true,
@@ -189,18 +196,30 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: gitsigns.nvim
-time([[Config for gitsigns.nvim]], true)
-try_loadstring("\27LJ\1\0026\0\0\2\0\3\0\0064\0\0\0%\1\1\0>\0\2\0027\0\2\0>\0\1\1G\0\1\0\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
-time([[Config for gitsigns.nvim]], false)
--- Config for: onebuddy
-time([[Config for onebuddy]], true)
-try_loadstring("\27LJ\1\2K\0\0\2\0\4\0\a4\0\0\0%\1\1\0>\0\2\0027\0\2\0%\1\3\0>\0\2\1G\0\1\0\ronebuddy\16colorscheme\15colorbuddy\frequire\0", "config", "onebuddy")
-time([[Config for onebuddy]], false)
+-- Config for: LuaSnip
+time([[Config for LuaSnip]], true)
+try_loadstring("\27LJ\1\2(\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\rsnippets\frequire\0", "config", "LuaSnip")
+time([[Config for LuaSnip]], false)
+-- Config for: lualine.nvim
+time([[Config for lualine.nvim]], true)
+try_loadstring("\27LJ\1\2-\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\18lualineconfig\frequire\0", "config", "lualine.nvim")
+time([[Config for lualine.nvim]], false)
 -- Config for: nvim-colorizer.lua
 time([[Config for nvim-colorizer.lua]], true)
 try_loadstring("\27LJ\1\0027\0\0\2\0\3\0\0064\0\0\0%\1\1\0>\0\2\0027\0\2\0>\0\1\1G\0\1\0\nsetup\14colorizer\frequire\0", "config", "nvim-colorizer.lua")
 time([[Config for nvim-colorizer.lua]], false)
+-- Config for: gitsigns.nvim
+time([[Config for gitsigns.nvim]], true)
+try_loadstring("\27LJ\1\0026\0\0\2\0\3\0\0064\0\0\0%\1\1\0>\0\2\0027\0\2\0>\0\1\1G\0\1\0\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
+time([[Config for gitsigns.nvim]], false)
+-- Config for: nvim-autopairs
+time([[Config for nvim-autopairs]], true)
+try_loadstring("\27LJ\1\2)\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\14autopairs\frequire\0", "config", "nvim-autopairs")
+time([[Config for nvim-autopairs]], false)
+-- Config for: nvim-cmp
+time([[Config for nvim-cmp]], true)
+try_loadstring("\27LJ\1\2*\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\15completion\frequire\0", "config", "nvim-cmp")
+time([[Config for nvim-cmp]], false)
 if should_profile then save_profiles() end
 
 end)
