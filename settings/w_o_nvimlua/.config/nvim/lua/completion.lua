@@ -41,7 +41,7 @@ cmp.setup({
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'path' },
-    { name = 'buffer', keyword_length = 5  },
+    { name = 'buffer', keyword_length = 5 },
   }
 })
 
@@ -49,18 +49,18 @@ cmp.setup({
 -- Use buffer source for `/`.
 cmp.setup.cmdline('/', {
   sources = {
-    { name = 'buffer' }
+    { name = 'buffer', keyword_length = 3 }
   }
 })
 
 -- Use cmdline & path source for ':'.
-cmp.setup.cmdline(':', {
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
-  })
-})
+-- cmp.setup.cmdline(':', {
+--   sources = cmp.config.sources({
+--     { name = 'path' }
+--   }, {
+--     { name = 'cmdline', keyword_length = 4 }
+--   })
+-- })
 
 -- Setup lspconfig.
 -- require('lspconfig')[%YOUR_LSP_SERVER%].setup {
@@ -74,14 +74,3 @@ vim.cmd [[
     autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer { sources = { { name = 'vim-dadbod-completion' } } }
   augroup END
 ]]
-
--- nvim-cmp highlight groups.
- -- local Group = require("colorbuddy.group").Group
- -- local g = require("colorbuddy.group").groups
- -- local s = require("colorbuddy.style").styles
- 
- -- Group.new("CmpItemAbbr", g.Comment)
- -- Group.new("CmpItemAbbrDeprecated", g.Error)
- -- Group.new("CmpItemAbbrMatchFuzzy", g.CmpItemAbbr.fg:dark(), nil, s.italic)
- -- Group.new("CmpItemKind", g.Special)
- -- Group.new("CmpItemMenu", g.NonText)
