@@ -11,6 +11,7 @@ return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
+
   -- FILES MANAGEMENT
   -- Git Decorations Integration
   use {
@@ -22,21 +23,30 @@ return require('packer').startup(function(use)
       require('gitsigns').setup()
     end
   }
-
   -- Git Commands Integration
   use 'tpope/vim-fugitive';
-
   -- Fuzzy Finder
   use {
     'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} }
+    requires = { {'nvim-lua/plenary.nvim'} },
+    config = function()
+      require 'telescopeconfig'
+    end
   }
+
 
   -- APPARENCE
   -- TreeSitter
   use {
     'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate'
+    run = ':TSUpdate',
+    requires = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+      'nvim-treesitter/nvim-treesitter-refactor'
+    },
+    config = function()
+      require 'treesitterconfig'
+    end
   }
   -- Status Line
   use {
@@ -53,29 +63,20 @@ return require('packer').startup(function(use)
       require'colorizer'.setup()
     end
   }
-
   -- colorscheme
   use {
-    'Th3Whit3Wolf/onebuddy',
-    disable = true,
-    requires = {
-      'tjdevries/colorbuddy.vim'
-    },
+    'marko-cerovac/material.nvim',
     config = function()
-      require('colorbuddy').colorscheme('onebuddy')
+      require 'materialconfig'
     end
   }
-
-
-  use 'marko-cerovac/material.nvim'
-
 
 
   -- AUTO COMPLETION
   ------------------
   -- Native LSP
   use 'neovim/nvim-lspconfig'
-
+  -- Completion Engine Plugin
   use {
     'hrsh7th/nvim-cmp',
     requires = {
@@ -93,7 +94,6 @@ return require('packer').startup(function(use)
       'hrsh7th/cmp-path',
       {'kristijanhusak/vim-dadbod-completion', opt = true},
       'onsails/lspkind-nvim', -- This tiny plugin adds vscode-like pictograms to neovim built-in lsp
-      'tjdevries/colorbuddy.vim', -- TODO: Use colorbuddy to setup menu design
       'f3fora/cmp-spell', -- TODO: setup spell
       'hrsh7th/cmp-cmdline'
     },
@@ -102,7 +102,12 @@ return require('packer').startup(function(use)
     end
   }
   -- Emmet
-  use 'mattn/emmet-vim'
+  use {
+    'mattn/emmet-vim',
+    config = function()
+      require 'emmetconfig'
+    end
+  }
   -- Autopairs for Neovim
   use {
     'windwp/nvim-autopairs',
@@ -110,6 +115,7 @@ return require('packer').startup(function(use)
       require 'autopairs'
     end
   }
+
 
   -- DATABASES
   use {
@@ -135,4 +141,3 @@ return require('packer').startup(function(use)
     require('packer').sync()
   end
 end)
-
