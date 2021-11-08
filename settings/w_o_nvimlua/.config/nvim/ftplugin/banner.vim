@@ -19,7 +19,6 @@ fun! CmdNavigation()
   let b:nav_current_line = line('.')
   let b:nav_current_column = virtcol('.')
 
-  " echo b:nav_current_line "," b:nav_old_line "," b:nav_current_column "," b:nav_old_column
 
   " Set the search register to object between []
   let @/= "\\[\\zs\\(.\\{-}\\)\\ze\\]"
@@ -84,8 +83,8 @@ setlocal
 
 fun! DisplayMessage()
 
-  let g:banner_left_sep = exists('g:airline_left_sep') ? g:airline_left_sep : "|"
-  let g:banner_right_sep = exists('g:airline_right_sep') ? g:airline_right_sep : "|"
+  let g:banner_left_sep = "\uE0B4"
+  let g:banner_right_sep = "\uE0B6"
 
 
   setlocal
@@ -99,7 +98,7 @@ fun! DisplayMessage()
   call append('0', "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
   call append('1', ":::".g:banner_right_sep." [q] <quit>  [e] <new buffer> [i] or [o] <insert in new buffer> [H] <history> [s] <search> ".g:banner_left_sep.":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
   call append('2', "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
-  call append('3', ":::".g:banner_right_sep." [F] <file explorer> | Current directory: ".getcwd()." ".g:banner_left_sep."::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
+  call append('3', ":::".g:banner_right_sep." [F] <file explorer> -- Current directory: ".getcwd()." ".g:banner_left_sep."::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
   " Load content of banner.txt start from line 4
   silent exec "4:r ~/.config/nvim/banner.txt"
 
@@ -121,9 +120,9 @@ nnoremap <buffer><silent> e :enew<CR>
 nnoremap <buffer><silent> i :enew <bar> startinsert<CR>
 nnoremap <buffer><silent> o :enew <bar> startinsert<CR>
 nnoremap <buffer><silent> q :quit<CR>
-nnoremap <buffer><silent> s :Files<CR>
-nnoremap <buffer><silent> H :History<CR>
-nnoremap <buffer><silent> F :CocCommand explorer<CR>
+nnoremap <buffer><silent> s :Telescope find_files<CR>
+nnoremap <buffer><silent> H :Telescope oldfiles<CR>
+nnoremap <buffer><silent> F :Telescope file_browser<CR>
 
 nnoremap <buffer><silent> <tab> :normal l<CR>
 nnoremap <buffer><silent> <S-tab> :normal h<CR>
@@ -131,18 +130,6 @@ nnoremap <buffer><silent> <S-tab> :normal h<CR>
 nnoremap <buffer><silent> <C-e> <NOP>
 nnoremap <buffer><silent> <C-y> <NOP>
 nnoremap <buffer><silent> zt <NOP>
-" Disable some motions command
-" Left/Right/End
-" noremap <buffer><silent> <Left> N:echo<CR>
-" noremap <buffer><silent> <Up> N:echo<CR>
-" noremap <buffer><silent> <Right> n:echo<CR>
-" noremap <buffer><silent> <Down> n:echo<CR>
-" noremap <buffer><silent> <End> <Nop>
-" h/l
-" noremap <buffer><silent> h N:echo<CR>
-" noremap <buffer><silent> k N:echo<CR>
-" noremap <buffer><silent> l n:echo<CR>
-" noremap <buffer><silent> j n:echo<CR>
 
 " Run the command under the cursor
 nnoremap <buffer><silent> <CR> "zyi[:normal ".@z<CR>
