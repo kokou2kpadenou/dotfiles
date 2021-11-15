@@ -128,9 +128,9 @@ sudo pacman -Syyuu --noconfirm && yay -Syyuu
 
 ## Installation of packages
 sudo pacman -S --noconfirm xorg numlockx i3 xorg-xinit rxvt-unicode rofi ranger \
-  feh w3m atool chromium firefox vlc openssh xss-lock gnome-screenshot \
+  feh w3m atool firefox vlc openssh xss-lock gnome-screenshot \
   tmux inkscape gimp wget xsel alacritty picom papirus-icon-theme \
-  gnome-calculator acpi bash-completion highlight dunst stow
+  gnome-calculator acpi bash-completion highlight dunst stow fzf ripgrep fd
 
 
 # Installing additional fonts
@@ -142,7 +142,6 @@ sudo pacman -S --noconfirm noto-fonts ttf-ubuntu-font-family ttf-dejavu ttf-free
 # sudo pacman -S alsa-utils alsa-plugins alsa-lib pavucontrol -noconfirm -needed
 # # Installing additional tools for shell and ranger (Optional) but highly recommended
 # # sudo pacman -S atool highlight browsh elinks mediainfo w3m ffmpegthumbnailer mupdf -noconfirm -needed
-# 
 
 yay -S visual-studio-code-bin google-chrome
 
@@ -166,7 +165,8 @@ mkdir ~/.fonts
 mkdir -p ~/.config/systemd/user
 
 # Create the symbolic links
-cd ${dotfiles_dir}/settings && stow -t ~ --ignore='w_o_*' *
+cd ${dotfiles_dir}/settings && stow --target=$HOME -S $(ls --ignore=w_o_*)
+cd ~
 
 ## Install fonts manually fonts
 sudo fc-cache -f -v
