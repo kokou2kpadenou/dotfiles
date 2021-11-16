@@ -36,7 +36,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'tsserver', 'jsonls', 'cssls', 'html', 'tailwindcss', 'eslint' }
+local servers = { 'tsserver', 'jsonls', 'cssls', 'html', 'tailwindcss' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -47,3 +47,14 @@ for _, lsp in ipairs(servers) do
   }
 end
 
+
+nvim_lsp.eslint.setup {
+  on_attach = function(client)
+    -- neovim's LSP client does not currently support dynamic capabilities registration, so we need to set
+    -- the resolved capabilities of the eslint server ourselves!
+    client.resolved_capabilities.document_formatting = true
+  end,
+  settings = {
+    format = { enable = true },
+  },
+}
