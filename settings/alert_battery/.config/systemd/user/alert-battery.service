@@ -3,7 +3,7 @@ Description=Alert in case of low remaining battery
 
 [Service]
 Type=oneshot
-ExecStart=/home/kkokou/.dotfiles/scripts/archlinux/alert-battery.sh
+ExecStart=/usr/bin/alert-battery.sh
 
 [Install]
 WantedBy=graphical.target
