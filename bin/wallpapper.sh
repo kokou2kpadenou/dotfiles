@@ -1,6 +1,6 @@
 #!/bin/bash
 
-WALLPAPERS=~/Pictures/wallpapers;
+WALLPAPERS=~/Pictures/wallpapers
 DEFAULT_WALLPAPERS=~/Pictures/default_wallpapers
 
 if [[ "$1" == "service" ]]; then
