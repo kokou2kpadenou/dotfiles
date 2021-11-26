@@ -5,6 +5,7 @@ echo "set -o vi" >> ${HOME}/.bashrc
 
 echo "export DOTFILES=${1}" >> ${HOME}/.bashrc
 echo "export EDITOR=vim" >> ${HOME}/.bashrc
+echo "export TERMINAL=alacritty" >> ${HOME}/.bashrc
 
 # Aliases
 cat <<EOT >> ${HOME}/.bashrc
