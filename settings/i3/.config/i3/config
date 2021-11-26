@@ -28,7 +28,7 @@ exec --no-startup-id wallpapper.sh
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- lock-screen.sh
 
 # Picom
 exec --no-startup-id picom -b
@@ -213,7 +213,8 @@ gaps inner 10
 gaps outer 0
 
 # Shutdown, reboot, lock screen
-set $Locker i3lock && sleep 1
+# set $Locker convert ~/Pictures/wallpapers/wallpaper.jpg RGB:- | i3lock --raw 1800x1200:rgb --image /dev/stdin && sleep 1
+set $Locker lock-screen.sh && sleep 1
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
