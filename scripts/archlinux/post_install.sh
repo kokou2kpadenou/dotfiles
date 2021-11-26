@@ -158,8 +158,11 @@ sh ${scripts_dir}/common/nvm_installer.sh
 sh ${scripts_dir}/archlinux/docker_install.sh
 
 ## Dploying the symbolic links farm
-# Create user fonts direction if it is not existed.
+# Create user fonts directory if it is not existed.
 mkdir ~/.fonts
+
+# Create user binaries directory if it is not existed.
+mkdir ~/bin
 
 #create user systemd folder if it is not existed.
 mkdir -p ~/.config/systemd/user
