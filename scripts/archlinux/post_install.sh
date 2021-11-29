@@ -187,9 +187,6 @@ sh ${scripts_dir}/common/nodejsENOSPCerrorFix.sh
 
 ### User Services ###
 
-# Copy files to /usr/bin
-sudo cp ${dotfiles_dir}/bin/*.* /usr/bin
-
 # Reload units
 systemctl --user daemon-reload
 # Enable and start timers
