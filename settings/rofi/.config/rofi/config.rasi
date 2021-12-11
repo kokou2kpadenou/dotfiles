@@ -55,7 +55,7 @@ combi-modi: "window,drun,ssh";
 /*	window-format: "{w}    {c}   {t}";*/
 /*	click-to-exit: true;*/
 /*	show-match: true;*/
-theme: "gruvbox-dark";
+/* theme: "gruvbox-dark"; */
 /*	color-normal: ;*/
 /*	color-urgent: ;*/
 /*	color-active: ;*/
@@ -150,3 +150,4 @@ theme: "gruvbox-dark";
 /*	me-accept-entry: "MouseDPrimary";*/
 /*	me-accept-custom: "Control+MouseDPrimary";*/
 }
+@theme "gruvbox-dark"
