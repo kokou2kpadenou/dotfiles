@@ -49,13 +49,13 @@ return require('packer').startup(function(use)
     end
   }
   -- Status Line
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = {'kyazdani42/nvim-web-devicons', opt = true},
-    config = function()
-      require 'lualineconfig'
-    end
-  }
+  -- use {
+  --   'nvim-lualine/lualine.nvim',
+  --   requires = {'kyazdani42/nvim-web-devicons', opt = true},
+  --   config = function()
+  --     require 'lualineconfig'
+  --   end
+  -- }
   -- Color highlighter for Neovim
   use {
     'norcalli/nvim-colorizer.lua',
@@ -92,7 +92,7 @@ return require('packer').startup(function(use)
       'hrsh7th/cmp-buffer',
       'saadparwaiz1/cmp_luasnip',
       'hrsh7th/cmp-path',
-      {'kristijanhusak/vim-dadbod-completion', opt = true},
+      -- {'kristijanhusak/vim-dadbod-completion', opt = true},
       'onsails/lspkind-nvim', -- This tiny plugin adds vscode-like pictograms to neovim built-in lsp
       'f3fora/cmp-spell', -- TODO: setup spell
       'hrsh7th/cmp-cmdline'
@@ -118,12 +118,12 @@ return require('packer').startup(function(use)
 
 
   -- DATABASES
-  use {
-    'kristijanhusak/vim-dadbod-ui',
-    requires = {
-      'tpope/vim-dadbod'
-    },
-  }
+  -- use {
+  --   'kristijanhusak/vim-dadbod-ui',
+  --   requires = {
+  --     'tpope/vim-dadbod'
+  --   },
+  -- }
 
 
   -- OTHERS
@@ -132,6 +132,12 @@ return require('packer').startup(function(use)
   use 'mbbill/undotree'
   -- Comment test in and out
   use 'tpope/vim-commentary'
+  -- use {
+  --   'numToStr/Comment.nvim',
+  --   config = function()
+  --     require('Comment').setup()
+  --   end
+  -- }
   -- Surroundings
   use 'tpope/vim-surround'
 
