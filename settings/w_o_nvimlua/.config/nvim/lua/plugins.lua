@@ -20,7 +20,7 @@ return require('packer').startup(function(use)
       'nvim-lua/plenary.nvim'
     },
     config = function()
-      require('gitsigns').setup()
+      require 'gitsignsconf'
     end
   }
   -- Git Commands Integration
@@ -48,14 +48,16 @@ return require('packer').startup(function(use)
       require 'treesitterconfig'
     end
   }
+
   -- Status Line
-  -- use {
-  --   'nvim-lualine/lualine.nvim',
-  --   requires = {'kyazdani42/nvim-web-devicons', opt = true},
-  --   config = function()
-  --     require 'lualineconfig'
-  --   end
-  -- }
+  use {
+    'nvim-lualine/lualine.nvim',
+    disable = false,
+    requires = {'kyazdani42/nvim-web-devicons', opt = true},
+    config = function()
+      require 'lualinesetups/evil_lualine'
+    end
+  }
   -- Color highlighter for Neovim
   use {
     'norcalli/nvim-colorizer.lua',
@@ -63,9 +65,11 @@ return require('packer').startup(function(use)
       require'colorizer'.setup()
     end
   }
+
   -- colorscheme
   use {
     'marko-cerovac/material.nvim',
+    disable = false,
     config = function()
       require 'materialconfig'
     end
@@ -75,7 +79,17 @@ return require('packer').startup(function(use)
   -- AUTO COMPLETION
   ------------------
   -- Native LSP
-  use 'neovim/nvim-lspconfig'
+  use {
+    'neovim/nvim-lspconfig',
+    requires = {
+      'ray-x/lsp_signature.nvim',
+    --   'jose-elias-alvarez/null-ls.nvim',
+      'jose-elias-alvarez/nvim-lsp-ts-utils',
+    },
+    config = function()
+      require 'lsp'
+    end
+  }
   -- Completion Engine Plugin
   use {
     'hrsh7th/nvim-cmp',
@@ -92,9 +106,10 @@ return require('packer').startup(function(use)
       'hrsh7th/cmp-buffer',
       'saadparwaiz1/cmp_luasnip',
       'hrsh7th/cmp-path',
+      'ray-x/cmp-treesitter',
       -- {'kristijanhusak/vim-dadbod-completion', opt = true},
       'onsails/lspkind-nvim', -- This tiny plugin adds vscode-like pictograms to neovim built-in lsp
-      'f3fora/cmp-spell', -- TODO: setup spell
+      'f3fora/cmp-spell',
       'hrsh7th/cmp-cmdline'
     },
     config = function()
