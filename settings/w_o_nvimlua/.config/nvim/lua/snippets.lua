@@ -7,8 +7,9 @@ local i = ls.insert_node
 local f = ls.function_node
 local c = ls.choice_node
 local d = ls.dynamic_node
+local r = ls.restore_node
 local l = require("luasnip.extras").lambda
-local r = require("luasnip.extras").rep
+local rep = require("luasnip.extras").rep
 local p = require("luasnip.extras").partial
 local m = require("luasnip.extras").match
 local n = require("luasnip.extras").nonempty
@@ -17,6 +18,9 @@ local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
 local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.expand_conditions")
+
+-- If you're reading this file for the first time, best skip to around line 190
+-- where the actual snippet-definitions start.
 
 -- Every unspecified option will be set to the default.
 ls.config.set_config({
@@ -58,6 +62,9 @@ end
 
 -- complicated function for dynamicNode.
 local function jdocsnip(args, _, old_state)
+	-- !!! old_state is used to preserve user-input here. DON'T DO IT THAT WAY!
+	-- Using a restoreNode instead is much easier.
+	-- View this only as an example on how old_state functions.
 	local nodes = {
 		t({ "/**", " * " }),
 		i(1, "A short Description"),
@@ -200,12 +207,15 @@ ls.snippets = {
 				-- Inside Choices, Nodes don't need a position as the choice node is the one being jumped to.
 				sn(nil, {
 					t("extends "),
-					i(1),
+					-- restoreNode: stores and restores nodes.
+					-- pass position, store-key and nodes.
+					r(1, "other_class", i(1)),
 					t(" {"),
 				}),
 				sn(nil, {
 					t("implements "),
-					i(1),
+					-- no need to define the nodes for a given key a second time.
+					r(1, "other_class"),
 					t(" {"),
 				}),
 			}),
@@ -213,6 +223,58 @@ ls.snippets = {
 			i(0),
 			t({ "", "}" }),
 		}),
+		-- Alternative printf-like notation for defining snippets. It uses format
+		-- string with placeholders similar to the ones used with Python's .format().
+		s(
+			"fmt1",
+			fmt("To {title} {} {}.", {
+				i(2, "Name"),
+				i(3, "Surname"),
+				title = c(1, { t("Mr."), t("Ms.") }),
+			})
+		),
+		-- To escape delimiters use double them, e.g. `{}` -> `{{}}`.
+		-- Multi-line format strings by default have empty first/last line removed.
+		-- Indent common to all lines is also removed. Use the third `opts` argument
+		-- to control this behaviour.
+		s(
+			"fmt2",
+			fmt(
+				[[
+			foo({1}, {3}) {{
+				return {2} * {4}
+			}}
+			]],
+				{
+					i(1, "x"),
+					rep(1),
+					i(2, "y"),
+					rep(2),
+				}
+			)
+		),
+		-- Empty placeholders are numbered automatically starting from 1 or the last
+		-- value of a numbered placeholder. Named placeholders do not affect numbering.
+		s(
+			"fmt3",
+			fmt("{} {a} {} {1} {}", {
+				t("1"),
+				t("2"),
+				a = t("A"),
+			})
+		),
+		-- The delimiters can be changed from the default `{}` to something else.
+		s(
+			"fmt4",
+			fmt("foo() { return []; }", i(1, "x"), { delimiters = "[]" })
+		),
+		-- `fmta` is a convenient wrapper that uses `<>` instead of `{}`.
+		s("fmt5", fmta("foo() { return <>; }", i(1, "x"))),
+		-- By default all args must be used. Use strict=false to disable the check
+		s(
+			"fmt6",
+			fmt("use {} only", { t("this"), t("not this") }, { strict = false })
+		),
 		-- Use a dynamic_node to interpolate the output of a
 		-- function (see date_input above) into the initial
 		-- value of an insert_node.
@@ -246,7 +308,7 @@ ls.snippets = {
 				return line_to_cursor:match("%s*//")
 			end,
 		}),
-		-- there's some built-in conditions in "luasnip.extras.conditions".
+		-- there's some built-in conditions in "luasnip.extras.expand_conditions".
 		s("cond2", {
 			t("will only expand at the beginning of the line"),
 		}, {
@@ -309,7 +371,7 @@ ls.snippets = {
 			i(0),
 		}),
 		-- Shorthand for repeating the text in a given node.
-		s("repeat", { i(1, "text"), t({ "", "" }), r(1) }),
+		s("repeat", { i(1, "text"), t({ "", "" }), rep(1) }),
 		-- Directly insert the ouput from a function evaluated at runtime.
 		s("part", p(os.date, "%Y")),
 		-- use matchNodes to insert text based on a pattern/function/lambda-evaluation.
@@ -367,55 +429,6 @@ ls.snippets = {
 			t({ "", "" }),
 			dl(3, l._1:gsub("\n", " linebreak ") .. l._2, { 1, 2 }),
 		}),
-		-- Alternative printf-like notation for defining snippets. It uses format
-		-- string with placeholders similar to the ones used with Python's .format().
-		s(
-			"fmt1",
-			fmt("To {title} {} {}.", {
-				i(2, "Name"),
-				i(3, "Surname"),
-				title = c(1, { t("Mr."), t("Ms.") }),
-			})
-		),
-		-- To escape delimiters use double them, e.g. `{}` -> `{{}}`.
-		-- Multi-line format strings by default have empty first/last line removed.
-		-- Indent common to all lines is also removed. Use the third `opts` argument
-		-- to control this behaviour.
-		s(
-			"fmt2",
-			fmt(
-				[[
-			foo({1}, {3}) {{
-				return {2} * {4}
-			}}
-			]],
-				{
-					i(1, "x"),
-					r(1),
-					i(2, "y"),
-					r(2),
-				}
-			)
-		),
-		-- Empty placeholders are numbered automatically starting from 1 or the last
-		-- value of a numbered placeholder. Named placeholders do not affect numbering.
-		s(
-			"fmt3",
-			fmt("{} {a} {} {1} {}", {
-				t("1"),
-				t("2"),
-				a = t("A"),
-			})
-		),
-		-- The delimiters can be changed from the default `{}` to something else.
-		s("fmt4", fmt("foo() { return []; }", i(1, "x"), { delimiters = "[]" })),
-		-- `fmta` is a convenient wrapper that uses `<>` instead of `{}`.
-		s("fmt5", fmta("foo() { return <>; }", i(1, "x"))),
-		-- By default all args must be used. Use strict=false to disable the check
-		s(
-			"fmt6",
-			fmt("use {} only", { t("this"), t("not this") }, { strict = false })
-		),
 	},
 	java = {
 		-- Very long example for a java class.
@@ -485,26 +498,28 @@ ls.filetype_set("cpp", { "c" })
 -- will need to extend the table yourself instead of setting a new one.
 ]]
 
-
-require("luasnip/loaders/from_vscode").load({ 
-  path = { vim.fn.stdpath("data").."/site/pack/packer/start/friendly-snippets" },
-  include = {
-    "javascript",
-    "typescript",
-    "javascriptreact",
-    "typescriptreact",
-    "css",
-    "sass",
-    "html"
-  }
-})
-
+-- require("luasnip.loaders.from_vscode").load({ include = { "python" } }) -- Load only python snippets
 -- The directories will have to be structured like eg. <https://github.com/rafamadriz/friendly-snippets> (include
 -- a similar `package.json`)
--- require("luasnip/loaders/from_vscode").load({ paths = { "./my-snippets" } }) -- Load snippets from my-snippets folder
+-- require("luasnip.loaders.from_vscode").load({ paths = { "./my-snippets" } }) -- Load snippets from my-snippets folder
+
+-- require("luasnip/loaders/from_vscode").load({ 
+--   path = { vim.fn.stdpath("data").."/site/pack/packer/start/friendly-snippets" },
+--   include = {
+--     "javascript",
+--     "typescript",
+--     "javascriptreact",
+--     "typescriptreact",
+--     "css",
+--     "sass",
+--     "html"
+--   }
+-- })
 
 -- You can also use lazy loading so you only get in memory snippets of languages you use
--- require("luasnip/loaders/from_vscode").lazy_load() -- You can pass { paths = "./my-snippets/"} as well
+require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("data").."/site/pack/packer/start/friendly-snippets"  } }) -- You can pass { paths = "./my-snippets/"} as well
+
+
 vim.cmd [[
   imap <silent><expr> <c-k> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<c-k>'
   inoremap <silent> <c-j> <cmd>lua require('luasnip').jump(-1)<CR>
