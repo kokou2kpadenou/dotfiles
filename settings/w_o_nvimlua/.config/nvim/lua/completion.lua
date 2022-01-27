@@ -1,6 +1,4 @@
---
 -- Setup nvim-cmp.
---
 
 local cmp = require'cmp'
 
@@ -23,7 +21,9 @@ cmp.setup({
         nvim_lua = '[api]',
         path = '[path]',
         luasnip = '[snip]',
-        cmdline = '[CMD]'
+        cmdline = '[CMD]',
+        spell = '[spell]',
+        treesitter = '[synx]'
       },
     },
   },
@@ -38,10 +38,12 @@ cmp.setup({
 
   sources = {
     { name = 'nvim_lua' },
+    { name = 'treesitter' },
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'path' },
     { name = 'buffer', keyword_length = 5 },
+    { name = 'spell' },
   }
 })
 
@@ -61,16 +63,3 @@ cmp.setup.cmdline('/', {
 --     { name = 'cmdline', keyword_length = 4 }
 --   })
 -- })
-
--- Setup lspconfig.
--- require('lspconfig')[%YOUR_LSP_SERVER%].setup {
---   capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
--- }
-
--- Add vim-dadbod-completion in sql files
-vim.cmd [[
-  augroup DadbodSql
-    au!
-    autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer { sources = { { name = 'vim-dadbod-completion' } } }
-  augroup END
-]]
