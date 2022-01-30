@@ -1,13 +1,12 @@
-vim.g.material_style = "darker"
+vim.g.material_style = "palenight"
 
 require('material').setup({
-  
 		contrast = {
-			sidebars = true,
+			sidebars = false,
 			floating_windows = false,
 			line_numbers = false,
 			sign_column = false,
-			cursor_line = true,
+			cursor_line = false,
 			popup_menu = false
 		},
 		italics = {
@@ -23,7 +22,7 @@ require('material').setup({
 			"qf",
 		},
 		disable = {
-			borders = true,
+			borders = false,
 			background = true,
 			term_colors = false,
 			eob_lines = false
