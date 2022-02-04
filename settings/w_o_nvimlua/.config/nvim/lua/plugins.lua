@@ -1,5 +1,6 @@
 -- Packer.vim
 local fn = vim.fn
+local packer_bootstrap
 
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
@@ -23,12 +24,17 @@ return require('packer').startup(function(use)
       require 'gitsignsconf'
     end
   }
+
   -- Git Commands Integration
   use 'tpope/vim-fugitive';
+
   -- Fuzzy Finder
   use {
     'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} },
+    requires = {
+      'nvim-lua/plenary.nvim',
+      {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+    },
     config = function()
       require 'telescopeconfig'
     end
@@ -58,6 +64,7 @@ return require('packer').startup(function(use)
       require 'lualinesetups/evil_lualine'
     end
   }
+
   -- Color highlighter for Neovim
   use {
     'norcalli/nvim-colorizer.lua',
@@ -85,11 +92,20 @@ return require('packer').startup(function(use)
       'ray-x/lsp_signature.nvim',
     --   'jose-elias-alvarez/null-ls.nvim',
       'jose-elias-alvarez/nvim-lsp-ts-utils',
+      -- Dev setup for init.lua and plugin development with full signature help, docs and completion for the nvim lua API.
+      'folke/lua-dev.nvim',
+
+      -- wrapper around the Lua code formatter, StyLua
+      -- {
+      --   "ckipp01/stylua-nvim",
+      --   run = "cargo install stylua"
+      -- },
     },
     config = function()
       require 'lsp'
     end
   }
+
   -- Completion Engine Plugin
   use {
     'hrsh7th/nvim-cmp',
@@ -103,19 +119,18 @@ return require('packer').startup(function(use)
         end
       },
       'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-nvim-lua',
       'hrsh7th/cmp-buffer',
       'saadparwaiz1/cmp_luasnip',
       'hrsh7th/cmp-path',
       'ray-x/cmp-treesitter',
-      -- {'kristijanhusak/vim-dadbod-completion', opt = true},
-      'onsails/lspkind-nvim', -- This tiny plugin adds vscode-like pictograms to neovim built-in lsp
       'f3fora/cmp-spell',
-      'hrsh7th/cmp-cmdline'
     },
     config = function()
       require 'completion'
     end
   }
+
   -- Emmet
   use {
     'mattn/emmet-vim',
@@ -123,6 +138,7 @@ return require('packer').startup(function(use)
       require 'emmetconfig'
     end
   }
+
   -- Autopairs for Neovim
   use {
     'windwp/nvim-autopairs',
@@ -130,15 +146,6 @@ return require('packer').startup(function(use)
       require 'autopairs'
     end
   }
-
-
-  -- DATABASES
-  -- use {
-  --   'kristijanhusak/vim-dadbod-ui',
-  --   requires = {
-  --     'tpope/vim-dadbod'
-  --   },
-  -- }
 
 
   -- OTHERS
