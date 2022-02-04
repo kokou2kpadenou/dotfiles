@@ -1,3 +1,1 @@
-require 'base'
-
-require 'plugins'
+require 'kkokou'

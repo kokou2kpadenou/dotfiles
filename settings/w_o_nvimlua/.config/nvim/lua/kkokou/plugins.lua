@@ -21,7 +21,7 @@ return require('packer').startup(function(use)
       'nvim-lua/plenary.nvim'
     },
     config = function()
-      require 'gitsignsconf'
+      require 'kkokou/settings/cfg-gitsigns'
     end
   }
 
@@ -36,7 +36,7 @@ return require('packer').startup(function(use)
       {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     },
     config = function()
-      require 'telescopeconfig'
+      require 'kkokou/settings/cfg-telescope'
     end
   }
 
@@ -51,7 +51,7 @@ return require('packer').startup(function(use)
       'nvim-treesitter/nvim-treesitter-refactor'
     },
     config = function()
-      require 'treesitterconfig'
+      require 'kkokou/settings/cfg-treesitter'
     end
   }
 
@@ -61,7 +61,7 @@ return require('packer').startup(function(use)
     disable = false,
     requires = {'kyazdani42/nvim-web-devicons', opt = true},
     config = function()
-      require 'lualinesetups/evil_lualine'
+      require 'kkokou/settings/cfg-lualine'
     end
   }
 
@@ -78,7 +78,7 @@ return require('packer').startup(function(use)
     'marko-cerovac/material.nvim',
     disable = false,
     config = function()
-      require 'materialconfig'
+      require 'kkokou/settings/cfg-material'
     end
   }
 
@@ -96,13 +96,13 @@ return require('packer').startup(function(use)
       'folke/lua-dev.nvim',
 
       -- wrapper around the Lua code formatter, StyLua
-      -- {
-      --   "ckipp01/stylua-nvim",
-      --   run = "cargo install stylua"
-      -- },
+      {
+        "ckipp01/stylua-nvim",
+        run = "cargo install stylua"
+      },
     },
     config = function()
-      require 'lsp'
+      require 'kkokou/settings/cfg-lspconfig'
     end
   }
 
@@ -115,7 +115,7 @@ return require('packer').startup(function(use)
         'L3MON4D3/LuaSnip',
         requires = {'rafamadriz/friendly-snippets'},
         config = function()
-          require 'snippets'
+          require 'kkokou/settings/cfg-luasnip'
         end
       },
       'hrsh7th/cmp-nvim-lsp',
@@ -127,7 +127,7 @@ return require('packer').startup(function(use)
       'f3fora/cmp-spell',
     },
     config = function()
-      require 'completion'
+      require 'kkokou/settings/cfg-cmp'
     end
   }
 
@@ -135,7 +135,7 @@ return require('packer').startup(function(use)
   use {
     'mattn/emmet-vim',
     config = function()
-      require 'emmetconfig'
+      require 'kkokou/settings/cfg-emmet'
     end
   }
 
@@ -143,7 +143,7 @@ return require('packer').startup(function(use)
   use {
     'windwp/nvim-autopairs',
     config = function()
-      require 'autopairs'
+      require 'kkokou/settings/cfg-autopairs'
     end
   }
 
