@@ -1,7 +1,7 @@
 -- Diagnostic keymaps
-vim.api.nvim_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float({ border = "rounded" })<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev({ float = { border = "rounded" }})<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next({ float = { border = "rounded" }})<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', { noremap = true, silent = true })
 
 -- LSP settings
@@ -30,7 +30,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- Enable the following language servers
-local servers = { 'jsonls', 'cssls', 'html', 'tailwindcss' }
+local servers = { 'jsonls', 'cssls', 'html', 'tailwindcss', 'gopls', 'bashls' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
@@ -38,64 +38,64 @@ for _, lsp in ipairs(servers) do
   }
 end
 
--- Example custom server
--- Make runtime files discoverable to the server
--- local runtime_path = vim.split(package.path, ';')
--- table.insert(runtime_path, 'lua/?.lua')
--- table.insert(runtime_path, 'lua/?/init.lua')
 
--- lspconfig.sumneko_lua.setup {
---   on_attach = on_attach,
---   capabilities = capabilities,
---   settings = {
---     Lua = {
---       runtime = {
---         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
---         version = 'LuaJIT',
---         -- Setup your lua path
---         path = runtime_path,
---       },
---       diagnostics = {
---         -- Get the language server to recognize the `vim` global
---         globals = { 'vim' },
---       },
---       workspace = {
---         -- Make the server aware of Neovim runtime files
---         library = vim.api.nvim_get_runtime_file('', true),
---       },
---       -- Do not send telemetry data containing a randomized but unique identifier
---       telemetry = {
---         enable = false,
---       },
---     },
---   },
--- }
+-- lspconfig.sumneko_lua.setup(luadev)
+local luadevconfig = {
+  library = {
+    vimruntime = true, -- runtime path
+    types = true, -- full signature, docs and completion of vim.api, vim.treesitter, vim.lsp and others
+    plugins = true, -- installed opt or start plugins in packpath
+    -- you can also specify the list of plugins to make available as a workspace library
+    -- plugins = { "nvim-treesitter", "plenary.nvim", "telescope.nvim" },
+  },
+  runtime_path = true, -- enable this to get completion in require strings. Slow!
+  -- pass any additional options that will be merged in the final lsp config
+  lspconfig = {
+    -- cmd = {"lua-language-server"},
+    -- on_attach = ...
+    on_attach = on_attach,
+    capabilities = capabilities,
+    commands = {
+      Format = {
+        function()
+          require("stylua-nvim").format_file()
+        end,
+      },
+    },
+    settings = {
+      Lua = {
+        -- runtime = {
+        --   -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        --   version = 'LuaJIT',
+        --   -- Setup your lua path
+        --   path = runtime_path,
+        -- },
+        diagnostics = {
+          -- Get the language server to recognize the `vim` global
+          globals = { 'use' },
+        },
+        workspace = {
+          -- Make the server aware of Neovim runtime files
+          -- library = vim.api.nvim_get_runtime_file('', true),
+          preloadFileSize = 350,
+        },
+        -- Do not send telemetry data containing a randomized but unique identifier
+        telemetry = {
+          enable = false,
+        },
+      },
+    },
+  },
+}
+
+lspconfig.sumneko_lua.setup (require('lua-dev').setup(luadevconfig))
+
 
 -- tsserver - JavaScript lsp config
 require('lspconfig').tsserver.setup {
   on_attach = function(client)
     -- Show functon signature
     require('lsp_signature').on_attach {
-      -- bind = true, -- This is mandatory, otherwise border config won't get registered.
-      -- doc_lines = 2, -- will show 2 lines of comment/doc(if there are more than 2 lines in doc, will be truncated)
-      -- -- set to 0 if you DO NOT want any API comments be shown
-      -- -- This setting only take effect in insert mode, it does not affect signature help in normal
-      -- -- mode, 10 by default
-
-      -- floating_window = true, -- show hint in a floating window, set to false for virtual text only mode
-      -- hint_enable = true,
-      -- hint_prefix = "🌟 ",
-      -- hint_scheme = "String",
-      -- use_lspsaga = false,
-      -- hi_parameter = "PmenuSel", -- hl-search
-      -- max_height = 12, -- max height of signature floating_window, if content is more than max_height, you can scroll down
-      -- -- to view the hiding contents
-      -- max_width = 120, -- max_width of signature floating_window, line will be wrapped if exceed max_width
-      -- handler_opts = {
-      --   border = "single", -- double, single, shadow, none
-      -- },
-      -- extra_trigger_chars = {}, -- Array of extra characters that will trigger signature completion, e.g., {"(", ","}
-
         debug = false, -- set to true to enable debug logging
         log_path = vim.fn.stdpath("cache") .. "/lsp_signature.log", -- log dir when debug is on
         -- default is  ~/.cache/nvim/lsp_signature.log
@@ -146,7 +146,7 @@ require('lspconfig').tsserver.setup {
 
     }
 
-    -- Imort support
+    -- Import support
     local ts_utils = require "nvim-lsp-ts-utils"
 
     -- defaults
@@ -207,17 +207,5 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
   severity_sort = true,
 })
 
-local border_style = {
-  { "╭", "FloatBorder" },
-  { "─", "FloatBorder" },
-  { "╮", "FloatBorder" },
-  { "│", "FloatBorder" },
-  { "╯", "FloatBorder" },
-  { "─", "FloatBorder" },
-  { "╰", "FloatBorder" },
-  { "│", "FloatBorder" },
-}
-
-local pop_opts = { border = border_style }
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, pop_opts)
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, pop_opts)
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
