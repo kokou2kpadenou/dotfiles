@@ -1,6 +1,6 @@
-vim.g.material_style = "palenight"
+vim.g.material_style = 'palenight'
 
-require('material').setup({
+require('material').setup {
 
   contrast = {
     sidebars = false, -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
@@ -17,29 +17,28 @@ require('material').setup({
     keywords = false, -- Enable italic keywords
     functions = true, -- Enable italic functions
     strings = true, -- Enable italic strings
-    variables = false -- Enable italic variables
+    variables = false, -- Enable italic variables
   },
 
   contrast_filetypes = { -- Specify which filetypes get the contrasted (darker) background
-    "terminal", -- Darker terminal background
-    "packer", -- Darker packer background
-    "qf" -- Darker qf list background
+    'terminal', -- Darker terminal background
+    'packer', -- Darker packer background
+    'qf', -- Darker qf list background
   },
 
   high_visibility = {
     lighter = false, -- Enable higher contrast text for lighter style
-    darker = false -- Enable higher contrast text for darker style
+    darker = false, -- Enable higher contrast text for darker style
   },
 
   disable = {
     borders = false, -- Disable borders between verticaly split windows
     background = true, -- Prevent the theme from setting the background (NeoVim then uses your teminal background)
     term_colors = false, -- Prevent the theme from setting terminal colors
-    eob_lines = false -- Hide the end-of-buffer lines
+    eob_lines = false, -- Hide the end-of-buffer lines
   },
 
-  custom_highlights = {} -- Overwrite highlights with your own
-})
-
+  custom_highlights = {}, -- Overwrite highlights with your own
+}
 
 vim.cmd 'colorscheme material'
