@@ -86,6 +86,30 @@ return require('packer').startup(function(use)
     end,
   }
 
+  use {
+    'navarasu/onedark.nvim',
+    disable = true,
+    config = function()
+      require 'kkokou.plugins.settings.cfg-onedark'
+    end,
+  }
+
+  use {
+    'EdenEast/nightfox.nvim',
+    disable = true,
+    config = function()
+      require 'kkokou.plugins.settings.cfg-nightfox'
+    end,
+  }
+
+  use {
+    'folke/tokyonight.nvim',
+    disable = true,
+    config = function()
+      require 'kkokou.plugins.settings.cfg-tokyonight'
+    end,
+  }
+
   -- AUTO COMPLETION
   ------------------
   -- Native LSP
@@ -106,7 +130,7 @@ return require('packer').startup(function(use)
 
       'creativenull/efmls-configs-nvim',
 
-      "b0o/schemastore.nvim",
+      -- "b0o/schemastore.nvim",
     },
     config = function()
       require 'kkokou/plugins/settings/cfg-lspconfig'
