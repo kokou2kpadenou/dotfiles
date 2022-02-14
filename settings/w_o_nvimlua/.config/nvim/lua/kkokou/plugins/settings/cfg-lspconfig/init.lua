@@ -72,18 +72,18 @@ local default_lsp_config = {
 -- local servers = { 'jsonls', 'cssls', 'html', 'tailwindcss', 'gopls', 'bashls' }
 
 local servers = {
-  bashls = {},
-  yamlls = require("kkokou.plugins.settings.cfg-lspconfig.servers.srv-yamlls")(capabilities),
-  jsonls = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-jsonls'(capabilities),
-  html = {},
-  cssls = {},
-  sumneko_lua = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-sumneko'(),
   -- dockerls = {},
+  bashls = {},
+  cssls = {},
   efm = require("kkokou.plugins.settings.cfg-lspconfig.servers.srv-efm")(),
   eslint = {},
-  tsserver = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-tsserver'(on_attach),
-  tailwindcss = {},
   gopls = {},
+  html = {},
+  jsonls = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-jsonls'(capabilities),
+  sumneko_lua = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-sumneko'(),
+  tailwindcss = {},
+  tsserver = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-tsserver'(on_attach),
+  yamlls = require("kkokou.plugins.settings.cfg-lspconfig.servers.srv-yamlls")(capabilities),
 }
 
 for lsp, lsp_config in pairs(servers) do
