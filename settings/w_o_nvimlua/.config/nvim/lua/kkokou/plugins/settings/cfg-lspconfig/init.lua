@@ -75,7 +75,7 @@ local servers = {
   -- dockerls = {},
   bashls = {},
   cssls = {},
-  efm = require("kkokou.plugins.settings.cfg-lspconfig.servers.srv-efm")(),
+  efm = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-efm'(),
   eslint = {},
   gopls = {},
   html = {},
@@ -83,7 +83,7 @@ local servers = {
   sumneko_lua = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-sumneko'(),
   tailwindcss = {},
   tsserver = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-tsserver'(on_attach),
-  yamlls = require("kkokou.plugins.settings.cfg-lspconfig.servers.srv-yamlls")(capabilities),
+  yamlls = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-yamlls'(capabilities),
 }
 
 for lsp, lsp_config in pairs(servers) do

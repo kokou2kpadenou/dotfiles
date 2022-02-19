@@ -49,6 +49,5 @@ return function()
     },
   }
 
- return require('lua-dev').setup(luadevconfig)
-
+  return require('lua-dev').setup(luadevconfig)
 end
