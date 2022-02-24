@@ -184,13 +184,18 @@ return require('packer').startup(function(use)
   use 'mbbill/undotree'
 
   -- Comment test in and out
-  use 'tpope/vim-commentary'
-  -- use {
-  --   'numToStr/Comment.nvim',
-  --   config = function()
-  --     require('comment').setup()
-  --   end
-  -- }
+  use {
+    'tpope/vim-commentary',
+    disable = true,
+  }
+
+  use {
+    'numToStr/Comment.nvim',
+    disable = false,
+    config = function()
+      require 'kkokou.plugins.settings.cfg-comment'
+    end
+  }
 
   -- Surroundings
   use 'tpope/vim-surround'
