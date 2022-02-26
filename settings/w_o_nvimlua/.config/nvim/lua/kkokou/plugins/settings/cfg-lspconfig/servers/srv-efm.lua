@@ -22,6 +22,7 @@ local yamllint = require 'efmls-configs.linters.yamllint'
 
 local languages = {
   -- lua = { stylua, luacheck },
+  astro = { prettier_d },
   typescript = { prettier_d },
   javascript = { prettier_d },
   typescriptreact = { prettier_d },
