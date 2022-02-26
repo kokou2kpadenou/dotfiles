@@ -25,6 +25,22 @@ vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<
 -- LSP settings
 local lspconfig = require 'lspconfig'
 
+local configs = require 'lspconfig.configs'
+
+-- Check if the config is already defined (useful when reloading this file)
+if not configs.astrojs then
+  configs.astrojs = {
+    default_config = {
+      cmd = {'astro-ls', '--stdio'};
+      filetypes = {'astro'};
+      root_dir = function(fname)
+        return lspconfig.util.find_git_ancestor(fname)
+      end;
+      settings = {};
+    };
+  }
+end
+
 local on_attach = function(_, bufnr)
   local opts = { noremap = true, silent = true }
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -73,6 +89,7 @@ local default_lsp_config = {
 
 local servers = {
   -- dockerls = {},
+  astrojs = {},
   bashls = {},
   cssls = {},
   efm = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-efm'(),
