@@ -88,10 +88,10 @@ local default_lsp_config = {
 -- local servers = { 'jsonls', 'cssls', 'html', 'tailwindcss', 'gopls', 'bashls' }
 
 local servers = {
-  -- dockerls = {},
   astrojs = {},
   bashls = {},
   cssls = {},
+  dockerls = {},
   efm = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-efm'(),
   eslint = {},
   gopls = {},
