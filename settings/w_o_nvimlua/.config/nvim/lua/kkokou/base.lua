@@ -53,10 +53,13 @@ opt.wildmenu = true
 opt.wildignore = opt.wildignore + { '*/node_modules/*', '*/.next/*', '*/out/*', '*/dist/*', '*/tmp/*' }
 opt.hidden = true
 
+-- netrw
 g.netrw_banner = 0 -- disable annoying banner
 g.netrw_liststyle = 3 -- tree
 g.netrw_bufsettings = 'noma nomod nonu nobl nowrap ro rnu'
 g.netrw_list_hide = 'node_modules,.git,tags,.next,out,build,dist'
+g.netrw_winsize = 35
 
+-- Undo history
 opt.undodir = fn.stdpath 'config' .. '/undodir'
 opt.undofile = true
