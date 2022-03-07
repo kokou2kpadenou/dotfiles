@@ -80,7 +80,7 @@ return require('packer').startup(function(use)
   -- colorscheme
   use {
     'marko-cerovac/material.nvim',
-    disable = false,
+    disable = true,
     config = function()
       require 'kkokou/plugins/settings/cfg-material'
     end,
@@ -104,7 +104,7 @@ return require('packer').startup(function(use)
 
   use {
     'folke/tokyonight.nvim',
-    disable = true,
+    disable = false,
     config = function()
       require 'kkokou.plugins.settings.cfg-tokyonight'
     end,
