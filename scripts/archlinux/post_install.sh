@@ -42,7 +42,7 @@ done
 
 # Get git global default email
 git_email=""
-while [ "$git_email" = "" ]; do 
+while [ "$git_email" = "" ]; do
   read -p "Git global user email: " git_email
 done
 
@@ -101,14 +101,13 @@ read
 
 
 ### Set up logging ###
-exec 1> >(tee "~/Downloads/stdout.log")
-exec 2> >(tee "~/Downloads/stderr.log")
+exec 1>/tmp/arch_post_installation.log 2>&1
 
 
 
 ### Installation of packages ###
 
-if [ "$video_driver" != "" ]; then 
+if [ "$video_driver" != "" ]; then
   sudo pacman -S --noconfirm ${video_driver}
 fi
 
@@ -124,13 +123,13 @@ sudo pacman -S --noconfirm reflector rsync
 
 sudo reflector -c "United States" -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 
-sudo pacman -Syyuu --noconfirm && yay -Syyuu
+sudo pacman -Syu --noconfirm && yay -Syu
 
 ## Installation of packages
 sudo pacman -S --noconfirm xorg numlockx i3 xorg-xinit rxvt-unicode rofi ranger \
   feh w3m atool firefox vlc openssh xss-lock gnome-screenshot \
   tmux inkscape gimp wget xsel alacritty picom papirus-icon-theme \
-  gnome-calculator acpi bash-completion highlight dunst stow fzf ripgrep fd
+  gnome-calculator acpi bash-completion highlight dunst stow fzf ripgrep fd neovim
 
 
 # Installing additional fonts
@@ -138,6 +137,7 @@ sudo pacman -S --noconfirm noto-fonts ttf-ubuntu-font-family ttf-dejavu ttf-free
   ttf-liberation ttf-droid ttf-inconsolata ttf-roboto terminus-font \
   ttf-font-awesome
 
+# TODO: remove this line
 # # Installing sound drivers and tools
 # sudo pacman -S alsa-utils alsa-plugins alsa-lib pavucontrol -noconfirm -needed
 # # Installing additional tools for shell and ranger (Optional) but highly recommended
@@ -145,10 +145,10 @@ sudo pacman -S --noconfirm noto-fonts ttf-ubuntu-font-family ttf-dejavu ttf-free
 
 yay -S visual-studio-code-bin google-chrome
 
-sudo pacman -S --noconfirm neovim python python2 python-pip python2-pip 
-
-python -m pip install --user --upgrade pynvim
-python2 -m pip install --user --upgrade pynvim
+# TODO: remove this lines
+# sudo pacman -S --noconfirm neovim python python2 python-pip python2-pip
+# python -m pip install --user --upgrade pynvim
+# python2 -m pip install --user --upgrade pynvim
 
 
 # Install node version manager, node lts/erbium by defaut and neovim
@@ -191,6 +191,8 @@ sh ${scripts_dir}/common/nodejsENOSPCerrorFix.sh
 systemctl --user daemon-reload
 # Enable and start timers
 systemctl --user enable --now wallpaper.timer
+
+# TODO: Apply this only on laptop
 systemctl --user enable --now alert-battery.timer
 
 

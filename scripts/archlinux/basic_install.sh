@@ -126,8 +126,7 @@ echo -e "Hit ${GREEN}enter${NC} to start the installation or ${RED}^c${NC} to ab
 read
 
 ### Set up logging ###
-exec 1> >(tee "stdout.log")
-exec 2> >(tee "stderr.log")
+exec 1>arch_installation.log 2>&1
 
 timedatectl set-ntp true
 
@@ -216,7 +215,7 @@ EOF
 arch-chroot /mnt pacman -S grub networkmanager dialog mtools \
   dosfstools base-devel linux-headers cups alsa-utils \
   pulseaudio git reflector rsync xdg-utils xdg-user-dirs ipset ebtables firewalld
-  
+
 # arch-chroot /mnt sudo reflector -c "United States" -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 
 # arch-chroot /mnt sudo pacman -Syyuu

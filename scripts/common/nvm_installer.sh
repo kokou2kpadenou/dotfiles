@@ -10,5 +10,5 @@ nvm install lts/gallium
 nvm use lts/gallium
 nvm alias default lts/gallium
 npm i -g npm@latest
-npm i -g neovim
+# npm i -g neovim
 
