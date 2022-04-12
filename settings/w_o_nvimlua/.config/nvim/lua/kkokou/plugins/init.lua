@@ -117,7 +117,6 @@ return require('packer').startup(function(use)
     'neovim/nvim-lspconfig',
     requires = {
       'ray-x/lsp_signature.nvim',
-      --   'jose-elias-alvarez/null-ls.nvim',
       'jose-elias-alvarez/nvim-lsp-ts-utils',
       -- Dev setup for init.lua and plugin development with full signature help, docs and completion for the nvim lua API.
       'folke/lua-dev.nvim',
@@ -129,11 +128,18 @@ return require('packer').startup(function(use)
       },
 
       'creativenull/efmls-configs-nvim',
-
-      -- "b0o/schemastore.nvim",
     },
     config = function()
       require 'kkokou/plugins/settings/cfg-lspconfig'
+    end,
+  }
+
+  -- null-ls.nvim
+  use {
+    'jose-elias-alvarez/null-ls.nvim',
+    requires = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      require 'kkokou.plugins.settings.cfg-null-ls'
     end,
   }
 
@@ -194,7 +200,7 @@ return require('packer').startup(function(use)
     disable = false,
     config = function()
       require 'kkokou.plugins.settings.cfg-comment'
-    end
+    end,
   }
 
   -- Surroundings
