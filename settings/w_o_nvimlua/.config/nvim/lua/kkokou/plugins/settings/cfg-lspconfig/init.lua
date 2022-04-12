@@ -1,3 +1,4 @@
+require 'kkokou.plugins.settings.cfg-lspconfig.adding-new-servers'
 --
 vim.lsp.set_log_level 'error' -- 'trace', 'debug', 'info', 'warn', 'error'
 
@@ -25,21 +26,21 @@ vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<
 -- LSP settings
 local lspconfig = require 'lspconfig'
 
-local configs = require 'lspconfig.configs'
+-- local configs = require 'lspconfig.configs'
 
 -- Check if the config is already defined (useful when reloading this file)
-if not configs.astrojs then
-  configs.astrojs = {
-    default_config = {
-      cmd = {'astro-ls', '--stdio'};
-      filetypes = {'astro'};
-      root_dir = function(fname)
-        return lspconfig.util.find_git_ancestor(fname)
-      end;
-      settings = {};
-    };
-  }
-end
+-- if not configs.astrojs then
+--   configs.astrojs = {
+--     default_config = {
+--       cmd = {'astro-ls', '--stdio'};
+--       filetypes = {'astro'};
+--       root_dir = function(fname)
+--         return lspconfig.util.find_git_ancestor(fname)
+--       end;
+--       settings = {};
+--     };
+--   }
+-- end
 
 local on_attach = function(_, bufnr)
   local opts = { noremap = true, silent = true }
@@ -88,7 +89,7 @@ local default_lsp_config = {
 -- local servers = { 'jsonls', 'cssls', 'html', 'tailwindcss', 'gopls', 'bashls' }
 
 local servers = {
-  astrojs = {},
+  astrols = {},
   bashls = {},
   cssls = {},
   dockerls = {},
@@ -98,7 +99,7 @@ local servers = {
   html = {},
   jsonls = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-jsonls'(capabilities),
   sumneko_lua = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-sumneko'(),
-  tailwindcss = {},
+  -- tailwindcss = {},
   tsserver = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-tsserver'(on_attach),
   yamlls = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-yamlls'(capabilities),
 }
