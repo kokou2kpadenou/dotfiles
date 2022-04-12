@@ -55,9 +55,17 @@ opt.hidden = true
 
 -- netrw
 g.netrw_banner = 0 -- disable annoying banner
-g.netrw_liststyle = 3 -- tree
+g.netrw_liststyle = 3 -- Tree style view
 g.netrw_bufsettings = 'noma nomod nonu nobl nowrap ro rnu'
-g.netrw_list_hide = 'node_modules,.git,tags,.next,out,build,dist'
+-- g.netrw_browse_split = 4 -- Open in previous window
+-- g.netrw_altv = 1 -- Open with right splitting
+g.netrw_list_hide = (vim.fn['netrw_gitignore#Hide']())
+  .. [[,\(^\|\s\s\)\zs\.\S\+]]
+  .. [[,node_modules]]
+  .. [[,^dist$]]
+  .. [[,^tags$]]
+  .. [[,^out$]]
+  .. [[,^build$]] -- use .gitignore
 g.netrw_winsize = 35
 
 -- Undo history
