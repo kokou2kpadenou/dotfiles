@@ -1,12 +1,22 @@
 #!/bin/bash
 
-IMAGES=(0 1 2 3 4 5)
+# Create a folder to hold temporary screenshot image
+mkdir ~/Pictures/i3lock_tmp
 
-WALLPAPER=~/Pictures/wallpapers/wallpaper.jpg
-DEFAULT_WALLPAPER=~/Pictures/default_wallpapers/default${IMAGES[RANDOM%${#IMAGES[@]}]}.jpg
+# Set image name
+IMAGE=$HOME/Pictures/i3lock_tmp/screen.png
 
-JPG=$(find "$WALLPAPER" -name *.jpg|head -n1)
-[ ! -z "$JPG" ] && CURRENT_WALLPAPER="${WALLPAPER}" || CURRENT_WALLPAPERS="${DEFAULT_WALLPAPER}"
+# Take a screenshot
+scrot $IMAGE
 
-# convert ~/Pictures/wallpapers/wallpaper.jpg RGB:- | i3lock --raw 1800x1200:rgb --image /dev/stdin --ignore-empty-password --show-failed-attempts --nofork
-convert $CURRENT_WALLPAPER RGB:- | i3lock --raw 1800x1200:rgb --image /dev/stdin --ignore-empty-password --show-failed-attempts --nofork
+# Set brightness and contrast
+convert -brightness-contrast -30x-30 $IMAGE $IMAGE
+
+# Add Gaussian blur and resize the image
+convert -filter Gaussian -resize 25% -resize 400% $IMAGE $IMAGE
+
+# Run i3lock with the screenshot as background image
+i3lock -i $IMAGE --ignore-empty-password --show-failed-attempts --nofork
+
+# Remove the temporary image
+rm $IMAGE
