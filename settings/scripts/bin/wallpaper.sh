@@ -10,8 +10,10 @@ if [[ "$1" == "service" ]]; then
   # And create new wallpapers directory
   mkdir -p $WALLPAPERS
 
-  # Download the image from goole
-  curl -o "${WALLPAPERS}/wallpaper.jpg" https://www.gstatic.com/prettyearth/assets/full/${IMAGES[RANDOM%${#IMAGES[@]}]}.jpg
+  # Download images from google
+  curl -o "${WALLPAPERS}/wallpaper_monitor1.jpg" https://www.gstatic.com/prettyearth/assets/full/${IMAGES[RANDOM%${#IMAGES[@]}]}.jpg
+  curl -o "${WALLPAPERS}/wallpaper_monitor2.jpg" https://www.gstatic.com/prettyearth/assets/full/${IMAGES[RANDOM%${#IMAGES[@]}]}.jpg
+  curl -o "${WALLPAPERS}/wallpaper_monitor3.jpg" https://www.gstatic.com/prettyearth/assets/full/${IMAGES[RANDOM%${#IMAGES[@]}]}.jpg
 fi
 
 # if google image is downloaded then CURRENT_WALLPAPERS=WALLPAPERS

@@ -3,7 +3,7 @@ Description=Wallpaper System
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/wallpapper.sh service
+ExecStart=/usr/bin/wallpaper.sh service
 
 [Install]
 WantedBy=graphical.target
