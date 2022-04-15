@@ -21,15 +21,18 @@ end
 
 def_conf('astrols', {
     default_config = {
-        cmd = { 'npx', 'astro-ls', '--stdio' },
-        filetypes = { 'astro' },
-        root_dir = function(fname)
-            return util.root_pattern('package.json', 'tsconfig.json', 'jsconfig.json', '.git')(fname)
-        end,
-        docs = {
-            description = 'https://github.com/withastro/language-tools',
-            root_dir = [[root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git")]],
+      cmd = { 'astro-ls', '--stdio' },
+      filetypes = { 'astro' },
+      root_dir = util.root_pattern('package.json', 'tsconfig.json', 'jsconfig.json', '.git'),
+      docs = {
+        description = 'https://github.com/withastro/language-tools',
+        root_dir = [[root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git")]],
+      },
+      init_options = {
+        configuration = {
+          astro = {},
         },
-        settings = {},
-    }
+      },
+      settings = {},
+    },
 })
