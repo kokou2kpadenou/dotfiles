@@ -1,3 +1,5 @@
+local lspconfig = require 'lspconfig'
+
 require 'kkokou.plugins.settings.cfg-lspconfig.adding-new-servers'
 --
 vim.lsp.set_log_level 'error' -- 'trace', 'debug', 'info', 'warn', 'error'
@@ -23,27 +25,11 @@ vim.api.nvim_set_keymap(
 )
 vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', { noremap = true, silent = true })
 
--- LSP settings
-local lspconfig = require 'lspconfig'
-
--- local configs = require 'lspconfig.configs'
-
--- Check if the config is already defined (useful when reloading this file)
--- if not configs.astrojs then
---   configs.astrojs = {
---     default_config = {
---       cmd = {'astro-ls', '--stdio'};
---       filetypes = {'astro'};
---       root_dir = function(fname)
---         return lspconfig.util.find_git_ancestor(fname)
---       end;
---       settings = {};
---     };
---   }
--- end
-
 local on_attach = function(_, bufnr)
   local opts = { noremap = true, silent = true }
+    -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
@@ -86,8 +72,6 @@ local default_lsp_config = {
 }
 
 -- Enable the following language servers
--- local servers = { 'jsonls', 'cssls', 'html', 'tailwindcss', 'gopls', 'bashls' }
-
 local servers = {
   astrols = {},
   bashls = {},
@@ -124,15 +108,6 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagn
   signs = true,
   update_in_insert = false,
   severity_sort = true,
-  -- float = {
-  -- 	focus = false,
-  -- 	focusable = false,
-  -- 	style = "minimal",
-  -- 	border = "rounded",
-  -- 	source = "always",
-  -- 	header = "",
-  -- 	prefix = "",
-  -- },
 })
 
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
