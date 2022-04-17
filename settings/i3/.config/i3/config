@@ -41,7 +41,7 @@ exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 # exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
-set $refresh_i3blocks pkill -RTMIN+10 i3blocks 
+set $refresh_i3blocks pkill -RTMIN+10 i3blocks
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3blocks
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3blocks
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3blocks
@@ -118,12 +118,12 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
+set $ws1 "1: terms"
+set $ws2 "2: chrome"
+set $ws3 "3: VSCode"
+set $ws4 "4: firefox"
+set $ws5 "5: inkscape"
+set $ws6 "6: gimp"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
@@ -221,7 +221,7 @@ mode "$mode_system" {
     bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
     bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -232,6 +232,26 @@ bindsym $mod+Pause mode "$mode_system"
 
 
 #interactive screenshot by pressing printscreen
-bindsym Print exec gnome-screenshot -i 
+bindsym Print exec gnome-screenshot -i
 #crop-area screenshot by pressing Mod + printscreen
 bindsym $mod+Print exec gnome-screenshot -a
+
+assign [class="Alacritty" instance="Alacritty"] number "1: terms"
+assign [class="Google-chrome" instance="google-chrome"] number "2: chrome"
+assign [class="Code" instance="code"] number "3: VSCode"
+assign [class="firefox" instance="Navigator"] number "4: firefox"
+assign [class="Inkscape" instance="org.inkscape.Inkscape"] number "5: inkscape"
+assign [class="Gimp-2.10" instance="gimp-2.10"] number "6: gimp"
+
+workspace "1: terms" output primary
+workspace "2: chrome" output DVI-0
+workspace "3: VSCode" output primary
+workspace "4: firefox" output DVI-0
+workspace "5: inkscape" output DVI-0
+workspace "6: gimp" output DVI-0
+
+# Automatic back-and-forth when switching to the current workspace
+workspace_auto_back_and_forth yes
+
+exec google-chrome-stable
+exec --no-startup-id alacritty
