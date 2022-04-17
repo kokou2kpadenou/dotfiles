@@ -55,7 +55,7 @@ local on_attach = function(_, bufnr)
     [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]],
     opts
   )
-  vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
+  vim.api.nvim_create_user_command("Format", vim.lsp.buf.formatting, {})
 end
 
 -- nvim-cmp supports additional completion capabilities
