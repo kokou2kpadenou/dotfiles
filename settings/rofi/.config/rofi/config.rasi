@@ -150,4 +150,4 @@ combi-modi: "window,drun,ssh";
 /*	me-accept-entry: "MouseDPrimary";*/
 /*	me-accept-custom: "Control+MouseDPrimary";*/
 }
-@theme "gruvbox-dark"
+@theme "Arc-Dark"
