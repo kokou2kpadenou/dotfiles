@@ -1,7 +1,5 @@
 local lspconfig = require 'lspconfig'
 
-require 'kkokou.plugins.settings.cfg-lspconfig.adding-new-servers'
---
 vim.lsp.set_log_level 'error' -- 'trace', 'debug', 'info', 'warn', 'error'
 
 -- Diagnostic keymaps
@@ -27,7 +25,7 @@ vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<
 
 local on_attach = function(_, bufnr)
   local opts = { noremap = true, silent = true }
-    -- Enable completion triggered by <c-x><c-o>
+  -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -55,7 +53,7 @@ local on_attach = function(_, bufnr)
     [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]],
     opts
   )
-  vim.api.nvim_create_user_command("Format", vim.lsp.buf.formatting, {})
+  vim.api.nvim_create_user_command('Format', vim.lsp.buf.formatting, {})
 end
 
 -- nvim-cmp supports additional completion capabilities
@@ -73,7 +71,7 @@ local default_lsp_config = {
 
 -- Enable the following language servers
 local servers = {
-  astrols = {},
+  astro = {},
   bashls = {},
   cssls = {},
   dockerls = {},
