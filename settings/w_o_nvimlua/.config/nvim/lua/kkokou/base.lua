@@ -10,7 +10,7 @@ g.loaded_python3_provider = 0
 g.loaded_node_provider = 0
 
 -- Options
-vim.o.completeopt = 'menu,menuone,noselect'
+opt.completeopt = 'menu,menuone,noselect'
 opt.cursorline = true
 opt.errorbells = false
 opt.tabstop = 2
@@ -45,7 +45,8 @@ opt.termguicolors = true
 opt.foldenable = true
 opt.foldlevelstart = 90
 opt.foldnestmax = 10
-opt.foldmethod = 'syntax'
+opt.foldmethod = 'expr'
+opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.foldcolumn = '1'
 
 opt.path = opt.path + '**'
