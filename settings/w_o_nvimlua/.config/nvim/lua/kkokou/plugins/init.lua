@@ -80,30 +80,6 @@ return require('packer').startup(function(use)
 
   -- colorscheme
   use {
-    'marko-cerovac/material.nvim',
-    disable = true,
-    config = function()
-      require 'kkokou/plugins/settings/cfg-material'
-    end,
-  }
-
-  use {
-    'navarasu/onedark.nvim',
-    disable = true,
-    config = function()
-      require 'kkokou.plugins.settings.cfg-onedark'
-    end,
-  }
-
-  use {
-    'EdenEast/nightfox.nvim',
-    disable = true,
-    config = function()
-      require 'kkokou.plugins.settings.cfg-nightfox'
-    end,
-  }
-
-  use {
     'folke/tokyonight.nvim',
     disable = false,
     config = function()
