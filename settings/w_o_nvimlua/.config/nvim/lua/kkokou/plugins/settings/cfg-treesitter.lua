@@ -1,19 +1,20 @@
 require('nvim-treesitter.configs').setup {
   -- ensure_installed = "maintained",
   ensure_installed = {
+    'astro',
     'bash',
     'css',
     'dockerfile',
-    'javascript',
-    'typescript',
-    'tsx',
-    'html',
-    'json',
-    'yaml',
-    'lua',
-    'jsdoc',
-    'scss',
     'go',
+    'html',
+    'javascript',
+    'jsdoc',
+    'json',
+    'lua',
+    'scss',
+    'tsx',
+    'typescript',
+    'yaml',
   }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
   highlight = {
@@ -23,7 +24,7 @@ require('nvim-treesitter.configs').setup {
     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
     -- Using this option may slow down your editor, and you may see some duplicate highlights.
     -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = true,
+    additional_vim_regex_highlighting = false,
   },
 
   incremental_selection = {
@@ -124,6 +125,3 @@ require('nvim-treesitter.configs').setup {
     },
   },
 }
-
-local ft_to_parser = require('nvim-treesitter.parsers').filetype_to_parsername
-ft_to_parser.astro = "tsx"
