@@ -118,7 +118,6 @@ return require('packer').startup(function(use)
     'neovim/nvim-lspconfig',
     requires = {
       'ray-x/lsp_signature.nvim',
-      'jose-elias-alvarez/nvim-lsp-ts-utils',
       -- Dev setup for init.lua and plugin development with full signature help, docs and completion for the nvim lua API.
       'folke/lua-dev.nvim',
 
