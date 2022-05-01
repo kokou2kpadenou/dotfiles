@@ -1,58 +1,52 @@
+-- Diagnostic Settings
+----------------------
+vim.diagnostic.config {
+  virtual_text = false,
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+  float = { border = 'rounded' },
+}
+
+-- Change diagnostic symbols in the sign column (gutter)
+local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
+for type, icon in pairs(signs) do
+  local hl = 'DiagnosticSign' .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
+
+-- Diagnostic keymaps
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+
+-- LSP Settings
+---------------
 local lspconfig = require 'lspconfig'
 
 vim.lsp.set_log_level 'error' -- 'trace', 'debug', 'info', 'warn', 'error'
 
--- Diagnostic keymaps
-vim.api.nvim_set_keymap(
-  'n',
-  '<leader>e',
-  '<cmd>lua vim.diagnostic.open_float({ border = "rounded" })<CR>',
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-  'n',
-  '[d',
-  '<cmd>lua vim.diagnostic.goto_prev({ float = { border = "rounded" }})<CR>',
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-  'n',
-  ']d',
-  '<cmd>lua vim.diagnostic.goto_next({ float = { border = "rounded" }})<CR>',
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', { noremap = true, silent = true })
-
 local on_attach = function(_, bufnr)
-  local opts = { noremap = true, silent = true }
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  local opts = { buffer = bufnr }
 
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(
-    bufnr,
-    'n',
-    '<leader>wl',
-    '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>',
-    opts
-  )
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(
-    bufnr,
-    'n',
-    '<leader>so',
-    [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]],
-    opts
-  )
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+  vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
+  vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
+  vim.keymap.set('n', '<leader>wl', function()
+    vim.inspect(vim.lsp.buf.list_workspace_folders())
+  end, opts)
+  vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
+  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+  vim.keymap.set('n', '<leader>so', require('telescope.builtin').lsp_document_symbols, opts) -- )
+
   vim.api.nvim_create_user_command('Format', vim.lsp.buf.formatting, {})
 end
 
@@ -91,22 +85,6 @@ for lsp, lsp_config in pairs(servers) do
 
   lspconfig[lsp].setup(merged_config)
 end
-
--- Change diagnostic symbols in the sign column (gutter)
-local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
-for type, icon in pairs(signs) do
-  local hl = 'DiagnosticSign' .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
-
--- LSP Enable diagnostics
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-  virtual_text = false,
-  underline = true,
-  signs = true,
-  update_in_insert = false,
-  severity_sort = true,
-})
 
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
