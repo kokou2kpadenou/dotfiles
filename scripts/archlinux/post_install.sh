@@ -129,7 +129,7 @@ sudo pacman -Syu --noconfirm && yay -Syu
 sudo pacman -S --noconfirm xorg numlockx i3 xorg-xinit rxvt-unicode rofi ranger \
   feh w3m atool firefox vlc openssh xss-lock gnome-screenshot \
   tmux inkscape gimp wget xsel alacritty picom papirus-icon-theme \
-  gnome-calculator acpi bash-completion highlight dunst stow fzf ripgrep fd neovim
+  gnome-calculator acpi bash-completion highlight dunst stow fzf ripgrep fd neovim scrot
 
 
 # Installing additional fonts
@@ -170,6 +170,7 @@ mkdir -p ~/.config/systemd/user
 # Create the symbolic links
 cd ${dotfiles_dir}/settings && stow --target=$HOME -S $(ls --ignore=w_o_*)
 cd ~
+sudo ln -s ${dotfiles_dir}/settings/scripts/bin/wallpaper.sh /usr/bin/wallpaper.sh
 
 ## Install fonts manually fonts
 sudo fc-cache -f -v
