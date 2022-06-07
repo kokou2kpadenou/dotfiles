@@ -138,6 +138,7 @@ return require('packer').startup(function(use)
       'hrsh7th/cmp-path',
       'ray-x/cmp-treesitter',
       'f3fora/cmp-spell',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
     },
     config = function()
       require 'kkokou/plugins/settings/cfg-cmp'
