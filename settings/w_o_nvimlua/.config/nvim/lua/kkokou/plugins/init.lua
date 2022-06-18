@@ -3,6 +3,7 @@ local fn = vim.fn
 local packer_bootstrap
 
 local install_path = fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
+
 if fn.empty(fn.glob(install_path)) > 0 then
   packer_bootstrap = fn.system {
     'git',
@@ -14,7 +15,13 @@ if fn.empty(fn.glob(install_path)) > 0 then
   }
 end
 
-return require('packer').startup(function(use)
+local packer = require('packer')
+
+packer.init({
+  compile_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim/plugin/packer_compiled.lua',
+})
+
+return packer.startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
