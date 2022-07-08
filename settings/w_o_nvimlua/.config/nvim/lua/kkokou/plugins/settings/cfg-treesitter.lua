@@ -3,6 +3,7 @@ require('nvim-treesitter.configs').setup {
   ensure_installed = {
     'astro',
     'bash',
+    'comment',
     'css',
     'dockerfile',
     'go',
@@ -11,7 +12,10 @@ require('nvim-treesitter.configs').setup {
     'jsdoc',
     'json',
     'lua',
+    'markdown',
+    'markdown_inline',
     'scss',
+    'toml',
     'tsx',
     'typescript',
     'yaml',
