@@ -45,6 +45,25 @@ require('nvim-treesitter.configs').setup {
     enable = true,
   },
 
+  -- TODO: check for astro support
+  autotag = {
+    enable = true,
+    -- filetype = {
+    --   'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte', 'vue', 'tsx', 'jsx',
+    --   'rescript', 'xml', 'php', 'markdown', 'glimmer', 'handlebars', 'hbs', 'astro'
+    -- }
+  },
+
+  autopairs = {
+    enable = true,
+  },
+
+  -- TODO: check for astro support
+  context_commentstring = {
+    enable = true,
+    enable_autocmd = false,
+  },
+
   refactor = {
     highlight_definitions = { enable = true },
     highlight_current_scope = { enable = false },
@@ -80,14 +99,6 @@ require('nvim-treesitter.configs').setup {
         ['if'] = '@function.inner',
         ['ac'] = '@class.outer',
         ['ic'] = '@class.inner',
-
-        -- Or you can define your own textobjects like this
-        -- ["iF"] = {
-        --   python = "(function_definition) @function",
-        --   cpp = "(function_definition) @function",
-        --   c = "(function_definition) @function",
-        --   java = "(method_declaration) @function",
-        -- },
       },
     },
     swap = {
