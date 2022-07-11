@@ -15,11 +15,11 @@ if fn.empty(fn.glob(install_path)) > 0 then
   }
 end
 
-local packer = require('packer')
+local packer = require 'packer'
 
-packer.init({
+packer.init {
   compile_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim/plugin/packer_compiled.lua',
-})
+}
 
 return packer.startup(function(use)
   -- Packer can manage itself
@@ -59,8 +59,10 @@ return packer.startup(function(use)
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
     requires = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-      'nvim-treesitter/nvim-treesitter-refactor',
+      'nvim-treesitter/nvim-treesitter-textobjects', --Syntax aware text-objects, select, move, swap, and peek support.
+      'nvim-treesitter/nvim-treesitter-refactor', -- Refactor modules for nvim-treesitter
+      'windwp/nvim-ts-autotag', -- Automatically end & rename tags
+      'JoosepAlviste/nvim-ts-context-commentstring', -- Dynamically set commentstring based on cursor location in file
     },
     config = function()
       require 'kkokou/plugins/settings/cfg-treesitter'
