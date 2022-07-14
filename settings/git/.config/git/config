@@ -1,0 +1,19 @@
+[color]
+  status = auto
+  branch = auto
+  interactive = auto
+  diff = auto
+  ui = auto
+[merge]
+  conflictstyle = diff3
+[core]
+  editor = vim
+  excludesfile = ~/.config/git/gitignore_global
+[pull]
+  rebase = false
+[init]
+  defaultBranch = main
+[alias]
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[include]
+  path = ~/.gitconfig.local
