@@ -72,3 +72,8 @@ g.netrw_winsize = 35
 -- Undo history
 opt.undodir = fn.stdpath 'config' .. '/undodir'
 opt.undofile = true
+
+-- Disable mouse and scrolling
+opt.mouse = ''
+-- FIXME: disable mousescroll not working for now.
+-- opt.mousescroll = 'ver:0,hor:0'
