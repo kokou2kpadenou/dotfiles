@@ -190,7 +190,15 @@ return packer.startup(function(use)
   }
 
   -- Surroundings
-  use 'tpope/vim-surround'
+  -- use 'tpope/vim-surround'
+
+  use {
+    'kylechui/nvim-surround',
+    disable = false,
+    config = function ()
+      require 'kkokou.plugins.settings.cfg-nvim-surround'
+    end
+  }
 
   -- EditorConfig for Vim
   use 'editorconfig/editorconfig-vim'
