@@ -173,6 +173,7 @@ return packer.startup(function(use)
   -- Emmet
   use {
     'mattn/emmet-vim',
+    disable = true,
     config = function()
       require 'kkokou/plugins/settings/cfg-emmet'
     end,
