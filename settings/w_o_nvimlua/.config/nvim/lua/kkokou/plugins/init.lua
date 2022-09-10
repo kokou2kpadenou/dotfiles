@@ -87,6 +87,14 @@ return packer.startup(function(use)
     end,
   }
 
+  use {
+    'lukas-reineke/indent-blankline.nvim',
+    disable = false,
+    config = function()
+      require 'kkokou.plugins.settings.cfg-indent-blankline'
+    end,
+  }
+
   -- colorscheme
   use {
     'folke/tokyonight.nvim',
