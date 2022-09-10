@@ -69,6 +69,14 @@ return packer.startup(function(use)
     end,
   }
 
+  -- Treesitter Context
+  use {
+    'nvim-treesitter/nvim-treesitter-context',
+    config = function()
+      require 'kkokou.plugins.settings.cfg-treesitter-context'
+    end,
+  }
+
   -- Status Line
   use {
     'nvim-lualine/lualine.nvim',
