@@ -36,7 +36,8 @@ opt.signcolumn = 'yes'
 opt.showcmd = true
 
 opt.list = true
-opt.listchars = { eol = '¬', tab = '>.', trail = '~', extends = '>', space = '␣', precedes = '<' }
+--[[ opt.listchars = { eol = '¬', tab = '>.', trail = '~', extends = '>', space = '␣', precedes = '<' } ]]
+opt.listchars = { eol = '¬', tab = '>.', trail = '~', extends = '>', space = '⋅', precedes = '<' }
 
 opt.clipboard = 'unnamedplus'
 
