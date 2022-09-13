@@ -17,10 +17,11 @@ for type, icon in pairs(signs) do
 end
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+local opts = { noremap = true, silent = true }
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
 
 -- LSP Settings
 ---------------
@@ -29,25 +30,28 @@ local lspconfig = require 'lspconfig'
 vim.lsp.set_log_level 'error' -- 'trace', 'debug', 'info', 'warn', 'error'
 
 local on_attach = function(_, bufnr)
-  local opts = { buffer = bufnr }
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-  vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
-  vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
-  vim.keymap.set('n', '<leader>wl', function()
-    vim.inspect(vim.lsp.buf.list_workspace_folders())
-  end, opts)
-  vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
-  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-  vim.keymap.set('n', '<leader>so', require('telescope.builtin').lsp_document_symbols, opts) -- )
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap = true, silent = true, buffer = bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
 
-  vim.api.nvim_create_user_command('Format', vim.lsp.buf.format, {})
 end
 
 -- nvim-cmp supports additional completion capabilities
@@ -70,16 +74,16 @@ local servers = {
   cssls = {},
   cssmodules_ls = {},
   dockerls = {},
-  efm = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-efm'(),
-  emmet_ls = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-emmet-ls'(capabilities),
+  --[[ efm = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-efm' (), ]]
+  emmet_ls = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-emmet-ls' (capabilities),
   eslint = {},
   gopls = {},
   html = {},
-  jsonls = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-jsonls'(capabilities),
-  sumneko_lua = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-sumneko'(),
+  jsonls = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-jsonls' (capabilities),
+  sumneko_lua = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-sumneko' (),
   tailwindcss = {},
-  tsserver = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-tsserver'(on_attach),
-  yamlls = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-yamlls'(capabilities),
+  tsserver = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-tsserver' (on_attach),
+  yamlls = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-yamlls' (capabilities),
 }
 
 for lsp, lsp_config in pairs(servers) do
