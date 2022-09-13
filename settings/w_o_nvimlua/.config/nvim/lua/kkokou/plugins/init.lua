@@ -1,19 +1,16 @@
 -- Packer.vim
-local fn = vim.fn
-local packer_bootstrap
-
-local install_path = fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
-
-if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system {
-    'git',
-    'clone',
-    '--depth',
-    '1',
-    'https://github.com/wbthomason/packer.nvim',
-    install_path,
-  }
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
 end
+
+local packer_bootstrap = ensure_packer()
 
 local packer = require 'packer'
 
@@ -22,7 +19,6 @@ packer.init {
 }
 
 return packer.startup(function(use)
-  -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
   -- FILES MANAGEMENT
@@ -95,6 +91,7 @@ return packer.startup(function(use)
     end,
   }
 
+  -- This plugin adds indentation guides to all lines (including empty lines).
   use {
     'lukas-reineke/indent-blankline.nvim',
     disable = false,
@@ -118,7 +115,8 @@ return packer.startup(function(use)
   use {
     'neovim/nvim-lspconfig',
     requires = {
-      'ray-x/lsp_signature.nvim',
+      --[[ 'ray-x/lsp_signature.nvim', ]]
+
       -- Dev setup for init.lua and plugin development with full signature help, docs and completion for the nvim lua API.
       'folke/lua-dev.nvim',
 
@@ -128,7 +126,7 @@ return packer.startup(function(use)
         run = 'cargo install stylua',
       },
 
-      'creativenull/efmls-configs-nvim',
+      --[[ 'creativenull/efmls-configs-nvim', ]]
     },
     config = function()
       require 'kkokou/plugins/settings/cfg-lspconfig'
@@ -170,15 +168,6 @@ return packer.startup(function(use)
     end,
   }
 
-  -- Emmet
-  use {
-    'mattn/emmet-vim',
-    disable = true,
-    config = function()
-      require 'kkokou/plugins/settings/cfg-emmet'
-    end,
-  }
-
   -- Autopairs for Neovim
   use {
     'windwp/nvim-autopairs',
@@ -192,12 +181,7 @@ return packer.startup(function(use)
   -- Visualizes undo history and makes it easier to browse and switch between different undo branches
   use 'mbbill/undotree'
 
-  -- Comment test in and out
-  use {
-    'tpope/vim-commentary',
-    disable = true,
-  }
-
+  -- Comment text in and out
   use {
     'numToStr/Comment.nvim',
     disable = false,
@@ -207,14 +191,12 @@ return packer.startup(function(use)
   }
 
   -- Surroundings
-  -- use 'tpope/vim-surround'
-
   use {
     'kylechui/nvim-surround',
     disable = false,
-    config = function ()
+    config = function()
       require 'kkokou.plugins.settings.cfg-nvim-surround'
-    end
+    end,
   }
 
   -- EditorConfig for Vim
