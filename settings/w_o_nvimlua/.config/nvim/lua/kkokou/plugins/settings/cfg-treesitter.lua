@@ -45,15 +45,6 @@ require('nvim-treesitter.configs').setup {
     enable = true,
   },
 
-  -- TODO: check for astro support
-  autotag = {
-    enable = true,
-    -- filetype = {
-    --   'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte', 'vue', 'tsx', 'jsx',
-    --   'rescript', 'xml', 'php', 'markdown', 'glimmer', 'handlebars', 'hbs', 'astro'
-    -- }
-  },
-
   autopairs = {
     enable = true,
   },

@@ -65,6 +65,34 @@ return packer.startup(function(use)
     end,
   }
 
+  -- Autoclose and autorename html tag using Treesitter
+  use {
+    'windwp/nvim-ts-autotag',
+    config = function()
+      require('nvim-ts-autotag').setup {
+        filetypes = {
+          'html',
+          'javascript',
+          'typescript',
+          'javascriptreact',
+          'typescriptreact',
+          'svelte',
+          'vue',
+          'tsx',
+          'jsx',
+          'rescript',
+          'xml',
+          'php',
+          'markdown',
+          'glimmer',
+          'handlebars',
+          'hbs',
+          'astro',
+        },
+      }
+    end,
+  }
+
   -- Treesitter Context
   use {
     'nvim-treesitter/nvim-treesitter-context',
