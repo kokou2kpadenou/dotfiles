@@ -69,27 +69,7 @@ return packer.startup(function(use)
   use {
     'windwp/nvim-ts-autotag',
     config = function()
-      require('nvim-ts-autotag').setup {
-        filetypes = {
-          'html',
-          'javascript',
-          'typescript',
-          'javascriptreact',
-          'typescriptreact',
-          'svelte',
-          'vue',
-          'tsx',
-          'jsx',
-          'rescript',
-          'xml',
-          'php',
-          'markdown',
-          'glimmer',
-          'handlebars',
-          'hbs',
-          'astro',
-        },
-      }
+      require 'kkokou.plugins.settings.cfg-nvim-ts-autotag'
     end,
   }
 
