@@ -57,7 +57,6 @@ return packer.startup(function(use)
     requires = {
       'nvim-treesitter/nvim-treesitter-textobjects', --Syntax aware text-objects, select, move, swap, and peek support.
       'nvim-treesitter/nvim-treesitter-refactor', -- Refactor modules for nvim-treesitter
-      'windwp/nvim-ts-autotag', -- Automatically end & rename tags
       'JoosepAlviste/nvim-ts-context-commentstring', -- Dynamically set commentstring based on cursor location in file
     },
     config = function()
@@ -123,18 +122,13 @@ return packer.startup(function(use)
   use {
     'neovim/nvim-lspconfig',
     requires = {
-      --[[ 'ray-x/lsp_signature.nvim', ]]
-
       -- Dev setup for init.lua and plugin development with full signature help, docs and completion for the nvim lua API.
       'folke/lua-dev.nvim',
-
       -- wrapper around the Lua code formatter, StyLua
       {
         'ckipp01/stylua-nvim',
         run = 'cargo install stylua',
       },
-
-      --[[ 'creativenull/efmls-configs-nvim', ]]
     },
     config = function()
       require 'kkokou/plugins/settings/cfg-lspconfig'

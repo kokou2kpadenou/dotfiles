@@ -49,7 +49,6 @@ require('nvim-treesitter.configs').setup {
     enable = true,
   },
 
-  -- TODO: check for astro support
   context_commentstring = {
     enable = true,
     enable_autocmd = false,
