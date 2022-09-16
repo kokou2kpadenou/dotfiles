@@ -122,13 +122,8 @@ return packer.startup(function(use)
   use {
     'neovim/nvim-lspconfig',
     requires = {
-      -- Dev setup for init.lua and plugin development with full signature help, docs and completion for the nvim lua API.
-      'folke/lua-dev.nvim',
-      -- wrapper around the Lua code formatter, StyLua
-      {
-        'ckipp01/stylua-nvim',
-        run = 'cargo install stylua',
-      },
+      'folke/lua-dev.nvim', -- Dev setup for init.lua and plugin development
+      'ckipp01/stylua-nvim', -- wrapper around the Lua code formatter, StyLua
     },
     config = function()
       require 'kkokou/plugins/settings/cfg-lspconfig'
