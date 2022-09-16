@@ -67,6 +67,11 @@ local default_lsp_config = {
   },
 }
 
+-- IMPORTANT: make sure to setup lua-dev BEFORE lspconfig for sumneko_lua
+require("lua-dev").setup({
+  -- add any options here, or leave empty to use the default settings
+})
+
 -- Enable the following language servers
 local servers = {
   astro = {},
