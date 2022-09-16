@@ -73,23 +73,7 @@ require("lua-dev").setup({
 })
 
 -- Enable the following language servers
-local servers = {
-  astro = {},
-  bashls = {},
-  cssls = {},
-  cssmodules_ls = {},
-  dockerls = {},
-  --[[ efm = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-efm' (), ]]
-  emmet_ls = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-emmet-ls' (capabilities),
-  eslint = {},
-  gopls = {},
-  html = {},
-  jsonls = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-jsonls' (capabilities),
-  sumneko_lua = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-sumneko' (),
-  tailwindcss = {},
-  tsserver = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-tsserver' (on_attach),
-  yamlls = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-yamlls' (capabilities),
-}
+local servers = require('kkokou.plugins.settings.cfg-lspconfig.servers')(on_attach, capabilities)
 
 for lsp, lsp_config in pairs(servers) do
   local merged_config = vim.tbl_deep_extend('force', default_lsp_config, lsp_config)
