@@ -26,6 +26,16 @@ return packer.startup(function(use)
   -- Plugin and Packages Management for Neovim
   use 'wbthomason/packer.nvim'
 
+  -- NodeJs Packages Management
+  use {
+    'vuki656/package-info.nvim',
+    requires = { 'MunifTanjim/nui.nvim', opt = true },
+    event = 'BufEnter package.json',
+    config = function()
+      require('package-info').setup()
+    end,
+  }
+
   -- FILES MANAGEMENT
   -- Git Decorations Integration
   use {
