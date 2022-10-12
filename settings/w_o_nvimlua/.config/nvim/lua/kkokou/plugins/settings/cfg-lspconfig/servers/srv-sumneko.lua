@@ -13,6 +13,9 @@ return function()
         completion = {
           callSnippet = 'Replace',
         },
+      workspace = {
+        checkThirdParty = false, -- Disabled third party's work environment
+      },
       },
     },
   }
