@@ -131,6 +131,25 @@ return packer.startup(function(use)
     end,
   }
 
+  -- Zen-mode: Distraction-free coding
+  use {
+    'folke/zen-mode.nvim',
+    event = 'VimEnter',
+    cmd = 'ZenMode',
+    config = function()
+      require('zen-mode').setup {}
+    end,
+  }
+
+  -- Twilight: dims inactive portions of the code you're editing
+  use {
+    'folke/twilight.nvim',
+    event = 'VimEnter',
+    config = function()
+      require('twilight').setup {}
+    end,
+  }
+
   -- AUTO COMPLETION
   ------------------
   -- Native LSP
