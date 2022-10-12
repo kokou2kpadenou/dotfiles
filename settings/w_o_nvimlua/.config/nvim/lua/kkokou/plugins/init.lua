@@ -44,7 +44,7 @@ return packer.startup(function(use)
       'nvim-lua/plenary.nvim',
     },
     config = function()
-      require 'kkokou/plugins/settings/cfg-gitsigns'
+      require 'kkokou.plugins.settings.cfg-gitsigns'
     end,
   }
 
@@ -60,7 +60,7 @@ return packer.startup(function(use)
       'nvim-telescope/telescope-file-browser.nvim',
     },
     config = function()
-      require 'kkokou/plugins/settings/cfg-telescope'
+      require 'kkokou.plugins.settings.cfg-telescope'
     end,
   }
 
@@ -75,7 +75,7 @@ return packer.startup(function(use)
       'JoosepAlviste/nvim-ts-context-commentstring', -- Dynamically set commentstring based on cursor location in file
     },
     config = function()
-      require 'kkokou/plugins/settings/cfg-treesitter'
+      require 'kkokou.plugins.settings.cfg-treesitter'
     end,
   }
 
@@ -101,7 +101,7 @@ return packer.startup(function(use)
     disable = false,
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function()
-      require 'kkokou/plugins/settings/cfg-lualine'
+      require 'kkokou.plugins.settings.cfg-lualine'
     end,
   }
 
@@ -160,7 +160,7 @@ return packer.startup(function(use)
       'ckipp01/stylua-nvim', -- wrapper around the Lua code formatter, StyLua
     },
     config = function()
-      require 'kkokou/plugins/settings/cfg-lspconfig'
+      require 'kkokou.plugins.settings.cfg-lspconfig'
     end,
   }
 
@@ -182,7 +182,7 @@ return packer.startup(function(use)
         'L3MON4D3/LuaSnip',
         requires = { 'rafamadriz/friendly-snippets' },
         config = function()
-          require 'kkokou/plugins/settings/cfg-luasnip'
+          require 'kkokou.plugins.settings.cfg-luasnip'
         end,
       },
       'hrsh7th/cmp-nvim-lsp',
@@ -195,7 +195,7 @@ return packer.startup(function(use)
       'hrsh7th/cmp-nvim-lsp-signature-help',
     },
     config = function()
-      require 'kkokou/plugins/settings/cfg-cmp'
+      require 'kkokou.plugins.settings.cfg-cmp'
     end,
   }
 
@@ -203,7 +203,7 @@ return packer.startup(function(use)
   use {
     'windwp/nvim-autopairs',
     config = function()
-      require 'kkokou/plugins/settings/cfg-autopairs'
+      require 'kkokou.plugins.settings.cfg-autopairs'
     end,
   }
 

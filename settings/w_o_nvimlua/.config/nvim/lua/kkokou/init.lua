@@ -1,5 +1,5 @@
 pcall(require, 'impatient')
 
-require 'kkokou/base'
+require 'kkokou.base'
 
-require 'kkokou/plugins'
+require 'kkokou.plugins'
