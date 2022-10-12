@@ -19,6 +19,11 @@ packer.init {
 }
 
 return packer.startup(function(use)
+  -- PERFORMANCE, PACKAGES AND PLUGINS MANAGEMENT
+  -- impatient.nvim: Speed up loading Lua modules in Neovim to improve startup time.
+  use 'lewis6991/impatient.nvim'
+
+  -- Plugin and Packages Management for Neovim
   use 'wbthomason/packer.nvim'
 
   -- FILES MANAGEMENT
