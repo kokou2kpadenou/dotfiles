@@ -1,5 +1,3 @@
---lualine
-
 local function window()
   return vim.api.nvim_win_get_number(0)
 end
@@ -35,11 +33,10 @@ function custom_fname:update_status()
   return data
 end
 
-require('lualine').setup {
+return {
   options = {
     icons_enabled = true,
-    -- theme = 'material-nvim',
-    theme = 'material-stealth',
+    theme = 'tokyonight',
     section_separators = { left = '', right = '' },
     component_separators = { left = '', right = '' },
     disabled_filetypes = {},
