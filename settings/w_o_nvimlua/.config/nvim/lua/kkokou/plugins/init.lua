@@ -40,9 +40,6 @@ return packer.startup(function(use)
   -- Git Decorations Integration
   use {
     'lewis6991/gitsigns.nvim',
-    requires = {
-      'nvim-lua/plenary.nvim',
-    },
     config = function()
       require 'kkokou.plugins.settings.cfg-gitsigns'
     end,
@@ -110,7 +107,7 @@ return packer.startup(function(use)
     -- 'norcalli/nvim-colorizer.lua',
     'NvChad/nvim-colorizer.lua',
     config = function()
-      require('colorizer').setup()
+      require('colorizer').setup {}
     end,
   }
 
@@ -118,6 +115,7 @@ return packer.startup(function(use)
   use {
     'lukas-reineke/indent-blankline.nvim',
     disable = false,
+    event = 'VimEnter',
     config = function()
       require 'kkokou.plugins.settings.cfg-indent-blankline'
     end,
@@ -156,6 +154,7 @@ return packer.startup(function(use)
   -- Native LSP
   use {
     'neovim/nvim-lspconfig',
+    after = 'nvim-treesitter',
     requires = {
       'folke/lua-dev.nvim', -- Dev setup for init.lua and plugin development
       'ckipp01/stylua-nvim', -- wrapper around the Lua code formatter, StyLua
@@ -227,7 +226,7 @@ return packer.startup(function(use)
     'kylechui/nvim-surround',
     disable = false,
     config = function()
-      require 'kkokou.plugins.settings.cfg-nvim-surround'
+      require('nvim-surround').setup {}
     end,
   }
 
@@ -251,6 +250,8 @@ return packer.startup(function(use)
   -- Interaction with Databases
   use {
     'kristijanhusak/vim-dadbod-ui',
+    event = 'VimEnter',
+    opt = true,
     disable = false,
     requires = {
       'tpope/vim-dadbod',
