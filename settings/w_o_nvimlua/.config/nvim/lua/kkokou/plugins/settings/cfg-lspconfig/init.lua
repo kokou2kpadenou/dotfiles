@@ -67,8 +67,8 @@ local default_lsp_config = {
   },
 }
 
--- IMPORTANT: make sure to setup lua-dev BEFORE lspconfig for sumneko_lua
-require("lua-dev").setup({
+-- IMPORTANT: make sure to setup neodev BEFORE lspconfig for sumneko_lua
+require("neodev").setup({
   -- add any options here, or leave empty to use the default settings
 })
 

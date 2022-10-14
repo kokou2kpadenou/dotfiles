@@ -156,7 +156,7 @@ return packer.startup(function(use)
     'neovim/nvim-lspconfig',
     after = 'nvim-treesitter',
     requires = {
-      'folke/lua-dev.nvim', -- Dev setup for init.lua and plugin development
+      'folke/neodev.nvim', -- Dev setup for init.lua and plugin development
       'ckipp01/stylua-nvim', -- wrapper around the Lua code formatter, StyLua
     },
     config = function()
