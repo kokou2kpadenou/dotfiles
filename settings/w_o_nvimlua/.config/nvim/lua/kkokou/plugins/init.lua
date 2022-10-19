@@ -164,6 +164,15 @@ return packer.startup(function(use)
     end,
   }
 
+  use {
+    'j-hui/fidget.nvim',
+    event = 'VimEnter',
+    config = function()
+      -- FIXME: fidget background transparency
+      require('fidget').setup {}
+    end,
+  }
+
   -- null-ls.nvim
   use {
     'jose-elias-alvarez/null-ls.nvim',
