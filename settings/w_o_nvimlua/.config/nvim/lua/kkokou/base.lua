@@ -1,7 +1,7 @@
 -- Helpers
 local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
 local g = vim.g -- a table to access global variables
-local opt = vim.opt -- to set options
+local o = vim.o -- to set options
 
 g.loaded_ruby_provider = 0
 g.loaded_perl_provider = 0
@@ -10,50 +10,50 @@ g.loaded_python3_provider = 0
 g.loaded_node_provider = 0
 
 -- Options
-opt.completeopt = 'menu,menuone,noselect'
-opt.cursorline = true
-opt.errorbells = false
-opt.tabstop = 2
-opt.softtabstop = 2
-opt.shiftwidth = 2
-opt.expandtab = true
-opt.smartindent = true
-opt.number = true
-opt.relativenumber = true
-opt.wrap = false
-opt.smartcase = true
-opt.swapfile = false
-opt.backup = false
-opt.writebackup = false
-opt.incsearch = true
-opt.hlsearch = true
-opt.lazyredraw = false
-opt.magic = true
-opt.cmdheight = 2
-opt.updatetime = 300
-opt.shortmess = opt.shortmess + 'c'
-opt.signcolumn = 'yes'
-opt.showcmd = true
+o.completeopt = 'menu,menuone,noselect'
+o.cursorline = true
+o.errorbells = false
+o.tabstop = 2
+o.softtabstop = 2
+o.shiftwidth = 2
+o.expandtab = true
+o.smartindent = true
+o.number = true
+o.relativenumber = true
+o.wrap = false
+o.smartcase = true
+o.swapfile = false
+o.backup = false
+o.writebackup = false
+o.incsearch = true
+o.hlsearch = true
+o.lazyredraw = false
+o.magic = true
+o.cmdheight = 2
+o.updatetime = 300
+vim.opt.shortmess = vim.opt.shortmess + 'c'
+o.signcolumn = 'yes'
+o.showcmd = true
 
-opt.list = true
+o.list = true
 --[[ opt.listchars = { eol = '¬', tab = '>.', trail = '~', extends = '>', space = '␣', precedes = '<' } ]]
-opt.listchars = { eol = '¬', tab = '>.', trail = '~', extends = '>', space = '⋅', precedes = '<' }
+vim.opt.listchars = { eol = '¬', tab = '>.', trail = '~', extends = '>', space = '⋅', precedes = '<' }
 
-opt.clipboard = 'unnamedplus'
+o.clipboard = 'unnamedplus'
 
-opt.termguicolors = true
+o.termguicolors = true
 
-opt.foldenable = true
-opt.foldlevelstart = 90
-opt.foldnestmax = 10
-opt.foldmethod = 'expr'
-opt.foldexpr = "nvim_treesitter#foldexpr()"
-opt.foldcolumn = '1'
+o.foldenable = true
+o.foldlevelstart = 90
+o.foldnestmax = 5
+o.foldmethod = 'expr'
+o.foldexpr = "nvim_treesitter#foldexpr()"
+o.foldcolumn = '1'
 
-opt.path = opt.path + '**'
-opt.wildmenu = true
-opt.wildignore = opt.wildignore + { '*/node_modules/*', '*/.next/*', '*/out/*', '*/dist/*', '*/tmp/*' }
-opt.hidden = true
+vim.opt.path = vim.opt.path + '**'
+o.wildmenu = true
+vim.opt.wildignore = vim.opt.wildignore + { '*/node_modules/*', '*/.next/*', '*/out/*', '*/dist/*', '*/tmp/*' }
+o.hidden = true
 
 -- netrw
 g.netrw_banner = 0 -- disable annoying banner
@@ -71,10 +71,10 @@ g.netrw_list_hide = (vim.fn['netrw_gitignore#Hide']())
 g.netrw_winsize = 35
 
 -- Undo history
-opt.undodir = fn.stdpath 'config' .. '/undodir'
-opt.undofile = true
+o.undodir = fn.stdpath 'config' .. '/undodir'
+o.undofile = true
 
 -- Disable mouse and scrolling
-opt.mouse = ''
+o.mouse = ''
 -- FIXME: disable mousescroll not working for now.
--- opt.mousescroll = 'ver:0,hor:0'
+o.mousescroll = 'ver:0,hor:0'
