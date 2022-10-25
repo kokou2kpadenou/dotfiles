@@ -95,6 +95,7 @@ return packer.startup(function(use)
   -- Status Line
   use {
     'nvim-lualine/lualine.nvim',
+    after = 'nvim-lspconfig',
     disable = false,
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function()
