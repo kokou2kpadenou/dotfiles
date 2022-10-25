@@ -39,7 +39,7 @@ local config = {
     -- Disable sections and component separators
     component_separators = '',
     section_separators = '',
-    theme = 'tokyonight',
+    theme = 'transparentbg',
   },
   sections = {
     -- these are to remove the defaults
@@ -60,6 +60,88 @@ local config = {
     lualine_c = {},
     lualine_x = {},
   },
+  winbar = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {},
+    lualine_x = {
+      {
+        function()
+          -- return '▊'
+          return ''
+        end,
+        color = { fg = colors.blue },
+        -- padding = { left = 0, right = 1 },
+      },
+      {
+        'filename',
+        path = 1,
+        color = function()
+          -- auto change color according to neovims mode
+          local mode_color = {
+            n = colors.red,
+            i = colors.green,
+            v = colors.blue,
+            [''] = colors.blue,
+            V = colors.blue,
+            c = colors.magenta,
+            no = colors.red,
+            s = colors.orange,
+            S = colors.orange,
+            [''] = colors.orange,
+            ic = colors.yellow,
+            R = colors.violet,
+            Rv = colors.violet,
+            cv = colors.red,
+            ce = colors.red,
+            r = colors.cyan,
+            rm = colors.cyan,
+            ['r?'] = colors.cyan,
+            ['!'] = colors.red,
+            t = colors.red,
+          }
+          return { fg = mode_color[vim.fn.mode()] }
+        end,
+      },
+      {
+        function()
+          -- return '▊'
+          return ''
+        end,
+        color = { fg = colors.blue },
+        -- padding = { left = 1 },
+      },
+    },
+    lualine_y = {},
+    lualine_z = {},
+  },
+
+  inactive_winbar = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {},
+    lualine_x = {
+      {
+        function()
+          -- return '▊'
+          return ''
+        end,
+        color = { fg = colors.fg },
+        -- padding = { left = 0, right = 1 },
+      },
+      { 'filename', path = 1 },
+      {
+        function()
+          -- return '▊'
+          return ''
+        end,
+        color = { fg = colors.fg },
+        -- padding = { left = 1 },
+      },
+    },
+    lualine_y = {},
+    lualine_z = {},
+  },
 }
 
 -- Inserts a component in lualine_c at left section
@@ -72,9 +154,11 @@ local function ins_right(component)
   table.insert(config.sections.lualine_x, component)
 end
 
+-- section_separators = { left = '', right = '' },
 ins_left {
   function()
-    return '▊'
+    -- return '▊'
+    return ''
   end,
   color = { fg = colors.blue }, -- Sets highlighting of component
   padding = { left = 0, right = 1 }, -- We don't need space before this
@@ -205,7 +289,8 @@ ins_right {
 
 ins_right {
   function()
-    return '▊'
+    -- return '▊'
+    return ''
   end,
   color = { fg = colors.blue },
   padding = { left = 1 },
