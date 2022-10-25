@@ -246,6 +246,7 @@ return packer.startup(function(use)
   -- neoclip, clipboard manager for neovim
   use {
     'AckslD/nvim-neoclip.lua',
+    disable = true,
     requires = {
       { 'kkharji/sqlite.lua', module = 'sqlite' },
       -- you'll need at least one of these
