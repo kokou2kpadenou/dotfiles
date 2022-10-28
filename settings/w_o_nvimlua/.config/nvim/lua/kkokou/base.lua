@@ -29,14 +29,13 @@ o.incsearch = true
 o.hlsearch = true
 o.lazyredraw = false
 o.magic = true
-o.cmdheight = 2
+-- o.cmdheight = 1
 o.updatetime = 300
 vim.opt.shortmess = vim.opt.shortmess + 'c'
 o.signcolumn = 'yes'
 o.showcmd = true
 
 o.list = true
---[[ opt.listchars = { eol = '¬', tab = '>.', trail = '~', extends = '>', space = '␣', precedes = '<' } ]]
 vim.opt.listchars = { eol = '¬', tab = '>.', trail = '~', extends = '>', space = '⋅', precedes = '<' }
 
 o.clipboard = 'unnamedplus'
@@ -59,8 +58,6 @@ o.hidden = true
 g.netrw_banner = 0 -- disable annoying banner
 g.netrw_liststyle = 3 -- Tree style view
 g.netrw_bufsettings = 'noma nomod nonu nobl nowrap ro rnu'
--- g.netrw_browse_split = 4 -- Open in previous window
--- g.netrw_altv = 1 -- Open with right splitting
 g.netrw_list_hide = (vim.fn['netrw_gitignore#Hide']())
   .. [[,\(^\|\s\s\)\zs\.\S\+]]
   .. [[,node_modules]]
