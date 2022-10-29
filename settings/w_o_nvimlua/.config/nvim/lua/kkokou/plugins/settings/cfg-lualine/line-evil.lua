@@ -17,6 +17,7 @@ local colors = {
   magenta  = '#c678dd',
   blue     = '#51afef',
   red      = '#ec5f67',
+  black    = '#000000',
 }
 
 local conditions = {
@@ -66,50 +67,11 @@ local config = {
     lualine_c = {},
     lualine_x = {
       {
-        function()
-          -- return '▊'
-          return ''
-        end,
-        color = { fg = colors.blue },
-        -- padding = { left = 0, right = 1 },
-      },
-      {
         'filename',
         path = 1,
-        color = function()
-          -- auto change color according to neovims mode
-          local mode_color = {
-            n = colors.red,
-            i = colors.green,
-            v = colors.blue,
-            [''] = colors.blue,
-            V = colors.blue,
-            c = colors.magenta,
-            no = colors.red,
-            s = colors.orange,
-            S = colors.orange,
-            [''] = colors.orange,
-            ic = colors.yellow,
-            R = colors.violet,
-            Rv = colors.violet,
-            cv = colors.red,
-            ce = colors.red,
-            r = colors.cyan,
-            rm = colors.cyan,
-            ['r?'] = colors.cyan,
-            ['!'] = colors.red,
-            t = colors.red,
-          }
-          return { fg = mode_color[vim.fn.mode()] }
-        end,
-      },
-      {
-        function()
-          -- return '▊'
-          return ''
-        end,
-        color = { fg = colors.blue },
-        -- padding = { left = 1 },
+        color = { fg = colors.black, bg = colors.blue },
+        padding = 0,
+        separator = { left = '', right = '' },
       },
     },
     lualine_y = {},
@@ -122,21 +84,11 @@ local config = {
     lualine_c = {},
     lualine_x = {
       {
-        function()
-          -- return '▊'
-          return ''
-        end,
-        color = { fg = colors.fg },
-        -- padding = { left = 0, right = 1 },
-      },
-      { 'filename', path = 1 },
-      {
-        function()
-          -- return '▊'
-          return ''
-        end,
-        color = { fg = colors.fg },
-        -- padding = { left = 1 },
+        'filename',
+        path = 1,
+        color = { fg = colors.black, bg = colors.fg },
+        padding = 0,
+        separator = { left = '', right = '' },
       },
     },
     lualine_y = {},
