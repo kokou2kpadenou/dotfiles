@@ -169,8 +169,14 @@ return packer.startup(function(use)
     'j-hui/fidget.nvim',
     event = 'VimEnter',
     config = function()
-      -- FIXME: fidget background transparency
-      require('fidget').setup {}
+      require('fidget').setup {
+        text = {
+          spinner = 'dots_snake', -- animation shown when tasks are ongoing
+        },
+        window = {
+          blend = 0, -- &winblend for the window
+        },
+      }
     end,
   }
 
