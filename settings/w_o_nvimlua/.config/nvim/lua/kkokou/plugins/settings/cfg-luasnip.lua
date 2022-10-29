@@ -20,7 +20,7 @@ ls.config.set_config {
   ext_base_prio = 300,
   enable_autosnippets = true,
   ft_func = function()
-    return vim.split(vim.bo.filetype, '.', true)
+    return vim.split(vim.bo.filetype, '.', { plain = true, trimempty = true })
   end,
 }
 
@@ -28,6 +28,9 @@ ls.config.set_config {
 require('luasnip.loaders.from_vscode').lazy_load {
   paths = { vim.fn.stdpath 'data' .. '/site/pack/packer/start/friendly-snippets' },
 }
+
+ls.filetype_extend('javascript', { 'javascriptreact' })
+ls.filetype_extend('typescript', { 'typescriptreact' })
 
 -- Mapping
 vim.cmd [[
