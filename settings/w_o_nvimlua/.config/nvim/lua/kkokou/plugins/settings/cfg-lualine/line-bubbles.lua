@@ -28,5 +28,22 @@ return {
     lualine_z = { 'location' },
   },
   tabline = {},
+  winbar = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {},
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = { { 'filename', path = 1, separator = { left = '', right = '' } } },
+  },
+
+  inactive_winbar = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {},
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = { { 'filename', path = 1, separator = { left = '', right = '' } } },
+  },
   extensions = {},
 }
