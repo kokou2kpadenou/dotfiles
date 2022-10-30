@@ -25,8 +25,6 @@ local function winbarToggleSplit()
   HideWinbar()
 end
 --
-local configList = { 'evil', 'bubbles', 'slanted-gaps', 'defaut' }
-
 local cfg_selected = 'evil'
 
 -- local function get_lualine_cfg(cfglist, cfgname)
@@ -78,10 +76,31 @@ vim.api.nvim_create_user_command('ChangeLualine', function(opts)
   winbarToggleSplit()
 end, {
   nargs = 1,
-  complete = function (_, _, _)
-      -- TODO: filter and sort the args
-    return configList
-  end
+  complete = function(argLead, _, _)
+    -- TODO: filter and sort the args
+    local configList = { 'evil', 'bubbles', 'slanted-gaps', 'default' }
+
+    local function start_with(pattern, target)
+      local partten_len = #pattern
+      local target_first_mean = string.sub(target, 1, partten_len)
+      return target_first_mean == pattern
+    end
+
+    local return_config = configList
+
+    local i = 1
+    while i <= #return_config do
+      if not start_with(argLead, return_config[i]) then
+        table.remove(return_config, i)
+      -- do not increment the index here, retry the same element
+      else
+        i = i + 1
+      end
+    end
+
+    table.sort(return_config)
+    return return_config
+  end,
 })
 
 local autoActiveWinBar = vim.api.nvim_create_augroup('AutoActiveWinBar', { clear = true })
