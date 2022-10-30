@@ -56,7 +56,7 @@ local function get_lualine_cfg(cfgname)
       lualine_y = {},
       lualine_z = { { 'filename', path = 1 } },
     },
-    extensions = { 'fugitive', 'quickfix' },
+    -- extensions = { 'fugitive', 'quickfix' },
   }
 
   return vim.tbl_deep_extend('force', base_config, require('kkokou.plugins.settings.cfg-lualine.line-' .. cfgname))
