@@ -34,6 +34,17 @@ local conditions = {
   end,
 }
 
+local winbar_filetype = { 'fugitive', 'git', 'gitcommit' }
+
+local function has_value(tab, val)
+  for index, value in ipairs(tab) do
+    if value == val then
+      return true
+    end
+  end
+
+  return false
+end
 -- Config
 local config = {
   options = {
@@ -69,6 +80,18 @@ local config = {
       {
         'filename',
         path = 1,
+        cond = function ()
+           return not has_value(winbar_filetype, vim.o.filetype)
+        end,
+        color = { fg = colors.black, bg = colors.blue },
+        padding = 0,
+        separator = { left = '', right = '' },
+      },
+      {
+        'filetype',
+        cond = function ()
+          return has_value(winbar_filetype, vim.o.filetype)
+        end,
         color = { fg = colors.black, bg = colors.blue },
         padding = 0,
         separator = { left = '', right = '' },
@@ -86,6 +109,18 @@ local config = {
       {
         'filename',
         path = 1,
+        cond = function ()
+           return not has_value(winbar_filetype, vim.o.filetype)
+        end,
+        color = { fg = colors.black, bg = colors.fg },
+        padding = 0,
+        separator = { left = '', right = '' },
+      },
+      {
+        'filetype',
+        cond = function ()
+          return has_value(winbar_filetype, vim.o.filetype)
+        end,
         color = { fg = colors.black, bg = colors.fg },
         padding = 0,
         separator = { left = '', right = '' },
