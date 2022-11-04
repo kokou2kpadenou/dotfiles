@@ -67,8 +67,6 @@ return packer.startup(function(use)
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
     requires = {
-      'nvim-treesitter/nvim-treesitter-textobjects', --Syntax aware text-objects, select, move, swap, and peek support.
-      'nvim-treesitter/nvim-treesitter-refactor', -- Refactor modules for nvim-treesitter
       'JoosepAlviste/nvim-ts-context-commentstring', -- Dynamically set commentstring based on cursor location in file
     },
     config = function()
@@ -79,6 +77,7 @@ return packer.startup(function(use)
   -- Autoclose and autorename html tag using Treesitter
   use {
     'windwp/nvim-ts-autotag',
+    after = 'nvim-treesitter',
     config = function()
       require 'kkokou.plugins.settings.cfg-nvim-ts-autotag'
     end,
@@ -87,6 +86,7 @@ return packer.startup(function(use)
   -- Treesitter Context
   use {
     'nvim-treesitter/nvim-treesitter-context',
+    after = 'nvim-treesitter',
     config = function()
       require 'kkokou.plugins.settings.cfg-treesitter-context'
     end,
@@ -107,8 +107,22 @@ return packer.startup(function(use)
   use {
     -- 'norcalli/nvim-colorizer.lua',
     'NvChad/nvim-colorizer.lua',
+    disable = true,
     config = function()
-      require('colorizer').setup {}
+      require('colorizer').setup {
+        filetypes = { '*', '!packer', '!dockerfile' },
+        user_default_options = {
+          tailwind = 'lsp',
+          names = false,
+          sass = { enable = true, parsers = { css = true } },
+        },
+        buftypes = {
+          '*',
+          -- exclude prompt and popup buftypes from highlight
+          '!prompt',
+          '!popup',
+        },
+      }
     end,
   }
 
@@ -134,6 +148,7 @@ return packer.startup(function(use)
   -- Zen-mode: Distraction-free coding
   use {
     'folke/zen-mode.nvim',
+    disable = true,
     event = 'VimEnter',
     cmd = 'ZenMode',
     config = function()
@@ -144,6 +159,7 @@ return packer.startup(function(use)
   -- Twilight: dims inactive portions of the code you're editing
   use {
     'folke/twilight.nvim',
+    disable = true,
     event = 'VimEnter',
     config = function()
       require('twilight').setup {}
