@@ -17,7 +17,6 @@ end
 
 local function winbarToggleSplit()
   if winfn.detect_win_split() then
-    print 'did we come where?'
     ShowWinbar()
     return
   end
@@ -66,6 +65,7 @@ lualine.setup(get_lualine_cfg(cfg_selected))
 
 winbarToggleSplit()
 
+-- FIXME: Stranges characters appear in the lualine after CahngeLualine executed
 vim.api.nvim_create_user_command('ChangeLualine', function(opts)
   -- disable lualine
   lualine.hide {}
@@ -77,7 +77,6 @@ vim.api.nvim_create_user_command('ChangeLualine', function(opts)
 end, {
   nargs = 1,
   complete = function(argLead, _, _)
-    -- TODO: filter and sort the args
     local configList = { 'evil', 'bubbles', 'slanted-gaps', 'default' }
 
     local function start_with(pattern, target)
@@ -105,7 +104,7 @@ end, {
 
 local autoActiveWinBar = vim.api.nvim_create_augroup('AutoActiveWinBar', { clear = true })
 
-vim.api.nvim_create_autocmd({ 'WinEnter' }, {
+vim.api.nvim_create_autocmd({ 'BufEnter' }, {
   group = autoActiveWinBar,
 
   callback = function()
