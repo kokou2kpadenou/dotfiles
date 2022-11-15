@@ -1,6 +1,6 @@
 local lualine = require 'lualine'
 local winfn = require 'kkokou.utils.winfn'
-local excludeWins = { 'netrw', 'checkhealth', 'packer', 'help', 'undotree', 'diff', 'dbui', 'qf' }
+local excludeWins = { '', 'netrw', 'checkhealth', 'packer', 'help', 'undotree', 'diff', 'dbui', 'qf' }
 --
 local function ShowWinbar()
   lualine.hide {
