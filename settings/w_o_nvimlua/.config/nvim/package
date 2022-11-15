@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# TODO: Detect new pnpm version and upgrade
+
+# TODO: Detect outdated packages et update
+
+# Install missing nodejs packages with pnpm
+node_packages=(
+  typescript
+  typescript-language-server
+  vscode-langservers-extracted
+  yaml-language-server
+  eslint
+  @fsouza/prettierd
+  stylelint
+  bash-language-server
+  @tailwindcss/language-server
+  @astrojs/language-server
+  dockerfile-language-server-nodejs
+  cssmodules-language-server
+  emmet-ls
+  @johnnymorganz/stylua-bin
+)
+
+node_packages_missing=()
+
+node_packages_installed=$(pnpm -g list --depth 0)
+
+for pkg in "${node_packages[@]}"
+do
+  if [[ "$node_packages_installed" != *"$pkg"* ]]; then
+    node_packages_missing+=("$pkg")
+  fi
+done
+
+if [[ ${#node_packages_missing} -gt 0 ]]; then
+  pnpm add -g "${node_packages_missing[@]}" || echo "Error installing nodejs packages."
+fi
