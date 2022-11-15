@@ -186,9 +186,6 @@ return packer.startup(function(use)
     event = 'VimEnter',
     config = function()
       require('fidget').setup {
-        text = {
-          spinner = 'dots_snake', -- animation shown when tasks are ongoing
-        },
         window = {
           blend = 0, -- &winblend for the window
         },
