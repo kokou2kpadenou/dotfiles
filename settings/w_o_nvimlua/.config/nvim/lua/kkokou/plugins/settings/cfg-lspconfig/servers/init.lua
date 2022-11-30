@@ -11,6 +11,7 @@ return function(on_attach, capabilities)
     gopls = {},
     html = {},
     jsonls = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-jsonls'(capabilities),
+    pyright = {},
     sumneko_lua = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-sumneko'(),
     tailwindcss = {},
     tsserver = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-tsserver'(on_attach),

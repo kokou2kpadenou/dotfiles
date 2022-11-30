@@ -1,8 +1,26 @@
 #!/bin/bash
 
+confirm_action(){
+  read -p "${1} " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    shift
+    "$@"
+  fi
+}
+
+# echo
+
+# node_packages_outdated=$(pnpm -g outdated)
+
+
 # TODO: Detect new pnpm version and upgrade
+# confirm_action "Do you wish to upgrade pnpm?" echo "Upgrade pnpm"
 
 # TODO: Detect outdated packages et update
+# [[ -n "$node_packages_outdated" ]] \
+#   && confirm_action "Do you wish to update nodejs packages?" \
+#   pnpm -g outdated
 
 # Install missing nodejs packages with pnpm
 node_packages=(
@@ -20,6 +38,7 @@ node_packages=(
   cssmodules-language-server
   emmet-ls
   @johnnymorganz/stylua-bin
+  pyright
 )
 
 node_packages_missing=()
