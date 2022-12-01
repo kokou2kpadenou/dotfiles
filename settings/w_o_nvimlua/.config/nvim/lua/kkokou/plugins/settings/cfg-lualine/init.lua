@@ -1,5 +1,5 @@
 local lualine = require 'lualine'
-local winfn = require 'kkokou.utils.winfn'
+local some_funcs = require 'kkokou.utils.unofficial'
 local excludeWins = { '', 'netrw', 'checkhealth', 'packer', 'help', 'undotree', 'diff', 'dbui', 'qf' }
 local defConfig = { 'evil', 'bubbles', 'slanted-gaps', 'default' }
 --
@@ -17,7 +17,7 @@ local function HideWinbar()
 end
 
 local function winbarToggleSplit()
-  if winfn.detect_win_split() then
+  if some_funcs.detect_win_split() then
     ShowWinbar()
     return
   end
@@ -25,7 +25,7 @@ local function winbarToggleSplit()
   HideWinbar()
 end
 --
-local cfg_selected = winfn.has_value(defConfig, vim.g.lualineConfigName) and vim.g.lualineConfigName or 'evil'
+local cfg_selected = some_funcs.has_value(defConfig, vim.g.lualineConfigName) and vim.g.lualineConfigName or 'evil'
 
 -- local function get_lualine_cfg(cfglist, cfgname)
 local function get_lualine_cfg(cfgname)
@@ -71,7 +71,7 @@ vim.api.nvim_create_user_command('ChangeLualine', function(opts)
 
   cfg_selected = opts.args
 
-  if winfn.has_value(defConfig, cfg_selected) then
+  if some_funcs.has_value(defConfig, cfg_selected) then
     lualine.hide {}
 
     lualine.setup(get_lualine_cfg(cfg_selected))
@@ -91,7 +91,7 @@ end, {
 
     local i = 1
     while i <= #return_config do
-      if not winfn.start_with(argLead, return_config[i]) then
+      if not some_funcs.start_with(argLead, return_config[i]) then
         table.remove(return_config, i)
       -- do not increment the index here, retry the same element
       else
@@ -110,9 +110,9 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
   group = autoActiveWinBar,
 
   callback = function()
-    local winsplitstate = winfn.detect_win_split()
+    local winsplitstate = some_funcs.detect_win_split()
     -- If window is floating, do nothing
-    if winfn.is_floating(0) then
+    if some_funcs.is_floating(0) then
       return
     end
 
