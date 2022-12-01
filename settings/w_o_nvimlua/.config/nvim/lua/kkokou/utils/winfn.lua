@@ -21,6 +21,18 @@ function M.detect_win_split()
   return wc > 1
 end
 
+function M.has_value(tab, val)
+  for _, value in ipairs(tab) do
+    if value == val then
+      return true
+    end
+  end
+end
 
+function M.start_with(pattern, target)
+  local partten_len = #pattern
+  local target_first_mean = string.sub(target, 1, partten_len)
+  return target_first_mean == pattern
+end
 
 return M
