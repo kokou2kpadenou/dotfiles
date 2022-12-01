@@ -1,6 +1,7 @@
 local lualine = require 'lualine'
 local winfn = require 'kkokou.utils.winfn'
 local excludeWins = { '', 'netrw', 'checkhealth', 'packer', 'help', 'undotree', 'diff', 'dbui', 'qf' }
+local defConfig = { 'evil', 'bubbles', 'slanted-gaps', 'default' }
 --
 local function ShowWinbar()
   lualine.hide {
@@ -24,7 +25,7 @@ local function winbarToggleSplit()
   HideWinbar()
 end
 --
-local cfg_selected = 'evil'
+local cfg_selected = winfn.has_value(defConfig, vim.g.lualineConfigName) and vim.g.lualineConfigName or 'evil'
 
 -- local function get_lualine_cfg(cfglist, cfgname)
 local function get_lualine_cfg(cfgname)
@@ -62,34 +63,35 @@ local function get_lualine_cfg(cfgname)
 end
 
 lualine.setup(get_lualine_cfg(cfg_selected))
-
 winbarToggleSplit()
 
 -- FIXME: Stranges characters appear in the lualine after CahngeLualine executed
 vim.api.nvim_create_user_command('ChangeLualine', function(opts)
   -- disable lualine
-  lualine.hide {}
 
   cfg_selected = opts.args
-  lualine.setup(get_lualine_cfg(cfg_selected))
 
-  winbarToggleSplit()
+  if winfn.has_value(defConfig, cfg_selected) then
+    lualine.hide {}
+
+    lualine.setup(get_lualine_cfg(cfg_selected))
+    winbarToggleSplit()
+  else
+    print 'Unknow configuration name'
+  end
+  -- lualine.setup(get_lualine_cfg(cfg_selected))
+
+  -- winbarToggleSplit()
 end, {
   nargs = 1,
   complete = function(argLead, _, _)
-    local configList = { 'evil', 'bubbles', 'slanted-gaps', 'default' }
-
-    local function start_with(pattern, target)
-      local partten_len = #pattern
-      local target_first_mean = string.sub(target, 1, partten_len)
-      return target_first_mean == pattern
-    end
+    local configList = defConfig
 
     local return_config = configList
 
     local i = 1
     while i <= #return_config do
-      if not start_with(argLead, return_config[i]) then
+      if not winfn.start_with(argLead, return_config[i]) then
         table.remove(return_config, i)
       -- do not increment the index here, retry the same element
       else
