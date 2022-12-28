@@ -34,6 +34,7 @@ o.updatetime = 300
 vim.opt.shortmess = vim.opt.shortmess + 'c'
 o.signcolumn = 'yes'
 o.showcmd = true
+o.scrolloff = 4
 
 o.list = true
 vim.opt.listchars = { eol = '¬', tab = '>.', trail = '~', extends = '>', space = '⋅', precedes = '<' }
