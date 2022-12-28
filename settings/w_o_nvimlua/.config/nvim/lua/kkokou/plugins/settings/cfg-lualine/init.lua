@@ -85,7 +85,7 @@ vim.api.nvim_create_user_command('ChangeLualine', function(opts)
 end, {
   nargs = 1,
   complete = function(argLead, _, _)
-    local configList = defConfig
+    local configList = { 'evil', 'bubbles', 'slanted-gaps', 'default' }
 
     local return_config = configList
 
