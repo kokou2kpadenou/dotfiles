@@ -143,7 +143,7 @@ return require('packer').startup {
     -- Zen-mode: Distraction-free coding
     use {
       'folke/zen-mode.nvim',
-      disable = true,
+      disable = false,
       event = 'VimEnter',
       cmd = 'ZenMode',
       config = function()
@@ -154,7 +154,7 @@ return require('packer').startup {
     -- Twilight: dims inactive portions of the code you're editing
     use {
       'folke/twilight.nvim',
-      disable = true,
+      disable = false,
       event = 'VimEnter',
       config = function()
         require('twilight').setup {}
