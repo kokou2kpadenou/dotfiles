@@ -100,24 +100,10 @@ return require('packer').startup {
 
     -- Color highlighter for Neovim
     use {
-      -- 'norcalli/nvim-colorizer.lua',
-      'NvChad/nvim-colorizer.lua',
-      disable = true,
+      disable = false,
+      'brenoprata10/nvim-highlight-colors',
       config = function()
-        require('colorizer').setup {
-          filetypes = { '*', '!packer', '!dockerfile' },
-          user_default_options = {
-            tailwind = 'lsp',
-            names = false,
-            sass = { enable = true, parsers = { css = true } },
-          },
-          buftypes = {
-            '*',
-            -- exclude prompt and popup buftypes from highlight
-            '!prompt',
-            '!popup',
-          },
-        }
+        require('nvim-highlight-colors').setup {}
       end,
     }
 
