@@ -257,21 +257,6 @@ return require('packer').startup {
     -- EditorConfig for Vim
     use 'editorconfig/editorconfig-vim'
 
-    -- neoclip, clipboard manager for neovim
-    use {
-      'AckslD/nvim-neoclip.lua',
-      disable = true,
-      requires = {
-        { 'kkharji/sqlite.lua', module = 'sqlite' },
-        -- you'll need at least one of these
-        { 'nvim-telescope/telescope.nvim' },
-        -- {'ibhagwan/fzf-lua'},
-      },
-      config = function()
-        require 'kkokou.plugins.settings.cfg-neoclip'
-      end,
-    }
-
     -- Interaction with Databases
     use {
       'kristijanhusak/vim-dadbod-ui',
