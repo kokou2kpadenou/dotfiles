@@ -217,6 +217,17 @@ return require('packer').startup {
       end,
     }
 
+    -- Codeium - Code pilot alternative
+    use {
+      'Exafunction/codeium.vim',
+      config = function()
+        -- Change '<C-g>' here to any keycode you like.
+        vim.keymap.set('i', '<C-g>', function()
+          return vim.fn['codeium#Accept']()
+        end, { expr = true })
+      end,
+    }
+
     -- OTHERS
     ---------
     -- Visualizes undo history and makes it easier to browse and switch between different undo branches
