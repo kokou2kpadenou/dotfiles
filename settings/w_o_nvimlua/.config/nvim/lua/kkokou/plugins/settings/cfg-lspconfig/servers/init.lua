@@ -1,7 +1,14 @@
 -- List of Defined Language Servers
 return function(on_attach, capabilities)
   return {
-    astro = {},
+    astro = {
+      init_options = {
+        configuration = {},
+        typescript = {
+          serverPath = vim.fs.normalize('~/.local/share/pnpm/global/5/node_modules/typescript/lib/tsserverlibrary.js'),
+        },
+      },
+    },
     bashls = {},
     cssls = {},
     cssmodules_ls = {},
