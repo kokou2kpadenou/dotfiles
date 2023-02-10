@@ -39,6 +39,8 @@ node_packages=(
   emmet-ls
   @johnnymorganz/stylua-bin
   pyright
+  svelte-language-server
+  vls
 )
 
 node_packages_missing=()
