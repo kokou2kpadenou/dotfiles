@@ -147,6 +147,7 @@ return {
               'astro',
             },
           },
+          require('null-ls').builtins.formatting.stylua
         },
       }
     end,
