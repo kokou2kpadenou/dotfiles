@@ -1,6 +1,6 @@
 local lualine = require 'lualine'
 local some_funcs = require 'kkokou.utils.unofficial'
-local excludeWins = { '', 'netrw', 'checkhealth', 'packer', 'help', 'undotree', 'diff', 'dbui', 'qf' }
+local excludeWins = { '', 'netrw', 'checkhealth', 'packer', 'help', 'undotree', 'diff', 'dbui', 'qf', 'neo-tree' }
 local defConfig = { 'evil', 'bubbles', 'slanted-gaps', 'default' }
 --
 local function ShowWinbar()
@@ -106,7 +106,10 @@ end, {
 
 local autoActiveWinBar = vim.api.nvim_create_augroup('AutoActiveWinBar', { clear = true })
 
-vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+-- TODO: Add event BufDelete
+-- take care of neovim reload and other things
+--
+vim.api.nvim_create_autocmd({ 'BufEnter', 'BufDelete' }, {
   group = autoActiveWinBar,
 
   callback = function()
