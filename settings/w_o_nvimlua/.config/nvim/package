@@ -41,6 +41,7 @@ node_packages=(
   pyright
   svelte-language-server
   vls
+  stylelint-lsp
 )
 
 node_packages_missing=()
