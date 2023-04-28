@@ -42,10 +42,10 @@ return {
 
       -- Diagnostic keymaps
       local opts = { noremap = true, silent = true }
-      vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts)
+      vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
       vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
       vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-      vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
+      vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
       -- LSP Settings
       ---------------
@@ -96,7 +96,7 @@ return {
       }
 
       -- Enable the following language servers
-      local servers = require 'kkokou.plugins.settings.cfg-lspconfig.servers'(on_attach, capabilities)
+      local servers = require 'kkokou.plugins.settings.cfg-lspconfig.servers' (on_attach, capabilities)
 
       for lsp, lsp_config in pairs(servers) do
         local merged_config = vim.tbl_deep_extend('force', default_lsp_config, lsp_config)
@@ -106,7 +106,7 @@ return {
 
       vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
       vim.lsp.handlers['textDocument/signatureHelp'] =
-        vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
+      vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
     end,
   },
 
@@ -147,7 +147,7 @@ return {
               'astro',
             },
           },
-          require('null-ls').builtins.formatting.stylua
+          require('null-ls').builtins.formatting.stylua,
         },
       }
     end,
@@ -214,7 +214,7 @@ return {
       ls.config.setup(opts)
       -- Load friendly-snippets
       require('luasnip.loaders.from_vscode').lazy_load {
-        paths = { vim.fn.stdpath 'data' .. '/site/pack/packer/start/friendly-snippets' },
+        -- paths = { vim.fn.stdpath 'data' .. '/site/pack/packer/start/friendly-snippets' },
       }
 
       ls.filetype_extend('javascript', { 'javascriptreact' })
@@ -491,7 +491,7 @@ return {
     end,
   },
 
-  -- Codeium - Code pilot alternative
+  -- Codeium - Copilot alternative
   {
     'Exafunction/codeium.vim',
     lazy = true,
@@ -501,13 +501,14 @@ return {
     end,
     config = function()
       -- stylua: ignore start
-         vim.keymap.set('i', '<leader>g', function() return vim.fn['codeium#Accept']() end, { expr = true })
-         vim.keymap.set('i', '<leader>;', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
-         vim.keymap.set('i', '<leader>,', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
-         vim.keymap.set('i', '<leader>c', function() return vim.fn['codeium#Clear']() end, { expr = true })
+      vim.keymap.set('i', '<leader>g', function() return vim.fn['codeium#Accept']() end, { expr = true })
+      vim.keymap.set('i', '<leader>;', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+      vim.keymap.set('i', '<leader>,', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+      vim.keymap.set('i', '<leader>c', function() return vim.fn['codeium#Clear']() end, { expr = true })
       -- stylua: ignore end
     end,
   },
 
-  --
+  -- Copilot
+  -- { 'github/copilot.vim' },
 }
