@@ -5,7 +5,7 @@ return function(on_attach, capabilities)
       init_options = {
         configuration = {},
         typescript = {
-          serverPath = vim.fs.normalize('~/.local/share/pnpm/global/5/node_modules/typescript/lib/tsserverlibrary.js'),
+          serverPath = vim.fs.normalize '~/.local/share/pnpm/global/5/node_modules/typescript/lib/tsserverlibrary.js',
         },
       },
     },
@@ -18,8 +18,8 @@ return function(on_attach, capabilities)
     gopls = {},
     html = {},
     jsonls = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-jsonls'(capabilities),
+    lua_ls = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-lua_ls'(),
     pyright = {},
-    sumneko_lua = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-sumneko'(),
     svelte = {},
     tailwindcss = {},
     tsserver = require 'kkokou.plugins.settings.cfg-lspconfig.servers.srv-tsserver'(on_attach),

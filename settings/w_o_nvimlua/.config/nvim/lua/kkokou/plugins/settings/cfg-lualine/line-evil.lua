@@ -80,8 +80,8 @@ local config = {
       {
         'filename',
         path = 1,
-        cond = function ()
-           return not has_value(winbar_filetype, vim.o.filetype)
+        cond = function()
+          return not has_value(winbar_filetype, vim.o.filetype)
         end,
         color = { fg = colors.black, bg = colors.blue },
         padding = 0,
@@ -89,7 +89,7 @@ local config = {
       },
       {
         'filetype',
-        cond = function ()
+        cond = function()
           return has_value(winbar_filetype, vim.o.filetype)
         end,
         color = { fg = colors.black, bg = colors.blue },
@@ -109,8 +109,8 @@ local config = {
       {
         'filename',
         path = 1,
-        cond = function ()
-           return not has_value(winbar_filetype, vim.o.filetype)
+        cond = function()
+          return not has_value(winbar_filetype, vim.o.filetype)
         end,
         color = { fg = colors.black, bg = colors.fg },
         padding = 0,
@@ -118,7 +118,7 @@ local config = {
       },
       {
         'filetype',
-        cond = function ()
+        cond = function()
           return has_value(winbar_filetype, vim.o.filetype)
         end,
         color = { fg = colors.black, bg = colors.fg },
@@ -220,24 +220,14 @@ ins_left {
   end,
 }
 
+-- TODO: Improve this code
 ins_left {
-  -- Lsp server name .
-  function()
-    local msg = 'No Active Lsp'
-    local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-    local clients = vim.lsp.get_active_clients()
-    if next(clients) == nil then
-      return msg
-    end
-    for _, client in ipairs(clients) do
-      local filetypes = client.config.filetypes
-      if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-        return client.name
-      end
-    end
-    return msg
+  function ()
+    local lsp_msg =  ' LSP:' .. #(vim.lsp.get_active_clients({bufnr = 0}))
+    local lazy_msg = require('lazy.status').has_updates() and require('lazy.status').updates() or ''
+    local codeium_msg = '💬CodeIum:' .. vim.fn['codeium#GetStatusString']()
+    return lsp_msg .. ' ' .. lazy_msg .. ' ' .. codeium_msg
   end,
-  icon = ' LSP:',
   color = { fg = '#ffffff', gui = 'bold' },
 }
 
