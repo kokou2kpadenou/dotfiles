@@ -12,8 +12,8 @@ return {
       -- fidget: Standalone UI for nvim-lsp progress. Eye candy for the impatient.
       {
         'j-hui/fidget.nvim',
+        version = 'lagacy',
         opts = {
-
           window = {
             blend = 0, -- &winblend for the window
           },
@@ -41,11 +41,10 @@ return {
       end
 
       -- Diagnostic keymaps
-      local opts = { noremap = true, silent = true }
-      vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-      vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-      vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-      vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+      vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+      vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+      vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+      vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
       -- LSP Settings
       ---------------
@@ -53,41 +52,42 @@ return {
 
       vim.lsp.set_log_level 'error' -- 'trace', 'debug', 'info', 'warn', 'error'
 
-      local on_attach = function(_, bufnr)
-        -- Enable completion triggered by <c-x><c-o>
-        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+      -- Use LspAttach autocommand to only map the following keys
+      -- after the language server attaches to the current buffer
+      vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+        callback = function(ev)
+          -- Enable completion triggered by <c-x><c-o>
+          vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-        -- Mappings.
-        -- See `:help vim.lsp.*` for documentation on any of the below functions
-        local bufopts = { noremap = true, silent = true, buffer = bufnr }
-        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-        vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-        vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-        vim.keymap.set('n', '<space>wl', function()
-          print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end, bufopts)
-        vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-        vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-        vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-        vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-        vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
-      end
+          -- Buffer local mappings.
+          -- See `:help vim.lsp.*` for documentation on any of the below functions
+          local opts = { buffer = ev.buf }
+          vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+          vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+          vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+          vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+          vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+          vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+          vim.keymap.set('n', '<space>wl', function()
+            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+          end, opts)
+          vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+          vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+          vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+          vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+          vim.keymap.set('n', '<space>f', function()
+            vim.lsp.buf.format { async = true }
+          end, opts)
+        end,
+      })
 
-      -- nvim-cmp supports additional completion capabilities
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+      -- Add additional capabilities supported by nvim-cmp
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
       local default_lsp_config = {
-        on_attach = on_attach,
         capabilities = capabilities,
-        flags = {
-          debounce_text_changes = 200,
-          allow_incremental_sync = true,
-        },
       }
 
       -- IMPORTANT: make sure to setup neodev BEFORE lspconfig for sumneko_lua
@@ -96,7 +96,7 @@ return {
       }
 
       -- Enable the following language servers
-      local servers = require 'kkokou.settings.cfg-lspconfig.servers' (on_attach, capabilities)
+      local servers = require 'kkokou.settings.cfg-lspconfig.servers'(on_attach, capabilities)
 
       for lsp, lsp_config in pairs(servers) do
         local merged_config = vim.tbl_deep_extend('force', default_lsp_config, lsp_config)
@@ -106,7 +106,7 @@ return {
 
       vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
       vim.lsp.handlers['textDocument/signatureHelp'] =
-      vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
+        vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
     end,
   },
 
@@ -427,7 +427,8 @@ return {
             end
 
             -- Kind icons
-            vim_item.kind = string.format('%s %s', ' ' .. kind_icons[vim_item.kind] .. ' ', vim_item.kind .. ' ') -- This concatonates the icons with the name of the item kind
+            vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+            -- vim_item.kind = string.format('%s %s', ' ' .. kind_icons[vim_item.kind] .. ' ', vim_item.kind .. ' ') -- This concatonates the icons with the name of the item kind
             -- Source
             vim_item.menu = ({
               buffer = '[buf]',
@@ -490,25 +491,4 @@ return {
       })
     end,
   },
-
-  -- Codeium - Copilot alternative
-  {
-    'Exafunction/codeium.vim',
-    lazy = true,
-    init = function()
-      vim.g.codeium_disable_bindings = 1
-      vim.g.codeium_enabled = false
-    end,
-    config = function()
-      -- stylua: ignore start
-      vim.keymap.set('i', '<leader>g', function() return vim.fn['codeium#Accept']() end, { expr = true })
-      vim.keymap.set('i', '<leader>;', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
-      vim.keymap.set('i', '<leader>,', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
-      vim.keymap.set('i', '<leader>c', function() return vim.fn['codeium#Clear']() end, { expr = true })
-      -- stylua: ignore end
-    end,
-  },
-
-  -- Copilot
-  -- { 'github/copilot.vim' },
 }
