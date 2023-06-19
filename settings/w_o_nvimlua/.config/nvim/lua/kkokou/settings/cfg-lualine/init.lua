@@ -59,7 +59,7 @@ local function get_lualine_cfg(cfgname)
     -- extensions = { 'fugitive', 'quickfix' },
   }
 
-  return vim.tbl_deep_extend('force', base_config, require('kkokou.plugins.settings.cfg-lualine.line-' .. cfgname))
+  return vim.tbl_deep_extend('force', base_config, require('kkokou.settings.cfg-lualine.line-' .. cfgname))
 end
 
 lualine.setup(get_lualine_cfg(cfg_selected))

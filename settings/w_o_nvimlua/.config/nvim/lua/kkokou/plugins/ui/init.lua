@@ -32,10 +32,11 @@ return {
     'nvim-treesitter/nvim-treesitter-context',
     event = 'VeryLazy',
     opts = {
-      enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-      max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+      enable = true,        -- Enable this plugin (Can be enabled/disabled later via commands)
+      max_lines = 0,        -- How many lines the window should span. Values <= 0 mean no limit.
       trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-      patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+      patterns = {
+                            -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
         -- For all filetypes
         -- Note that setting an entry here replaces all other patterns for this entry.
         -- By setting the 'default' entry below, you can control which nodes you want to
@@ -95,7 +96,7 @@ return {
       -- [!] The options below are exposed but shouldn't require your attention,
       --     you can safely ignore them.
 
-      zindex = 20, -- The Z-index of the context window
+      zindex = 20,     -- The Z-index of the context window
       mode = 'cursor', -- Line used to calculate context. Choices: 'cursor', 'topline'
       -- Separator between context and content. Should be a single character string, like '-'.
       -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
@@ -113,9 +114,9 @@ return {
     -- enabled = false,
     lazy = false,
     priority = 900,
-    dependencies = { 'kyazdani42/nvim-web-devicons', 'Exafunction/codeium.vim', 'Exafunction/codeium.vim' },
+    dependencies = { 'nvim-tree/nvim-web-devicons', 'Exafunction/codeium.vim'  },
     config = function()
-      require 'kkokou.plugins.settings.cfg-lualine'
+      require 'kkokou.settings.cfg-lualine'
     end,
   },
 
@@ -185,8 +186,7 @@ return {
     'nvim-neo-tree/neo-tree.nvim',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      -- 'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
-      'kyazdani42/nvim-web-devicons',
+      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
       'MunifTanjim/nui.nvim',
       -- {
       --   -- only needed if you want to use the commands with "_with_window_picker" suffix
