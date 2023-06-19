@@ -8,7 +8,7 @@ return {
       'windwp/nvim-ts-autotag',
       'nvim-treesitter/nvim-treesitter-context',
     },
-    evnt = { 'BufReadPost', 'BufNewFile' },
+    event = { 'BufReadPost', 'BufNewFile' },
 
     opts = {
       ensure_installed = {
