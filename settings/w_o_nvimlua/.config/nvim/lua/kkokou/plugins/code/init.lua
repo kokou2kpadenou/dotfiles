@@ -96,7 +96,7 @@ return {
       }
 
       -- Enable the following language servers
-      local servers = require 'kkokou.plugins.settings.cfg-lspconfig.servers' (on_attach, capabilities)
+      local servers = require 'kkokou.settings.cfg-lspconfig.servers' (on_attach, capabilities)
 
       for lsp, lsp_config in pairs(servers) do
         local merged_config = vim.tbl_deep_extend('force', default_lsp_config, lsp_config)
