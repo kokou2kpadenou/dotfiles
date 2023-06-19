@@ -1,6 +1,6 @@
 return {
   -- EditorConfig for Vim
-  { 'editorconfig/editorconfig-vim' },
+  -- { 'editorconfig/editorconfig-vim' },
 
   -- Visualizes undo history and makes it easier to browse and switch between different undo branches
   { 'mbbill/undotree', cmd = 'UndotreeToggle' },
