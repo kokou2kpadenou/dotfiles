@@ -3,7 +3,7 @@ return function(capabilities)
 
   return {
       capabilities = capabilities,
-      filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less', 'astro' },
+      filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less', 'astro', 'php' },
   }
 end
 

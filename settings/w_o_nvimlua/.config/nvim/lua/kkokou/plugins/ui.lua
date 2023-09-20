@@ -36,7 +36,7 @@ return {
       max_lines = 0,        -- How many lines the window should span. Values <= 0 mean no limit.
       trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
       patterns = {
-                            -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+        -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
         -- For all filetypes
         -- Note that setting an entry here replaces all other patterns for this entry.
         -- By setting the 'default' entry below, you can control which nodes you want to
@@ -107,23 +107,11 @@ return {
     end,
   },
 
-  -- Status Line
-  {
-    'nvim-lualine/lualine.nvim',
-    -- event = 'VeryLazy',
-    -- enabled = false,
-    lazy = false,
-    priority = 900,
-    dependencies = { 'nvim-tree/nvim-web-devicons', 'Exafunction/codeium.vim'  },
-    config = function()
-      require 'kkokou.settings.cfg-lualine'
-    end,
-  },
-
   -- This plugin adds indentation guides to all lines (including empty lines).
   {
     'lukas-reineke/indent-blankline.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = 'VeryLazy',
+    -- event = { 'BufReadPost', 'BufNewFile' },
     opts = {
       space_char_blankline = ' ',
       show_current_context = true,
@@ -131,25 +119,10 @@ return {
     },
   },
 
-  -- Zen-mode: Distraction-free coding
-  {
-    'folke/zen-mode.nvim',
-    cmd = 'ZenMode',
-    dependencies = {
-      -- Twilight: dims inactive portions of the code you're editing
-      {
-        'folke/twilight.nvim',
-        config = true,
-      },
-    },
-    config = function()
-      require('zen-mode').setup {}
-    end,
-  },
-
   -- Color highlighter for Neovim
   {
     'brenoprata10/nvim-highlight-colors',
+    event = { 'BufReadPost', 'BufNewFile' },
     ft = {
       'html',
       'css',
@@ -170,17 +143,6 @@ return {
     config = true,
   },
 
-  -- animations
-  {
-    'echasnovski/mini.animate',
-    enabled = false,
-    version = false,
-    opts = {},
-    config = function(_, opts)
-      require('mini.animate').setup(opts)
-    end,
-  },
-
   -- neo-tree.nvim
   {
     'nvim-neo-tree/neo-tree.nvim',
@@ -188,53 +150,7 @@ return {
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
       'MunifTanjim/nui.nvim',
-      -- {
-      --   -- only needed if you want to use the commands with "_with_window_picker" suffix
-      --   's1n7ax/nvim-window-picker',
-      --   tag = "v1.*",
-      --   config = function()
-      --     require'window-picker'.setup({
-      --       autoselect_one = true,
-      --       include_current = false,
-      --       filter_rules = {
-      --         -- filter using buffer options
-      --         bo = {
-      --           -- if the file type is one of following, the window will be ignored
-      --           filetype = { 'neo-tree', "neo-tree-popup", "notify" },
-      --
-      --           -- if the buffer type is one of following, the window will be ignored
-      --           buftype = { 'terminal', "quickfix" },
-      --         },
-      --       },
-      --       other_win_hl_color = '#e35e4f',
-      --     })
-      --   end,
-      -- }
     },
     cmd = 'Neotree',
-    deactivate = function()
-      vim.cmd [[Neotree close]]
-    end,
-    init = function()
-      vim.g.neo_tree_remove_legacy_commands = 1
-      if vim.fn.argc() == 1 then
-        local stat = vim.loop.fs_stat(vim.fn.argv(0))
-        if stat and stat.type == 'directory' then
-          require 'neo-tree'
-        end
-      end
-    end,
-
-    opts = {
-      filesystem = {
-        bind_to_cwd = false,
-        follow_current_file = true,
-      },
-      window = {
-        mappings = {
-          ['<space>'] = 'none',
-        },
-      },
-    },
   },
 }

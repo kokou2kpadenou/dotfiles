@@ -1,6 +1,8 @@
+-- TODO: Redesign the whole thing.
 local lualine = require 'lualine'
 local some_funcs = require 'kkokou.utils.unofficial'
-local excludeWins = { '', 'netrw', 'checkhealth', 'packer', 'help', 'undotree', 'diff', 'dbui', 'qf', 'neo-tree' }
+local excludeWins =
+{ '', 'netrw', 'checkhealth', 'packer', 'help', 'undotree', 'diff', 'dbui', 'dbout', 'qf', 'neo-tree' }
 local defConfig = { 'evil', 'bubbles', 'slanted-gaps', 'default' }
 --
 local function ShowWinbar()
@@ -13,6 +15,7 @@ end
 local function HideWinbar()
   lualine.hide {
     place = { 'winbar' },
+    unhide = false,
   }
 end
 
@@ -59,7 +62,7 @@ local function get_lualine_cfg(cfgname)
     -- extensions = { 'fugitive', 'quickfix' },
   }
 
-  return vim.tbl_deep_extend('force', base_config, require('kkokou.settings.cfg-lualine.line-' .. cfgname))
+  return vim.tbl_deep_extend('force', base_config, require('kkokou.plugins.lualine.lines.line-' .. cfgname))
 end
 
 lualine.setup(get_lualine_cfg(cfg_selected))
@@ -69,7 +72,7 @@ winbarToggleSplit()
 vim.api.nvim_create_user_command('ChangeLualine', function(opts)
   -- disable lualine
 
-  cfg_selected = opts.args
+  cfg_selected = opts.args ~= '' and opts.args or 'evil'
 
   if some_funcs.has_value(defConfig, cfg_selected) then
     lualine.hide {}
@@ -83,7 +86,7 @@ vim.api.nvim_create_user_command('ChangeLualine', function(opts)
 
   -- winbarToggleSplit()
 end, {
-  nargs = 1,
+  nargs = '?',
   complete = function(argLead, _, _)
     local configList = { 'evil', 'bubbles', 'slanted-gaps', 'default' }
 
@@ -93,7 +96,7 @@ end, {
     while i <= #return_config do
       if not some_funcs.start_with(argLead, return_config[i]) then
         table.remove(return_config, i)
-      -- do not increment the index here, retry the same element
+        -- do not increment the index here, retry the same element
       else
         i = i + 1
       end
@@ -109,7 +112,11 @@ local autoActiveWinBar = vim.api.nvim_create_augroup('AutoActiveWinBar', { clear
 -- TODO: Add event BufDelete
 -- take care of neovim reload and other things
 --
-vim.api.nvim_create_autocmd({ 'BufEnter', 'BufDelete' }, {
+vim.api.nvim_create_autocmd({
+  'BufEnter',
+  'BufDelete', --[[ , 'ColorScheme' ]]
+  'ColorScheme',
+}, {
   group = autoActiveWinBar,
 
   callback = function()
@@ -129,6 +136,8 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufDelete' }, {
       return
     end
 
-    ShowWinbar()
+    if winsplitstate then
+      ShowWinbar()
+    end
   end,
 })

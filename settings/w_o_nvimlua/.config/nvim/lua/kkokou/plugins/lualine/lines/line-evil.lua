@@ -37,7 +37,7 @@ local conditions = {
 local winbar_filetype = { 'fugitive', 'git', 'gitcommit' }
 
 local function has_value(tab, val)
-  for index, value in ipairs(tab) do
+  for _, value in ipairs(tab) do
     if value == val then
       return true
     end
@@ -147,7 +147,7 @@ ins_left {
     -- return '▊'
     return ''
   end,
-  color = { fg = colors.blue }, -- Sets highlighting of component
+  color = { fg = colors.blue },      -- Sets highlighting of component
   padding = { left = 0, right = 1 }, -- We don't need space before this
 }
 
@@ -204,7 +204,7 @@ ins_left { 'progress', color = { fg = colors.fg, gui = 'bold' } }
 ins_left {
   'diagnostics',
   sources = { 'nvim_diagnostic' },
-  symbols = { error = ' ', warn = ' ', info = ' ' },
+  symbols = { error = '󰅙 ', warn = ' ', info = ' ', hint = '󰌵 ' },
   diagnostics_color = {
     color_error = { fg = colors.red },
     color_warn = { fg = colors.yellow },
@@ -222,8 +222,8 @@ ins_left {
 
 -- TODO: Improve this code
 ins_left {
-  function ()
-    local lsp_msg =  ' LSP:' .. #(vim.lsp.get_active_clients({bufnr = 0}))
+  function()
+    local lsp_msg = ' LSP:' .. #(vim.lsp.get_clients { bufnr = 0 })
     local lazy_msg = require('lazy.status').has_updates() and require('lazy.status').updates() or ''
     local codeium_msg = '💬CodeIum:' .. vim.fn['codeium#GetStatusString']()
     return lsp_msg .. ' ' .. lazy_msg .. ' ' .. codeium_msg
@@ -233,7 +233,7 @@ ins_left {
 
 -- Add components to right sections
 ins_right {
-  'o:encoding', -- option component same as &encoding in viml
+  'o:encoding',       -- option component same as &encoding in viml
   fmt = string.upper, -- I'm not sure why it's upper case either ;)
   cond = conditions.hide_in_width,
   color = { fg = colors.green, gui = 'bold' },
@@ -255,7 +255,7 @@ ins_right {
 ins_right {
   'diff',
   -- Is it me or the symbol for modified us really weird
-  symbols = { added = ' ', modified = '柳 ', removed = ' ' },
+  symbols = { added = ' ', modified = '󰧖 ', removed = ' ' },
   diff_color = {
     added = { fg = colors.green },
     modified = { fg = colors.orange },
@@ -266,7 +266,6 @@ ins_right {
 
 ins_right {
   function()
-    -- return '▊'
     return ''
   end,
   color = { fg = colors.blue },

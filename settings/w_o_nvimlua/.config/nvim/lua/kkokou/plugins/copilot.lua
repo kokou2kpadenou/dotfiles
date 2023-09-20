@@ -1,3 +1,4 @@
+-- TODO: Read about it and finish the config
 return {
 
   -- Copilot

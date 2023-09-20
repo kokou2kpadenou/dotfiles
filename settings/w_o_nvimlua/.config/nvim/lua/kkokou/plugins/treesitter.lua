@@ -25,6 +25,8 @@ return {
         'lua',
         'markdown',
         'markdown_inline',
+        'php',
+        'phpdoc',
         'python',
         'scss',
         'svelte',

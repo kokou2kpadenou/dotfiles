@@ -16,6 +16,7 @@ return function()
         workspace = {
           checkThirdParty = false, -- Disabled third party's work environment
         },
+        telemetry = { enable = false },
       },
     },
   }

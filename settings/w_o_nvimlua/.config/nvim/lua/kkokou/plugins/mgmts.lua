@@ -1,4 +1,7 @@
 return {
+  -- Lazy.nvim
+  { 'folke/lazy.nvim', version = '*' },
+
   -- NodeJs Packages Management
   {
     'vuki656/package-info.nvim',
