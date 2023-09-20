@@ -42,6 +42,8 @@ node_packages=(
   svelte-language-server
   vls
   stylelint-lsp
+  intelephense
+  # sql-language-server
 )
 
 node_packages_missing=()
