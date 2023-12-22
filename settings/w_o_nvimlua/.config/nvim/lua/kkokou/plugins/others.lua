@@ -5,15 +5,25 @@ return {
   -- Surroundings
   {
     'kylechui/nvim-surround',
-    event = 'VeryLazy',
+    -- event = 'VeryLazy',
     config = true,
+  },
+
+  {
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    -- context_commentstring = {
+    --   enable = true,
+    --   enable_autocmd = false,
+    -- },
   },
 
   -- Comment text in and out
   {
     'numToStr/Comment.nvim',
+    dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' },
     event = { 'BufReadPost', 'BufNewFile' },
     config = function()
+      ---@diagnostic disable-next-line: missing-fields
       require('Comment').setup {
         pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
       }
@@ -87,6 +97,7 @@ return {
       }
 
       local function enable_completion()
+        ---@diagnostic disable-next-line: missing-fields
         require('cmp').setup.buffer { sources = { { name = 'vim-dadbod-completion' } } }
       end
 

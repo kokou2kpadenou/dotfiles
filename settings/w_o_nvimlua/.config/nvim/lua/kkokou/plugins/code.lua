@@ -55,7 +55,7 @@ return {
       end
 
       -- stylua: ignore
-      local custom_commands = {
+      --[[ local custom_commands = {
         DAPBreakpointCondition = function() dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ') end,
         DAPBreakpoint = function() dap.toggle_breakpoint() end,
         DAPContinue = function() dap.continue() end,
@@ -76,7 +76,7 @@ return {
 
       for command, func in pairs(custom_commands) do
         vim.api.nvim_create_user_command(command, func, { nargs = 0 })
-      end
+      end ]]
     end,
   },
 
@@ -268,6 +268,7 @@ return {
       }
 
       -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+      ---@diagnostic disable-next-line: missing-fields
       cmp.setup.cmdline({ '/', '?' }, {
         -- mapping = cmp.mapping.preset.cmdline(),
         sources = {
@@ -289,7 +290,7 @@ return {
 
         formatting = {
           format = function(entry, vim_item)
-            require('colorizer-cmp').color_formater {} (entry, vim_item)
+            require('colorizer-cmp').color_formater()(entry, vim_item)
 
             -- Kind icons
             vim_item.kind = string.format('%s %s %s %s', '', kind_icons[vim_item.kind], vim_item.kind, '  ') -- This concatonates the icons with the name of the item kind
