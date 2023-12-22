@@ -8,14 +8,6 @@ local function shortToExtended(hex)
   return '#' .. r .. r .. g .. g .. b .. b .. a .. a
 end
 
---[[ local function extractHSL(str)
-  local h, s, l, a = str:match 'hsla?%(([%d%.]+)[^%d]+([%d%.]+)[^%d]+([%d%.]+)[^%d]*([%d%.]*)'
-  if not h then
-    return nil
-  end
-  return tonumber(h), tonumber(s), tonumber(l), tonumber(a)
-end ]]
-
 local function extractColorComponents(str, colorFnc)
   local val1, val2, val3, val4
   if colorFnc == 'hsl' then
