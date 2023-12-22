@@ -4,7 +4,6 @@ return {
     --version = false, -- last release is way too old and doesn't work on Windows
     build = ':TSUpdate',
     dependencies = {
-      'JoosepAlviste/nvim-ts-context-commentstring', -- Dynamically set commentstring based on cursor location in file
       'windwp/nvim-ts-autotag',
       'nvim-treesitter/nvim-treesitter-context',
     },
@@ -64,10 +63,6 @@ return {
         enable = true,
       },
 
-      context_commentstring = {
-        enable = true,
-        enable_autocmd = false,
-      },
     },
 
     config = function(_, opts)
