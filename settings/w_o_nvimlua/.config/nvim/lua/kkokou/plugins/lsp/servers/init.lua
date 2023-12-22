@@ -1,5 +1,5 @@
 -- List of Defined Language Servers
-return function(on_attach, capabilities)
+return function(capabilities)
   return {
     astro = require 'kkokou.plugins.lsp.servers.srv-astro'(),
     bashls = {},
@@ -14,10 +14,9 @@ return function(on_attach, capabilities)
     lua_ls = require 'kkokou.plugins.lsp.servers.srv-lua_ls' (),
     intelephense = {},
     pyright = {},
-    -- sqlls = {},
     svelte = {},
     tailwindcss = {},
-    tsserver = require 'kkokou.plugins.lsp.servers.srv-tsserver' (on_attach),
+    tsserver = require 'kkokou.plugins.lsp.servers.srv-tsserver' (),
     vuels = {},
     yamlls = require 'kkokou.plugins.lsp.servers.srv-yamlls' (capabilities),
   }

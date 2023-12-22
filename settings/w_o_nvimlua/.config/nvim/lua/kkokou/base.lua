@@ -1,5 +1,4 @@
 -- Helpers
-local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
 local g = vim.g -- a table to access global variables
 local o = vim.o -- to set options
 
@@ -29,7 +28,6 @@ o.incsearch = true
 o.hlsearch = true
 o.lazyredraw = false
 o.magic = true
--- o.cmdheight = 1
 o.updatetime = 300
 vim.opt.shortmess = vim.opt.shortmess + 'c'
 o.signcolumn = 'yes'
@@ -68,11 +66,11 @@ g.netrw_list_hide = (vim.fn['netrw_gitignore#Hide']())
   .. [[,^build$]] -- use .gitignore
 g.netrw_winsize = 35
 
--- Undo history
-o.undodir = fn.stdpath 'config' .. '/undodir'
 o.undofile = true
 
 -- Disable mouse and scrolling
 o.mouse = ''
 -- FIXME: disable mousescroll not working for now.
 o.mousescroll = 'ver:0,hor:0'
+
+g.skip_ts_context_commentstring_module = true

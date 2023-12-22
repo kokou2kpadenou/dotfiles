@@ -17,6 +17,7 @@ return function()
           checkThirdParty = false, -- Disabled third party's work environment
         },
         telemetry = { enable = false },
+        hint = { enable = true },
       },
     },
   }

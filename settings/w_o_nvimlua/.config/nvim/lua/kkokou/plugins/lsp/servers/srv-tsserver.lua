@@ -1,11 +1,37 @@
-return function(on_attach)
+return function()
   return {
 
-    on_attach = function(client, bufnr)
-      on_attach(client, bufnr)
+    -- TODO: Check if it is ok to remove this on_attach to disable formating <kkokou>
+    -- on_attach = function(client, bufnr)
+    --   client.server_capabilities.document_formatting = false
+    --   client.server_capabilities.document_range_formatting = false
+    -- end,
+    -- taken from https://github.com/typescript-language-server/typescript-language-server#workspacedidchangeconfiguration
+    disable_formatting = true,
+    settings = {
+      javascript = {
+        inlayHints = {
+          includeInlayEnumMemberValueHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayParameterNameHints = 'all',
+          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayVariableTypeHints = true,
+        },
+      },
 
-      client.server_capabilities.document_formatting = false
-      client.server_capabilities.document_range_formatting = false
-    end,
+      typescript = {
+        inlayHints = {
+          includeInlayEnumMemberValueHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayParameterNameHints = 'all',
+          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayVariableTypeHints = true,
+        },
+      },
+    },
   }
 end
