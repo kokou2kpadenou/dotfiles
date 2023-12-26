@@ -6,16 +6,28 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
 
     dependencies = {
-      'folke/neodev.nvim',   -- Dev setup for init.lua and plugin development
+      'folke/neodev.nvim', -- Dev setup for init.lua and plugin development
       'ckipp01/stylua-nvim', -- wrapper around the Lua code formatter, stylua
 
       -- fidget: Standalone UI for nvim-lsp progress. Eye candy for the impatient.
       {
         'j-hui/fidget.nvim',
-        tag = 'legacy',
+        tag = 'v1.1.0',
         opts = {
+          -- FIXME: Failed to make fidget window transparent. Will try to fix it later.
+
+          -- Options related to the notification window and buffer
           window = {
-            blend = 0, -- &winblend for the window
+            normal_hl = '', -- Base highlight group in the notification window
+            winblend = 0, -- Background color opacity in the notification window
+            border = 'rounded', -- Border around the notification window
+            zindex = 45, -- Stacking priority of the notification window
+            max_width = 0, -- Maximum width of the notification window
+            max_height = 0, -- Maximum height of the notification window
+            x_padding = 1, -- Padding from right edge of window boundary
+            y_padding = 1, -- Padding from bottom edge of window boundary
+            align = 'bottom', -- How to align the notification window
+            relative = 'editor', -- What the notification window position is relative to
           },
         },
       },
@@ -91,7 +103,7 @@ return {
           if vim.lsp.inlay_hint then
             vim.keymap.set('n', '<space>ih', function()
               vim.lsp.inlay_hint(0, nil)
-            end, opts('[i]nlay [h]int'))
+            end, opts '[i]nlay [h]int')
           end
         end,
       })
@@ -109,7 +121,7 @@ return {
       }
 
       -- Enable the following language servers
-      local servers = require 'kkokou.plugins.lsp.servers' (capabilities)
+      local servers = require 'kkokou.plugins.lsp.servers'(capabilities)
 
       for lsp, lsp_config in pairs(servers) do
         local merged_config = vim.tbl_deep_extend('force', default_lsp_config, lsp_config)
@@ -119,7 +131,7 @@ return {
 
       vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
       vim.lsp.handlers['textDocument/signatureHelp'] =
-          vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
+        vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
     end,
   },
 }
