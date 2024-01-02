@@ -39,7 +39,7 @@ return {
   {
     'lukas-reineke/indent-blankline.nvim',
     main = "ibl",
-    opt = {},
+    opts = {},
     config = true,
   },
 
