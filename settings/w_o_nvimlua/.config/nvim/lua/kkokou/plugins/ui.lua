@@ -38,7 +38,7 @@ return {
   -- This plugin adds indentation guides to all lines (including empty lines).
   {
     'lukas-reineke/indent-blankline.nvim',
-    main = "ibl",
+    main = 'ibl',
     opts = {},
     config = true,
   },
@@ -74,6 +74,16 @@ return {
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
       'MunifTanjim/nui.nvim',
+    },
+    opts = {
+
+      filesystem = {
+        filtered_items = {
+          hide_by_name = {
+            'node_modules',
+          },
+        },
+      },
     },
     cmd = 'Neotree',
   },
