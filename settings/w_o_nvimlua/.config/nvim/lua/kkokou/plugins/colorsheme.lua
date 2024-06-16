@@ -3,7 +3,6 @@ return {
     'folke/tokyonight.nvim',
     lazy = false,
     priority = 1000,
-    -- keys = '<leader>cc',
     opts = {
       style = 'storm',
       transparent = true,
@@ -18,36 +17,6 @@ return {
 
       -- load the colorscheme here
       vim.api.nvim_cmd({ cmd = 'colorscheme', args = { 'tokyonight' } }, {})
-
-      local function cycleFavoriteColorScheme(colors, current)
-        if #colors == 0 then
-          print 'List empty or list cycled without a valid colorscheme.'
-          return
-        end
-
-        local nextColor = require('kkokou.utils.unofficial').getNextColor(colors, current)
-
-        local success, _ = pcall(function()
-          vim.cmd.colorscheme(nextColor)
-        end)
-
-        if success then
-          print(vim.g.colors_name .. ' set as the current colorscheme')
-        else
-          print(nextColor .. ' does not exist.')
-          cycleFavoriteColorScheme(
-            require('kkokou.utils.unofficial').removeElementFromTable(colors, current),
-            nextColor
-          )
-        end
-      end
-
-      vim.keymap.set('n', '<leader>cc', function()
-        -- Define colorschemes to loop through with keymap
-        local colorschemesToLoop = { 'tokyonight', 'catppuccin', 'bluloco', 'sorbet','darkblue' }
-
-        cycleFavoriteColorScheme(colorschemesToLoop, vim.g.colors_name)
-      end, { silent = true })
     end,
   },
 
