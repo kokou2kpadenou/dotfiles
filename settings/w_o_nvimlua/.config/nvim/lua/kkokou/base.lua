@@ -1,76 +1,83 @@
--- Helpers
-local g = vim.g -- a table to access global variables
-local o = vim.o -- to set options
+-- [[ Global variables ]]
+-- Set the leader key
+vim.g.mapleader = '\\'
+vim.g.maplocalleader = '\\'
 
-g.loaded_ruby_provider = 0
-g.loaded_perl_provider = 0
-g.loaded_python_provider = 0
-g.loaded_python3_provider = 0
-g.loaded_node_provider = 0
-
--- Options
-o.completeopt = 'menu,menuone,noselect'
-o.cursorline = true
-o.errorbells = false
-o.tabstop = 2
-o.softtabstop = 2
-o.shiftwidth = 2
-o.expandtab = true
-o.smartindent = true
-o.number = true
-o.relativenumber = true
-o.wrap = false
-o.smartcase = true
-o.swapfile = false
-o.backup = false
-o.writebackup = false
-o.incsearch = true
-o.hlsearch = true
-o.lazyredraw = false
-o.magic = true
-o.updatetime = 300
-vim.opt.shortmess = vim.opt.shortmess + 'c'
-o.signcolumn = 'yes'
-o.showcmd = true
-o.scrolloff = 4
-
-o.list = true
-vim.opt.listchars = { eol = '¬', tab = '>.', trail = '~', extends = '>', space = '⋅', precedes = '<' }
-
-o.clipboard = 'unnamedplus'
-
-o.termguicolors = true
-
-o.foldenable = true
-o.foldlevelstart = 90
-o.foldnestmax = 5
-o.foldmethod = 'expr'
-o.foldexpr = "nvim_treesitter#foldexpr()"
-o.foldcolumn = '1'
-
-vim.opt.path = vim.opt.path + '**'
-o.wildmenu = true
-vim.opt.wildignore = vim.opt.wildignore + { '*/node_modules/*', '*/.next/*', '*/out/*', '*/dist/*', '*/tmp/*' }
-o.hidden = true
+-- Desable providers
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_node_provider = 0
 
 -- netrw
-g.netrw_banner = 0 -- disable annoying banner
-g.netrw_liststyle = 3 -- Tree style view
-g.netrw_bufsettings = 'noma nomod nonu nobl nowrap ro rnu'
-g.netrw_list_hide = (vim.fn['netrw_gitignore#Hide']())
+vim.g.netrw_banner = 0 -- disable annoying banner
+vim.g.netrw_liststyle = 3 -- Tree style view
+vim.g.netrw_bufsettings = 'noma nomod nonu nobl nowrap ro rnu'
+vim.g.netrw_list_hide = (vim.fn['netrw_gitignore#Hide']())
   .. [[,\(^\|\s\s\)\zs\.\S\+]]
   .. [[,node_modules]]
   .. [[,^dist$]]
   .. [[,^tags$]]
   .. [[,^out$]]
   .. [[,^build$]] -- use .gitignore
-g.netrw_winsize = 35
+vim.g.netrw_winsize = 35
 
-o.undofile = true
+-- Skip backwards compatibility routines and speed up loading
+vim.g.skip_ts_context_commentstring_module = true
+
+-- [[ Options ]]
+vim.opt.completeopt = 'menu,menuone,noselect'
+vim.opt.cursorline = true
+vim.opt.errorbells = false
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+vim.opt.smartindent = true
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.wrap = false
+vim.opt.smartcase = true
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.writebackup = false
+vim.opt.incsearch = true
+vim.opt.hlsearch = true
+vim.opt.lazyredraw = false
+vim.opt.magic = true
+vim.opt.updatetime = 300
+vim.opt.shortmess = vim.opt.shortmess + 'c'
+vim.opt.signcolumn = 'yes'
+vim.opt.showcmd = true
+vim.opt.scrolloff = 4
+
+-- Sets how neovim will display certain whitespace characters in the editor.
+vim.opt.list = true
+vim.opt.listchars = { eol = '¬', tab = '>.', trail = '~', extends = '>', space = '⋅', precedes = '<' }
+
+vim.opt.clipboard = 'unnamedplus'
+
+vim.opt.termguicolors = true
+
+vim.opt.foldenable = true
+vim.opt.foldlevelstart = 90
+vim.opt.foldnestmax = 5
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.opt.foldcolumn = '1'
+
+vim.opt.path = vim.opt.path + '**'
+vim.opt.wildmenu = true
+vim.opt.wildignore = vim.opt.wildignore + { '*/node_modules/*', '*/.next/*', '*/out/*', '*/dist/*', '*/tmp/*' }
+vim.opt.hidden = true
+
+-- Configure how new splits should be opened
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
+-- Save undo history
+vim.opt.undofile = true
 
 -- Disable mouse and scrolling
-o.mouse = ''
--- FIXME: disable mousescroll not working for now.
-o.mousescroll = 'ver:0,hor:0'
-
-g.skip_ts_context_commentstring_module = true
+vim.opt.mouse = ''
