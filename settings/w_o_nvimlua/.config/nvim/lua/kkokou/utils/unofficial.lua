@@ -49,13 +49,34 @@ function M.getNextColor(colors, color)
 end
 
 function M.removeElementFromTable(tabl, element)
-    for i = 1, #tabl do
-        if tabl[i] == element then
-            table.remove(tabl, i)
-            return tabl  -- Return the updated table after removing the element.
-        end
+  for i = 1, #tabl do
+    if tabl[i] == element then
+      table.remove(tabl, i)
+      return tabl -- Return the updated table after removing the element.
     end
-    return tabl  -- If the element was not found, return the original table.
+  end
+  return tabl -- If the element was not found, return the original table.
+end
+
+-- Cycle through my defined colorscheme
+function M.cycleFavoriteColorScheme(colors, current)
+  if #colors == 0 then
+    print 'List empty or list cycled without a valid colorscheme.'
+    return
+  end
+
+  local nextColor = M.getNextColor(colors, current)
+
+  local success, _ = pcall(function()
+    vim.cmd.colorscheme(nextColor)
+  end)
+
+  if success then
+    print(vim.g.colors_name .. ' set as the current colorscheme')
+  else
+    print(nextColor .. ' does not exist.')
+    M.cycleFavoriteColorScheme(M.removeElementFromTable(colors, current), nextColor)
+  end
 end
 
 return M
