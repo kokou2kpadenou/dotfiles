@@ -5,16 +5,14 @@ return {
   -- Surroundings
   {
     'kylechui/nvim-surround',
-    -- event = 'VeryLazy',
-    config = true,
+    event = 'VeryLazy',
+    config = function()
+      require('nvim-surround').setup {}
+    end,
   },
 
   {
     'JoosepAlviste/nvim-ts-context-commentstring',
-    -- context_commentstring = {
-    --   enable = true,
-    --   enable_autocmd = false,
-    -- },
   },
 
   -- Comment text in and out

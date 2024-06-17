@@ -1,128 +1,43 @@
 return {
-
-  -- INFO: In progress
+  -- TODO: install nvim-dap
 
   -- nvim-dap
+  --
   {
-    'mfussenegger/nvim-dap',
-    dependencies = {
+    'stevearc/conform.nvim',
+    lazy = false,
+    keys = {
       {
-        'rcarriga/nvim-dap-ui',
-        opts = {},
-        config = function()
-          local dap, dapui = require 'dap', require 'dapui'
-          dap.listeners.after.event_initialized['dapui_config'] = function()
-            dapui.open()
-          end
-          dap.listeners.before.event_terminated['dapui_config'] = function()
-            dapui.close()
-          end
-          dap.listeners.before.event_exited['dapui_config'] = function()
-            dapui.close()
-          end
+        '<space>f',
+        function()
+          require('conform').format { async = true, lsp_fallback = true }
         end,
-      },
-      {
-        'theHamsta/nvim-dap-virtual-text',
-        opts = {},
+        mode = '',
+        desc = '[F]ormat buffer',
       },
     },
-    opts = {},
-    config = function()
-      -- TODO: Set Go, Javascript, Typescript adapter
-      local dap = require 'dap'
-
-      dap.adapters['pwa-node'] = {
-        type = 'server',
-        host = '127.0.0.1',
-        port = 8123,
-        executable = {
-          command = 'js-debug-adapter',
-        },
-      }
-
-      for _, language in ipairs { 'typescript', 'javascript' } do
-        dap.configurations[language] = {
-          {
-            type = 'pwa-node',
-            request = 'launch',
-            name = 'Launch file',
-            program = '${file}',
-            cwd = '${workspaceFolder}',
-            runtimeExecutable = 'node',
-          },
+    opts = {
+      notify_on_error = false,
+      format_on_save = function(bufnr)
+        -- Disable "format_on_save lsp_fallback" for languages that don't
+        -- have a well standardized coding style. You can add additional
+        -- languages here or re-enable it for the disabled ones.
+        local disable_filetypes = { c = true, cpp = true }
+        return {
+          timeout_ms = 500,
+          lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
         }
-      end
-
-      -- stylua: ignore
-      --[[ local custom_commands = {
-        DAPBreakpointCondition = function() dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ') end,
-        DAPBreakpoint = function() dap.toggle_breakpoint() end,
-        DAPContinue = function() dap.continue() end,
-        DAPRunToCursor = function() dap.run_to_cursor() end,
-        DAPGoTo = function() dap.goto_() end,
-        DAPStepInto = function() dap.step_into() end,
-        DAPDown = function() dap.down() end,
-        DAPUp = function() dap.up() end,
-        DAPRunLast = function() dap.run_last() end,
-        DAPStepOut = function() dap.step_out() end,
-        DAPStepOver = function() dap.step_over() end,
-        DAPPause = function() dap.pause() end,
-        DAPReplToggle = function() dap.repl.toggle() end,
-        DAPSession = function() dap.session() end,
-        DAPTerminate = function() dap.terminate() end,
-        DAPHover = function() require('dap.ui.widgets').hover() end,
-      }
-
-      for command, func in pairs(custom_commands) do
-        vim.api.nvim_create_user_command(command, func, { nargs = 0 })
-      end ]]
-    end,
-  },
-
-  -- TODO: Replace Null-ls (archived) with an alternative.
-  --
-  -- null-ls.nvim
-  {
-    'jose-elias-alvarez/null-ls.nvim',
-
-    event = { 'BufReadPre', 'BufNewFile' },
-
-    dependencies = { 'nvim-lua/plenary.nvim' },
-
-    opts = function()
-      return {
-        debug = false,
-        log = {
-          enable = false,
-          level = 'warn',
-          use_console = 'async',
-        },
-        sources = {
-          require('null-ls').builtins.formatting.prettierd.with {
-            filetypes = {
-              'javascript',
-              'javascriptreact',
-              'typescript',
-              'typescriptreact',
-              'vue',
-              'css',
-              'scss',
-              'less',
-              'html',
-              'json',
-              'jsonc',
-              'yaml',
-              'markdown',
-              'graphql',
-              'handlebars',
-              'astro',
-            },
-          },
-          require('null-ls').builtins.formatting.stylua,
-        },
-      }
-    end,
+      end,
+      formatters_by_ft = {
+        lua = { 'stylua' },
+        -- Conform can also run multiple formatters sequentially
+        -- python = { "isort", "black" },
+        --
+        -- You can use a sub-list to tell conform to run *until* a formatter
+        -- is found.
+        javascript = { { 'prettierd', 'prettier' } },
+      },
+    },
   },
 
   -- Autopairs for Neovim
@@ -215,7 +130,7 @@ return {
       -- 'CmdlineEnter',
     },
     dependencies = {
-      -- 'L3MON4D3/LuaSnip',
+      'L3MON4D3/LuaSnip',
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lua',
       'hrsh7th/cmp-buffer',
@@ -227,6 +142,7 @@ return {
     },
 
     opts = function()
+      local luasnip = require 'luasnip'
       local cmp = require 'cmp'
 
       local kind_icons = {
@@ -316,7 +232,40 @@ return {
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
           ['<C-Space>'] = cmp.mapping.complete(),
           ['<C-e>'] = cmp.mapping.abort(),
-          ['<CR>'] = cmp.mapping.confirm { select = true }, -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          -- ['<CR>'] = cmp.mapping.confirm { select = true }, -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ['<CR>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              if luasnip.expandable() then
+                luasnip.expand()
+              else
+                cmp.confirm {
+                  select = true,
+                }
+              end
+            else
+              fallback()
+            end
+          end),
+
+          ['<Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            elseif luasnip.locally_jumpable(1) then
+              luasnip.jump(1)
+            else
+              fallback()
+            end
+          end, { 'i', 's' }),
+
+          ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            elseif luasnip.locally_jumpable(-1) then
+              luasnip.jump(-1)
+            else
+              fallback()
+            end
+          end, { 'i', 's' }),
         },
 
         sources = cmp.config.sources({

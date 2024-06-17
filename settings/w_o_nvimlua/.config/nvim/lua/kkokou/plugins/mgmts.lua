@@ -117,4 +117,93 @@ return {
       require('telescope').load_extension 'file_browser'
     end,
   },
+
+  -- Oil - File manager
+  {
+    'stevearc/oil.nvim',
+    opts = function()
+      local detail = true
+
+      local git_ignored = setmetatable({}, {
+        __index = function(self, key)
+          local proc = vim.system({ 'git', 'ls-files', '--ignored', '--exclude-standard', '--others', '--directory' }, {
+            cwd = key,
+            text = true,
+          })
+          local result = proc:wait()
+          local ret = {}
+          if result.code == 0 then
+            for line in vim.gsplit(result.stdout, '\n', { plain = true, trimempty = true }) do
+              -- Remove trailing slash
+              line = line:gsub('/$', '')
+              table.insert(ret, line)
+            end
+          end
+
+          rawset(self, key, ret)
+          return ret
+        end,
+      })
+
+      return {
+        columns = {
+          'icon',
+          'permissions',
+          'size',
+          'mtime',
+        },
+        keymaps = {
+          ['gd'] = {
+            desc = 'Toggle file detail view',
+            callback = function()
+              detail = not detail
+              if detail then
+                require('oil').set_columns { 'icon', 'permissions', 'size', 'mtime' }
+              else
+                require('oil').set_columns { 'icon' }
+              end
+            end,
+          },
+        },
+        view_options = {
+          is_hidden_file = function(name, _)
+            -- dotfiles are always considered hidden
+            if vim.startswith(name, '.') then
+              return true
+            end
+            local dir = require('oil').get_current_dir()
+            -- if no local directory (e.g. for ssh connections), always show
+            if not dir then
+              return false
+            end
+            -- Check if file is gitignored
+            return vim.list_contains(git_ignored[dir], name)
+          end,
+        },
+      }
+    end,
+    -- Optional dependencies
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+  },
+
+  -- neo-tree.nvim
+  {
+    'nvim-neo-tree/neo-tree.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
+      'MunifTanjim/nui.nvim',
+    },
+    opts = {
+
+      filesystem = {
+        filtered_items = {
+          hide_by_name = {
+            'node_modules',
+          },
+        },
+      },
+    },
+    cmd = 'Neotree',
+  },
 }

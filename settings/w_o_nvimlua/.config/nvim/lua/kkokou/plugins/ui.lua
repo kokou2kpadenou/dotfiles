@@ -2,37 +2,13 @@ return {
   -- Autoclose and autorename html tag using Treesitter
   {
     'windwp/nvim-ts-autotag',
-    -- event = 'VeryLazy',
-    opts = {
-      filetypes = {
-        'html',
-        'javascript',
-        'typescript',
-        'javascriptreact',
-        'typescriptreact',
-        'svelte',
-        'vue',
-        'tsx',
-        'jsx',
-        'rescript',
-        'xml',
-        'php',
-        'markdown',
-        'glimmer',
-        'handlebars',
-        'hbs',
-        'astro',
-      },
-    },
-    config = true,
+    opts = {},
   },
 
   -- Treesitter Context
   {
     'nvim-treesitter/nvim-treesitter-context',
-    -- event = 'VeryLazy',
     opts = {},
-    config = true,
   },
 
   -- This plugin adds indentation guides to all lines (including empty lines).
@@ -40,7 +16,6 @@ return {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
     opts = {},
-    config = true,
   },
 
   -- Color highlighter for Neovim
@@ -64,27 +39,5 @@ return {
       enable_named_colors = true,
       enable_tailwind = true,
     },
-    config = true,
-  },
-
-  -- neo-tree.nvim
-  {
-    'nvim-neo-tree/neo-tree.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
-      'MunifTanjim/nui.nvim',
-    },
-    opts = {
-
-      filesystem = {
-        filtered_items = {
-          hide_by_name = {
-            'node_modules',
-          },
-        },
-      },
-    },
-    cmd = 'Neotree',
   },
 }
