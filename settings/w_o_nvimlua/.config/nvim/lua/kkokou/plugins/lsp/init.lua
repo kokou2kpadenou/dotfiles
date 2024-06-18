@@ -6,57 +6,69 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
 
     dependencies = {
-      'folke/neodev.nvim', -- Dev setup for init.lua and plugin development
+      -- 'folke/neodev.nvim', -- Dev setup for init.lua and plugin development
       'ckipp01/stylua-nvim', -- wrapper around the Lua code formatter, stylua
+
+      {
+        'folke/lazydev.nvim',
+        ft = 'lua', -- only load on lua files
+        opts = {
+          library = {
+            'lazy.nvim',
+            'luvit-meta/library',
+            { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+          },
+        },
+      },
+
+      { 'Bilal2453/luvit-meta', lazy = true }, -- optional `vim.uv` typings
+
+      { -- optional completion source for require statements and module annotations
+        'hrsh7th/nvim-cmp',
+        opts = function(_, opts)
+          opts.sources = opts.sources or {}
+          table.insert(opts.sources, {
+            name = 'lazydev',
+            group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+          })
+        end,
+      },
 
       -- fidget: Standalone UI for nvim-lsp progress. Eye candy for the impatient.
       {
         'j-hui/fidget.nvim',
-        tag = 'v1.1.0',
         opts = {
-          -- FIXME: Failed to make fidget window transparent. Will try to fix it later.
-
-          -- Options related to the notification window and buffer
-          window = {
-            normal_hl = '', -- Base highlight group in the notification window
-            winblend = 0, -- Background color opacity in the notification window
-            border = 'rounded', -- Border around the notification window
-            zindex = 45, -- Stacking priority of the notification window
-            max_width = 0, -- Maximum width of the notification window
-            max_height = 0, -- Maximum height of the notification window
-            x_padding = 1, -- Padding from right edge of window boundary
-            y_padding = 1, -- Padding from bottom edge of window boundary
-            align = 'bottom', -- How to align the notification window
-            relative = 'editor', -- What the notification window position is relative to
+          notification = {
+            window = {
+              winblend = 0,
+              border = 'rounded',
+            },
           },
         },
+        config = true,
       },
+
     },
 
     config = function()
       -- Diagnostic Settings
       ----------------------
+      local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
       vim.diagnostic.config {
         virtual_text = false,
-        signs = true,
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = signs.Error,
+            [vim.diagnostic.severity.WARN] = signs.Warn,
+            [vim.diagnostic.severity.HINT] = signs.Hint,
+            [vim.diagnostic.severity.INFO] = signs.Info,
+          },
+        },
         underline = true,
         update_in_insert = false,
         severity_sort = true,
         float = { border = 'rounded' },
       }
-
-      -- Change diagnostic symbols in the sign column (gutter)
-      local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
-      for type, icon in pairs(signs) do
-        local hl = 'DiagnosticSign' .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-      end
-
-      -- Diagnostic keymaps
-      vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-      vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-      vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-      vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
       -- LSP Settings
       ---------------
@@ -100,10 +112,43 @@ return {
             vim.lsp.buf.format { async = true }
           end, opts())
 
-          if vim.lsp.inlay_hint then
-            vim.keymap.set('n', '<space>ih', function()
-              vim.lsp.inlay_hint(0, nil)
-            end, opts '[i]nlay [h]int')
+          -- The following two autocommands are used to highlight references of the
+          -- word under your cursor when your cursor rests there for a little while.
+          --    See `:help CursorHold` for information about when this is executed
+          --
+          -- When you move your cursor, the highlights will be cleared (the second autocommand).
+          local client = vim.lsp.get_client_by_id(ev.data.client_id)
+          if client and client.server_capabilities.documentHighlightProvider then
+            local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
+            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+              buffer = ev.buf,
+              group = highlight_augroup,
+              callback = vim.lsp.buf.document_highlight,
+            })
+
+            vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+              buffer = ev.buf,
+              group = highlight_augroup,
+              callback = vim.lsp.buf.clear_references,
+            })
+
+            vim.api.nvim_create_autocmd('LspDetach', {
+              group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
+              callback = function(event2)
+                vim.lsp.buf.clear_references()
+                vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
+              end,
+            })
+          end
+
+          -- The following autocommand is used to enable inlay hints in your
+          -- code, if the language server you are using supports them
+          --
+          -- This may be unwanted, since they displace some of your code
+          if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+            vim.keymap.set('n', '<space>th', function()
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = 0 })
+            end, { buffer = ev.buf, desc = 'LSP: [T]oggle Inlay [H]ints' })
           end
         end,
       })
@@ -113,11 +158,6 @@ return {
 
       local default_lsp_config = {
         capabilities = capabilities,
-      }
-
-      -- IMPORTANT: make sure to setup neodev BEFORE lspconfig for sumneko_lua
-      require('neodev').setup {
-        -- add any options here, or leave empty to use the default settings
       }
 
       -- Enable the following language servers
