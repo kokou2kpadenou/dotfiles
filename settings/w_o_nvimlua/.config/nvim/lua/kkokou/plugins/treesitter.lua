@@ -70,6 +70,14 @@ return {
     },
 
     config = function(_, opts)
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = { 'markdown' },
+        callback = function()
+          -- treesitter-context is buggy with markdown files
+          require('treesitter-context').disable()
+        end,
+      })
+
       require('nvim-treesitter.configs').setup(opts)
     end,
   },
