@@ -32,11 +32,12 @@ return {
         'phpdoc',
         'python',
         'scss',
+        'sql',
         'svelte',
         'toml',
         'tsx',
-        'vue',
         'typescript',
+        'vue',
         'yaml',
       },
 
@@ -66,7 +67,6 @@ return {
       autopairs = {
         enable = true,
       },
-
     },
 
     config = function(_, opts)
