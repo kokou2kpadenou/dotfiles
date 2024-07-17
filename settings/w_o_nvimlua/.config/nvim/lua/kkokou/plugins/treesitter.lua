@@ -17,6 +17,7 @@ return {
         'css',
         'dockerfile',
         'go',
+        'gotmpl',
         'html',
         'javascript',
         'jsdoc',
