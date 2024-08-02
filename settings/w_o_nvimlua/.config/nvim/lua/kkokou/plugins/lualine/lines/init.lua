@@ -1,4 +1,3 @@
--- TODO: Redesign the whole thing.
 local lualine = require 'lualine'
 local some_funcs = require 'kkokou.utils.unofficial'
 local excludeWins =
@@ -68,7 +67,6 @@ end
 lualine.setup(get_lualine_cfg(cfg_selected))
 winbarToggleSplit()
 
--- FIXME: Stranges characters appear in the lualine after CahngeLualine executed
 vim.api.nvim_create_user_command('ChangeLualine', function(opts)
   -- disable lualine
 
@@ -109,9 +107,6 @@ end, {
 
 local autoActiveWinBar = vim.api.nvim_create_augroup('AutoActiveWinBar', { clear = true })
 
--- TODO: Add event BufDelete
--- take care of neovim reload and other things
---
 vim.api.nvim_create_autocmd({
   'BufEnter',
   'BufDelete', --[[ , 'ColorScheme' ]]

@@ -136,7 +136,7 @@ local function ins_left(component)
   table.insert(config.sections.lualine_c, component)
 end
 
--- Inserts a component in lualine_x ot right section
+-- Inserts a component in lualine_x at right section
 local function ins_right(component)
   table.insert(config.sections.lualine_x, component)
 end
@@ -147,7 +147,7 @@ ins_left {
     -- return '▊'
     return ''
   end,
-  color = { fg = colors.blue },      -- Sets highlighting of component
+  color = { fg = colors.blue }, -- Sets highlighting of component
   padding = { left = 0, right = 1 }, -- We don't need space before this
 }
 
@@ -206,9 +206,9 @@ ins_left {
   sources = { 'nvim_diagnostic' },
   symbols = { error = '󰅙 ', warn = ' ', info = ' ', hint = '󰌵 ' },
   diagnostics_color = {
-    color_error = { fg = colors.red },
-    color_warn = { fg = colors.yellow },
-    color_info = { fg = colors.cyan },
+    error = { fg = colors.red },
+    warn = { fg = colors.yellow },
+    info = { fg = colors.cyan },
   },
 }
 
@@ -220,20 +220,54 @@ ins_left {
   end,
 }
 
--- TODO: Improve this code
+-- LSP (number of lsp active for the current buffer)
 ins_left {
   function()
-    local lsp_msg = ' LSP:' .. #(vim.lsp.get_clients { bufnr = 0 })
-    local lazy_msg = require('lazy.status').has_updates() and require('lazy.status').updates() or ''
-    local codeium_msg = '💬CodeIum:' .. vim.fn['codeium#GetStatusString']()
-    return lsp_msg .. ' ' .. lazy_msg .. ' ' .. codeium_msg
+    return ' LSP:' .. #(vim.lsp.get_clients { bufnr = 0 })
   end,
-  color = { fg = '#ffffff', gui = 'bold' },
+  color = function()
+    if #(vim.lsp.get_clients { bufnr = 0 }) > 0 then
+      return { fg = '#ffffff', gui = 'bold' }
+    end
+  end,
+}
+
+-- Codeium status
+ins_left {
+  function()
+    return 'Codeium'
+  end,
+  color = function()
+    if vim.fn['codeium#GetStatusString']() ~= 'OFF' then
+      return { fg = '#0bb39f', gui = 'bold' }
+    end
+  end,
+}
+
+-- Conform auto command status
+ins_left {
+  function()
+    return (vim.g.disable_autoformat or vim.b[0].disable_autoformat) and '󱞃' or '󰎞'
+  end,
+  color = function()
+    return not (vim.g.disable_autoformat or vim.b[0].disable_autoformat) and { fg = colors.green, gui = 'bold' }
+  end,
+}
+
+-- Lazy update status
+ins_left {
+  function()
+    return require('lazy.status').has_updates() and require('lazy.status').updates() or ''
+  end,
+  cond = function()
+    return require('lazy.status').has_updates()
+  end,
+  color = { fg = colors.blue, gui = 'bold' },
 }
 
 -- Add components to right sections
 ins_right {
-  'o:encoding',       -- option component same as &encoding in viml
+  'o:encoding', -- option component same as &encoding in viml
   fmt = string.upper, -- I'm not sure why it's upper case either ;)
   cond = conditions.hide_in_width,
   color = { fg = colors.green, gui = 'bold' },
