@@ -35,19 +35,6 @@ function M.start_with(pattern, target)
   return target_first_mean == pattern
 end
 
-function M.getNextColor(colors, color)
-  local index = 1
-
-  for i = 1, #colors do
-    if M.start_with(colors[i], color) then
-      index = i
-      break
-    end
-  end
-
-  return colors[(index % #colors) + 1]
-end
-
 function M.removeElementFromTable(tabl, element)
   for i = 1, #tabl do
     if tabl[i] == element then
@@ -56,27 +43,6 @@ function M.removeElementFromTable(tabl, element)
     end
   end
   return tabl -- If the element was not found, return the original table.
-end
-
--- Cycle through my defined colorscheme
-function M.cycleFavoriteColorScheme(colors, current)
-  if #colors == 0 then
-    print 'List empty or list cycled without a valid colorscheme.'
-    return
-  end
-
-  local nextColor = M.getNextColor(colors, current)
-
-  local success, _ = pcall(function()
-    vim.cmd.colorscheme(nextColor)
-  end)
-
-  if success then
-    print(vim.g.colors_name .. ' set as the current colorscheme')
-  else
-    print(nextColor .. ' does not exist.')
-    M.cycleFavoriteColorScheme(M.removeElementFromTable(colors, current), nextColor)
-  end
 end
 
 return M
