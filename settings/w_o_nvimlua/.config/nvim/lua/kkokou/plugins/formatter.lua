@@ -35,15 +35,23 @@ return {
       end,
 
       formatters_by_ft = {
-        lua = { 'stylua' },
-        javascript = { 'prettierd', 'prettier', stop_after_first = true },
-        python = { 'isort', 'black' },
-        go = {
-          'goimports',
-          'gofmt' --[[ , 'injected' ]],
-        },
+        bash = { 'beautysh' },
+        css = { 'prettierd', 'prettier', stop_after_first = true },
+        go = { 'goimports', 'gofmt' --[[ , 'injected' ]], },
         gotmpl = { 'prettierd', 'prettier', stop_after_first = true },
+        html = { 'prettierd', 'prettier', stop_after_first = true },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        json = { 'prettierd', 'prettier', stop_after_first = true },
+        lua = { 'stylua' },
+        markdown = { 'prettierd', 'prettier', stop_after_first = true },
+        python = { 'isort', 'black' },
+        scss = { 'prettierd', 'prettier', stop_after_first = true },
         sql = { 'sql_formatter' },
+        toml = { 'taplo' },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        yaml = { 'yamlfix' },
       },
 
       -- formatters = {
