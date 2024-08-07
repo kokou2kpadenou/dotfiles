@@ -1,33 +1,24 @@
 local lualine = require 'lualine'
 local some_funcs = require 'kkokou.utils.unofficial'
 local excludeWins =
-{ '', 'netrw', 'checkhealth', 'packer', 'help', 'undotree', 'diff', 'dbui', 'dbout', 'qf', 'neo-tree' }
-local defConfig = { 'evil', 'bubbles', 'slanted-gaps', 'default' }
+  { '', 'netrw', 'checkhealth', 'packer', 'help', 'undotree', 'diff', 'dbui', 'dbout', 'qf', 'neo-tree' }
+local defConfig = vim.g.kkokou_lualine_lines
 --
-local function ShowWinbar()
+local function ShowWinbar(response)
   lualine.hide {
     place = { 'winbar' },
-    unhide = true,
-  }
-end
-
-local function HideWinbar()
-  lualine.hide {
-    place = { 'winbar' },
-    unhide = false,
+    unhide = response,
   }
 end
 
 local function winbarToggleSplit()
   if some_funcs.detect_win_split() then
-    ShowWinbar()
+    ShowWinbar(true)
     return
   end
 
-  HideWinbar()
+  ShowWinbar(false)
 end
---
-local cfg_selected = some_funcs.has_value(defConfig, vim.g.lualineConfigName) and vim.g.lualineConfigName or 'evil'
 
 -- local function get_lualine_cfg(cfglist, cfgname)
 local function get_lualine_cfg(cfgname)
@@ -64,32 +55,39 @@ local function get_lualine_cfg(cfgname)
   return vim.tbl_deep_extend('force', base_config, require('kkokou.plugins.lualine.lines.line-' .. cfgname))
 end
 
-lualine.setup(get_lualine_cfg(cfg_selected))
-winbarToggleSplit()
+vim.api.nvim_create_user_command('LualineChange', function(opts)
+  local cfg_selected = opts.args ~= '' and opts.args or 'evil'
 
-vim.api.nvim_create_user_command('ChangeLualine', function(opts)
   -- disable lualine
-
-  cfg_selected = opts.args ~= '' and opts.args or 'evil'
+  if cfg_selected == 'disable' then
+    -- vim.g.kkokou_lualine_disable = true
+    pcall(lualine.hide, {
+      place = { 'statusline', 'tabline', 'winbar' },
+      unhide = false,
+    })
+    return
+  end
 
   if some_funcs.has_value(defConfig, cfg_selected) then
-    lualine.hide {}
+    pcall(ShowWinbar, false)
 
     lualine.setup(get_lualine_cfg(cfg_selected))
     winbarToggleSplit()
   else
-    print 'Unknow configuration name'
+    print 'Unknow lualine configuration name'
   end
-  -- lualine.setup(get_lualine_cfg(cfg_selected))
-
-  -- winbarToggleSplit()
 end, {
   nargs = '?',
   complete = function(argLead, _, _)
-    local configList = { 'evil', 'bubbles', 'slanted-gaps', 'default' }
+    local configList = defConfig
 
-    local return_config = configList
+    local return_config = { 'disable' }
 
+    for _, v in ipairs(configList) do
+      table.insert(return_config, v)
+    end
+
+    -- Auto Complete
     local i = 1
     while i <= #return_config do
       if not some_funcs.start_with(argLead, return_config[i]) then
@@ -107,10 +105,12 @@ end, {
 
 local autoActiveWinBar = vim.api.nvim_create_augroup('AutoActiveWinBar', { clear = true })
 
+-- TODO: Fix cases when event buffer close the winbar still visible. Or exclude some buffer like Neotree, UndoList
 vim.api.nvim_create_autocmd({
   'BufEnter',
   'BufDelete', --[[ , 'ColorScheme' ]]
   'ColorScheme',
+  'BufLeave',
 }, {
   group = autoActiveWinBar,
 
@@ -122,7 +122,7 @@ vim.api.nvim_create_autocmd({
     end
 
     if not winsplitstate then
-      HideWinbar()
+      ShowWinbar(false)
       return
     end
 
@@ -132,7 +132,12 @@ vim.api.nvim_create_autocmd({
     end
 
     if winsplitstate then
-      ShowWinbar()
+      ShowWinbar(true)
     end
   end,
 })
+
+-- TODO: Not working for now
+if not vim.g.kkokou_lualine_disable then
+  vim.cmd { cmd = 'LualineChange', args = { vim.g.kkokou_lualine_config_name } }
+end
