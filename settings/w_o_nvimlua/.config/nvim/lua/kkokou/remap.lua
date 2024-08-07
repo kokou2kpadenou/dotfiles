@@ -23,14 +23,4 @@ vim.keymap.set({ 'n', 'v' }, '<left>', '<nop>', { noremap = true })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
--- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
--- vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
-
--- Cycle my defined Colorsheme
-vim.keymap.set('n', '<leader>cc', function()
-  -- Defined colorschemes to loop through with keymap
-  local colorschemesToLoop = { 'tokyonight', 'catppuccin', 'bluloco', 'sorbet', 'darkblue' }
-
-  require('kkokou.utils.unofficial').cycleFavoriteColorScheme(colorschemesToLoop, vim.g.colors_name)
-end, { silent = true, desc = '[leader] - [C]ycle [C]olorsheme' })
