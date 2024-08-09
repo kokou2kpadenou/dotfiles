@@ -85,6 +85,7 @@ return {
 
   -- Git Commands Integration
   {
+    enabled = false,
     'tpope/vim-fugitive',
   },
 
