@@ -40,7 +40,7 @@ size = 12.0
 family = "DejaVuSansM Nerd Font"
 style = "Regular"
 
-[shell]
+[terminal.shell]
 args = ["-l", "-c", "tmux attach || tmux new -s MAIN"]
 program = "/bin/zsh"
 
@@ -50,3 +50,5 @@ opacity = 0.9
 [window.padding]
 x = 2
 y = 2
+
+[terminal]
