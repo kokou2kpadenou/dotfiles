@@ -11,7 +11,6 @@ end
 function M.detect_win_split()
   local wc = 0
   local windows = vim.api.nvim_tabpage_list_wins(0)
-
   for _, v in pairs(windows) do
     if not M.is_floating(v) then
       wc = wc + 1
