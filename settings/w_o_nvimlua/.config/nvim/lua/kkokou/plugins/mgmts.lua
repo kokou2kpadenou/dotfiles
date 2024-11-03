@@ -123,8 +123,6 @@ return {
   {
     'stevearc/oil.nvim',
     opts = function()
-      local detail = true
-
       local git_ignored = setmetatable({}, {
         __index = function(self, key)
           local proc = vim.system({ 'git', 'ls-files', '--ignored', '--exclude-standard', '--others', '--directory' }, {
@@ -147,18 +145,13 @@ return {
       })
 
       return {
-        columns = {
-          'icon',
-          'permissions',
-          'size',
-          'mtime',
-        },
+        columns = vim.g.kkokou_oil_detail and { 'icon', 'permissions', 'size', 'mtime' } or { 'icon' },
         keymaps = {
           ['gd'] = {
             desc = 'Toggle file detail view',
             callback = function()
-              detail = not detail
-              if detail then
+              vim.g.kkokou_oil_detail = not vim.g.kkokou_oil_detail
+              if vim.g.kkokou_oil_detail then
                 require('oil').set_columns { 'icon', 'permissions', 'size', 'mtime' }
               else
                 require('oil').set_columns { 'icon' }
@@ -185,6 +178,9 @@ return {
     end,
     -- Optional dependencies
     dependencies = { 'nvim-tree/nvim-web-devicons' },
+    init = function()
+      vim.g.kkokou_oil_detail = false
+    end,
   },
 
   -- neo-tree.nvim
