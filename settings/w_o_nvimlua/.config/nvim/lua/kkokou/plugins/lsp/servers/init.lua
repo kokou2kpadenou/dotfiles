@@ -16,6 +16,7 @@ return function(capabilities)
     pyright = {},
     svelte = {},
     tailwindcss = require 'kkokou.plugins.lsp.servers.srv-tailwindcss'(),
+    -- taplo = require('kkokou.plugins.lsp.servers.srv-taplo')(capabilities),
     ts_ls = require 'kkokou.plugins.lsp.servers.srv-tsls'(),
     vuels = {},
     yamlls = require 'kkokou.plugins.lsp.servers.srv-yamlls'(capabilities),
