@@ -1,7 +1,5 @@
 local lualine = require 'lualine'
 local some_funcs = require 'kkokou.utils.unofficial'
-local excludeWins =
-  { '', 'netrw', 'checkhealth', 'packer', 'help', 'undotree', 'diff', 'dbui', 'dbout', 'qf', 'neo-tree' }
 local defConfig = vim.g.kkokou_lualine_lines
 --
 local function ShowWinbar(response)
@@ -21,34 +19,34 @@ local function winbarToggleSplit()
 end
 
 -- local function get_lualine_cfg(cfglist, cfgname)
-local function get_lualine_cfg(cfgname)
+local function build_lualine_cfg(cfgname)
   -- Proprety common to all the configs
   local base_config = {
     options = {
       theme = 'auto',
       disabled_filetypes = {
         statusline = {},
-        winbar = excludeWins,
+        -- winbar = { '', 'netrw', 'checkhealth', 'help', 'undotree', 'diff', 'dbui', 'dbout', 'qf', 'neo-tree' },
       },
       globalstatus = true,
     },
-    winbar = {
-      lualine_a = {},
-      lualine_b = {},
-      lualine_c = {},
-      lualine_x = {},
-      lualine_y = {},
-      lualine_z = { { 'filename', path = 1 } },
-    },
+    -- winbar = {
+    --   lualine_a = {},
+    --   lualine_b = {},
+    --   lualine_c = {},
+    --   lualine_x = {},
+    --   lualine_y = {},
+    --   lualine_z = { { 'filename', path = 1 } },
+    -- },
 
-    inactive_winbar = {
-      lualine_a = {},
-      lualine_b = {},
-      lualine_c = {},
-      lualine_x = {},
-      lualine_y = {},
-      lualine_z = { { 'filename', path = 1 } },
-    },
+    -- inactive_winbar = {
+    --   lualine_a = {},
+    --   lualine_b = {},
+    --   lualine_c = {},
+    --   lualine_x = {},
+    --   lualine_y = {},
+    --   lualine_z = { { 'filename', path = 1 } },
+    -- },
     -- extensions = { 'fugitive', 'quickfix' },
   }
 
@@ -71,7 +69,7 @@ vim.api.nvim_create_user_command('LualineChange', function(opts)
   if some_funcs.has_value(defConfig, cfg_selected) then
     pcall(ShowWinbar, false)
 
-    lualine.setup(get_lualine_cfg(cfg_selected))
+    lualine.setup(build_lualine_cfg(cfg_selected))
     winbarToggleSplit()
   else
     print 'Unknow lualine configuration name'
@@ -107,10 +105,13 @@ local autoActiveWinBar = vim.api.nvim_create_augroup('AutoActiveWinBar', { clear
 
 -- TODO: Fix cases when event buffer close the winbar still visible. Or exclude some buffer like Neotree, UndoList
 vim.api.nvim_create_autocmd({
-  'BufEnter',
-  'BufDelete', --[[ , 'ColorScheme' ]]
-  'ColorScheme',
-  'BufLeave',
+  'WinNew',
+  'WinEnter',
+  -- 'BufEnter',
+  'WinClosed',
+  -- 'BufDelete', --[[ , 'ColorScheme' ]]
+  -- 'ColorScheme',
+  -- 'BufLeave',
 }, {
   group = autoActiveWinBar,
 
