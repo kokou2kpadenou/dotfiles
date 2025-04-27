@@ -21,6 +21,7 @@ return {
   -- Color highlighter for Neovim
   {
     'brenoprata10/nvim-highlight-colors',
+    enabled = false,
     event = { 'BufReadPost', 'BufNewFile' },
     ft = {
       'html',
