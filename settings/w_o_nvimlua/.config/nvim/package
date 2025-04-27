@@ -1,23 +1,23 @@
 #!/bin/bash
 
-confirm_action(){
-  read -p "${1} " -n 1 -r
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-    shift
-    "$@"
-  fi
-}
+# confirm_action(){
+#   read -p "${1} " -n 1 -r
+#   echo
+#   if [[ $REPLY =~ ^[Yy]$ ]]; then
+#     shift
+#     "$@"
+#   fi
+# }
 
 # echo
 
 # node_packages_outdated=$(pnpm -g outdated)
 
 
-# TODO: Detect new pnpm version and upgrade
+# Detect new pnpm version and upgrade
 # confirm_action "Do you wish to upgrade pnpm?" echo "Upgrade pnpm"
 
-# TODO: Detect outdated packages et update
+# Detect outdated packages and update it
 # [[ -n "$node_packages_outdated" ]] \
 #   && confirm_action "Do you wish to update nodejs packages?" \
 #   pnpm -g outdated
@@ -30,6 +30,7 @@ node_packages=(
   yaml-language-server
   eslint
   @fsouza/prettierd
+  prettier-plugin-go-template
   stylelint
   bash-language-server
   @tailwindcss/language-server
@@ -44,6 +45,7 @@ node_packages=(
   stylelint-lsp
   intelephense
   # sql-language-server
+  sql-formatter
 )
 
 node_packages_missing=()
