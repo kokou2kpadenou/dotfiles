@@ -11,17 +11,17 @@ vim.g.loaded_python3_provider = 0
 vim.g.loaded_node_provider = 0
 
 -- netrw
-vim.g.netrw_banner = 0 -- disable annoying banner
-vim.g.netrw_liststyle = 3 -- Tree style view
-vim.g.netrw_bufsettings = 'noma nomod nonu nobl nowrap ro rnu'
-vim.g.netrw_list_hide = (vim.fn['netrw_gitignore#Hide']())
-  .. [[,\(^\|\s\s\)\zs\.\S\+]]
-  .. [[,node_modules]]
-  .. [[,^dist$]]
-  .. [[,^tags$]]
-  .. [[,^out$]]
-  .. [[,^build$]] -- use .gitignore
-vim.g.netrw_winsize = 35
+-- vim.g.netrw_banner = 0 -- disable annoying banner
+-- vim.g.netrw_liststyle = 3 -- Tree style view
+-- vim.g.netrw_bufsettings = 'noma nomod nonu nobl nowrap ro rnu'
+-- vim.g.netrw_list_hide = (vim.fn['netrw_gitignore#Hide']())
+--   .. [[,\(^\|\s\s\)\zs\.\S\+]]
+--   .. [[,node_modules]]
+--   .. [[,^dist$]]
+--   .. [[,^tags$]]
+--   .. [[,^out$]]
+--   .. [[,^build$]] -- use .gitignore
+-- vim.g.netrw_winsize = 35
 
 -- Skip backwards compatibility routines and speed up loading
 vim.g.skip_ts_context_commentstring_module = true
