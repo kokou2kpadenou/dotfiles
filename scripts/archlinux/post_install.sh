@@ -117,6 +117,7 @@ git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si PKGBUILD
 cd ~
+rm -rf ~/Downloads/yay
 
 ## Update / Upgrade packages
 sudo pacman -S --noconfirm reflector rsync
@@ -126,10 +127,10 @@ sudo reflector -c "United States" -a 6 --sort rate --save /etc/pacman.d/mirrorli
 sudo pacman -Syu --noconfirm && yay -Syu
 
 ## Installation of packages
-sudo pacman -S --noconfirm xorg numlockx i3 xorg-xinit rxvt-unicode rofi ranger \
-  feh w3m atool firefox vlc openssh xss-lock gnome-screenshot \
+sudo pacman -S --noconfirm xorg numlockx i3 xorg-xinit rxvt-unicode rofi \
+  feh w3m atool openssh xss-lock gnome-screenshot \
   tmux inkscape gimp wget xsel alacritty picom papirus-icon-theme \
-  gnome-calculator acpi bash-completion highlight dunst stow fzf ripgrep fd neovim scrot
+  gnome-calculator acpi highlight dunst stow fzf ripgrep fd scrot
 
 
 # Installing additional fonts
