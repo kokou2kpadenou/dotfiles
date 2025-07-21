@@ -214,7 +214,7 @@ EOF
 
 arch-chroot /mnt pacman -S grub networkmanager dialog mtools \
   dosfstools base-devel linux-headers cups alsa-utils \
-  pulseaudio git reflector rsync xdg-utils xdg-user-dirs ipset ebtables firewalld
+  pulseaudio git reflector rsync xdg-utils xdg-user-dirs ipset firewalld
 
 # arch-chroot /mnt sudo reflector -c "United States" -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 
