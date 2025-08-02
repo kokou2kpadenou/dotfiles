@@ -107,17 +107,8 @@ exec 1>/tmp/arch_post_installation.log 2>&1
 
 ### Installation of packages ###
 
-if [ "$video_driver" != "" ]; then
-  sudo pacman -S --noconfirm ${video_driver}
-fi
-
 ## Installation of yay
-cd ~/Downloads
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si PKGBUILD
-cd ~
-rm -rf ~/Downloads/yay
+cd ~/Downloads && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd ~ && rm -rf ~/Downloads/yay
 
 ## Update / Upgrade packages
 sudo pacman -S --noconfirm reflector rsync
@@ -126,77 +117,152 @@ sudo reflector -c "United States" -a 6 --sort rate --save /etc/pacman.d/mirrorli
 
 sudo pacman -Syu --noconfirm && yay -Syu
 
-## Installation of packages
-sudo pacman -S --noconfirm xorg numlockx i3 xorg-xinit rxvt-unicode rofi \
-  feh w3m atool openssh xss-lock gnome-screenshot \
-  tmux inkscape gimp wget xsel alacritty picom papirus-icon-theme \
-  gnome-calculator acpi highlight dunst stow fzf ripgrep fd scrot
+# Packages list
+PACKAGES=(
+
+  # --- System / Shell Utilities ---
+  acpi                 # Power management info
+  stow                 # Dotfile management via symlinks
+  wget                 # Download files from web
+  which                # Show full path of shell commands
+  tree                 # Directory listing in tree format
+  jq                   # JSON processor
+  starship             # Minimal, customizable shell prompt
+  zsh                  # Zsh shell
+  hugo                 # Static site generator
+  atac                 # Custom package or unknown utility
+  tokei                # Count lines of code (better cloc)
+
+  # --- Terminal + Multiplexer ---
+  rxvt-unicode         # Lightweight terminal emulator
+  alacritty            # GPU-accelerated terminal emulator
+  tmux                 # Terminal multiplexer
+
+  # --- Fonts / Themes ---
+  ttf-dejavu-nerd      # Nerd font (icons and dev symbols)
+  ttf-ubuntu-font-family # Ubuntu font family
+  papirus-icon-theme   # Icon theme
+
+  # --- Xorg / Graphical Session ---
+  xorg                 # X Window System
+  xorg-xinit           # To start X sessions manually
+  numlockx             # Enable num lock on start
+  picom                # Compositor for transparency and shadows
+  xss-lock             # Locks screen on suspend/idle
+  feh                  # Lightweight image viewer, also for wallpapers
+
+  # --- Window Manager & Tools ---
+  i3                   # Tiling window manager
+  rofi                 # App launcher / window switcher
+  dunst                # Lightweight notification daemon
+  gnome-screenshot     # Screenshot utility
+  scrot                # CLI screenshot tool
+  gnome-calculator     # Graphical calculator
+
+  # --- Sound ---
+  alsa-utils           # ALSA sound system utilities
+  alsa-plugins         # ALSA plugins
+  alsa-lib             # ALSA library
+  pavucontrol          # PulseAudio volume control GUI
+
+  # --- Clipboard / Selection ---
+  xsel                 # Access X clipboard from terminal
+
+  # --- Networking / Remote ---
+  openssh              # SSH client and tools
+
+  # --- Command-line Tools / Search ---
+  fzf                  # Fuzzy finder
+  ripgrep              # Fast grep alternative
+  fd                   # Fast alternative to `find`
+  lazygit              # TUI Git interface
+  highlight            # Source code highlighting
+  atool                # Archive manager (wrapper for other tools)
+  w3m                  # Text-based web browser (can view images in terminal)
+
+  # --- Graphics / Media ---
+  gimp                 # Image editor
+  inkscape             # Vector graphics editor
+
+  )
+
+# Add video driver packages
+if [ "$video_driver" != "" ]; then
+  PACKAGES+=("$video_driver")
+fi
 
 
-# Installing additional fonts
-sudo pacman -S --noconfirm noto-fonts ttf-ubuntu-font-family ttf-dejavu ttf-freefont \
-  ttf-liberation ttf-droid ttf-inconsolata ttf-roboto terminus-font \
-  ttf-font-awesome
 
-# TODO: remove this line
-# # Installing sound drivers and tools
-# sudo pacman -S alsa-utils alsa-plugins alsa-lib pavucontrol -noconfirm -needed
-# # Installing additional tools for shell and ranger (Optional) but highly recommended
-# # sudo pacman -S atool highlight browsh elinks mediainfo w3m ffmpegthumbnailer mupdf -noconfirm -needed
+echo "🔍 Checking package list..."
 
-yay -S visual-studio-code-bin google-chrome
+for pkg in "${PACKAGES[@]}"; do
+  if pacman -Qi "$pkg" &>/dev/null; then
+    echo "✔ $pkg is already installed."
+  elif pacman -Si "$pkg" &>/dev/null; then
+    echo "➕ $pkg is valid and not installed. Marking for install."
+    MISSING+=("$pkg")
+  else
+    echo "❌ $pkg does not exist in official repos. Skipping."
+    INVALID+=("$pkg")
+  fi
+done
 
-# TODO: remove this lines
-# sudo pacman -S --noconfirm neovim python python2 python-pip python2-pip
-# python -m pip install --user --upgrade pynvim
-# python2 -m pip install --user --upgrade pynvim
+if [[ ${#MISSING[@]} -gt 0 ]]; then
+  echo "📦 Installing packages: ${MISSING[*]}"
+  pacman -Sy --noconfirm "${MISSING[@]}"
+  # printf "%s\n" "${MISSING[@]}" >> "$LOG_FILE"
+  # echo "✅ Installed ${#MISSING[@]} package(s). Logged to $LOG_FILE"
+else
+  echo "✅ No new packages to install."
+fi
+
+if [[ ${#INVALID[@]} -gt 0 ]]; then
+  echo "⚠️  Warning: ${#INVALID[@]} invalid package(s) were skipped:"
+  printf "   - %s\n" "${INVALID[@]}"
+fi
 
 
-# Install node version manager, node lts/erbium by defaut and neovim
-sh ${scripts_dir}/common/nvm_installer.sh
+yay -S visual-studio-code-bin google-chrome zen-browser-bin vscodium-bin
 
 # Installation of Docker and Docker-compose
 sh ${scripts_dir}/archlinux/docker_install.sh
-
-## Dploying the symbolic links farm
-# Create user fonts directory if it is not existed.
-mkdir ~/.fonts
-
-# Create user binaries directory if it is not existed.
-mkdir ~/bin
 
 #create user systemd folder if it is not existed.
 mkdir -p ~/.config/systemd/user
 
 # Create the symbolic links
-cd ${dotfiles_dir}/settings && stow --target=$HOME -S $(ls --ignore=w_o_*)
+CONFIGS=(
+  alacritty
+  # alert_battery # Only set on laptop
+  default_wallpapers
+  dunst
+  git
+  i3
+  lock-screen
+  picom
+  rofi
+  starship
+  stow
+  tmux
+  vim-minimal
+  xinitrc
+  xresources
+  zlogout
+  zshenv
+  )
+
+cd ${dotfiles_dir}/settings && stow --target=$HOME -S "${CONFIGS[@]}"
+
 cd ~
-sudo ln -s ${dotfiles_dir}/settings/scripts/bin/wallpaper.sh /usr/bin/wallpaper.sh
-
-## Install fonts manually fonts
-sudo fc-cache -f -v
-
+#
 # Git settings
 sh ${scripts_dir}/common/git.sh "$git_name" "$git_email"
-
-# bash setup
-sh ${scripts_dir}/common/bash_setting.sh "$dotfiles_dir"
 
 # Increase the limit of number of files to be watched by inotify
 sh ${scripts_dir}/common/nodejsENOSPCerrorFix.sh
 
-
-
-### User Services ###
-
-# Reload units
-systemctl --user daemon-reload
-# Enable and start timers
-systemctl --user enable --now wallpaper.timer
-
-# TODO: Apply this only on laptop
-systemctl --user enable --now alert-battery.timer
-
+# Active zsh and install oh-my-zsh with some plugins
+sh ${scripts_dir}/common/oh-my-zsh.sh
 
 
 ### Ending Messages ###
