@@ -5,7 +5,21 @@ export DNVIM_MEMORY=4g
 export EDITOR=vim
 export TERMINAL=alacritty
 
+export GOPATH="$HOME/go"
 
-export PATH=$HOME/.local/bin:$PATH 
+# Define the list of folders
+folders_to_add=(
+  "$HOME/.local/bin"
+  "$GOPATH/bin"
+)
+
+# Loop through each folder
+for folder in "${folders_to_add[@]}"; do
+  if [[ -d "$folder" && ":$PATH:" != *":$folder:"* ]]; then
+    PATH="$folder:$PATH"
+  fi
+done
+
+export PATH
 
 export LANG=en_US.UTF-8
