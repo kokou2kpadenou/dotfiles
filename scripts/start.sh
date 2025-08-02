@@ -10,4 +10,4 @@ fi
 
 clear
 cd ~
-git clone --recurse-submodules https://github.com/kokou2kpadenou/dotfiles.git "$entry" && sh ${entry}/scripts/archlinux/post_install.sh
+git clone https://github.com/kokou2kpadenou/dotfiles.git "$entry" && sh ${entry}/scripts/archlinux/post_install.sh
