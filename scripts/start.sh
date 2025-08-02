@@ -1,34 +1,13 @@
-#!/bin/sh
+#!/bin/bash
 
 entry=""
 
-read -p "Dotfiles folder name (default: .dotfiles): " entry
+read -p "Dotfiles folder path (default: $HOME/.config/.dotfiles): " entry
 
-if [ "$entry" = "" ]; then 
-  entry=".dotfiles"
+if [ "$entry" = "" ]; then
+  entry="$HOME/.config/.dotfiles"
 fi
-
-
-# OS Selection
-os=""
-
-PS3='Please select the Operation System: '
-options=("CentOS" "Archlinux")
-select opt in "${options[@]}"
-do
-  case $opt in
-    "CentOS")
-      os="centos"
-      break
-      ;;
-    "Archlinux")
-      os="archlinux"
-      break
-      ;;
-    *) echo "invalid option $REPLY";;
-  esac
-done
 
 clear
 cd ~
-git clone https://github.com/kokou2kpadenou/dotfiles.git "$entry" && sh ${entry}/scripts/${os}/post_install.sh
+git clone --recurse-submodules https://github.com/kokou2kpadenou/dotfiles.git "$entry" && sh ${entry}/scripts/archlinux/post_install.sh
