@@ -21,10 +21,10 @@ if [ $# -ge 1 ] && [ -n "$1" ]; then
   echo "Enter to continue..."
   read
 fi
-default_dotfiles_dir="$HOME/.dotfiles"
+default_dotfiles_dir="$HOME/.config/.dotfiles"
 if [ "$dotfiles_dir" = "" ]; then
 
-  read -e -p "Dotfiles directory (defaut: ~/.dotfiles): " dotfiles_dir
+  read -e -p "Dotfiles directory (defaut: ~/.config/.dotfiles): " dotfiles_dir
 
   if [ "$dotfiles_dir" = "" ]; then
     dotfiles_dir=$default_dotfiles_dir
@@ -227,8 +227,8 @@ yay -S visual-studio-code-bin google-chrome zen-browser-bin vscodium-bin
 # Installation of Docker and Docker-compose
 sh ${scripts_dir}/archlinux/docker_install.sh
 
-#create user systemd folder if it is not existed.
-mkdir -p ~/.config/systemd/user
+# create user systemd folder if it is not existed.
+# mkdir -p ~/.config/systemd/user
 
 # Create the symbolic links
 CONFIGS=(
