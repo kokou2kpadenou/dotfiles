@@ -74,7 +74,7 @@ return {
       ---------------
       local lspconfig = require 'lspconfig'
 
-      vim.lsp.set_log_level 'error' -- 'trace', 'debug', 'info', 'warn', 'error'
+      vim.lsp.log.set_level 'error' -- 'trace', 'debug', 'info', 'warn', 'error'
 
       -- Use LspAttach autocommand to only map the following keys
       -- after the language server attaches to the current buffer
