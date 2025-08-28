@@ -22,7 +22,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-if [[ -n "$DISPLAY" ]]; then
+if [[ -n "$DISPLAY" || -n "$WAYLAND_DISPLAY" ]]; then
 	# startship
 	eval "$(starship init zsh)"
 
