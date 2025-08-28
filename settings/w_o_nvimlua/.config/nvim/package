@@ -62,3 +62,23 @@ done
 if [[ ${#node_packages_missing} -gt 0 ]]; then
   pnpm add -g "${node_packages_missing[@]}" || echo "Error installing nodejs packages."
 fi
+
+
+# --- Install Rust ---
+if ! command -v rustc &> /dev/null
+then
+    echo "Installing Rust (via rustup)..."
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    source $HOME/.cargo/env
+else
+    echo "Rust already installed."
+fi
+
+# --- Install Taplo ---
+if ! command -v taplo &> /dev/null
+then
+    echo "Installing Taplo..."
+    cargo install taplo-cli --locked
+else
+    echo "Taplo already installed."
+fi
