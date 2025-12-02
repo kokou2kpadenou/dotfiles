@@ -7,7 +7,7 @@ return {
 
     dependencies = {
       -- 'folke/neodev.nvim', -- Dev setup for init.lua and plugin development
-      'ckipp01/stylua-nvim', -- wrapper around the Lua code formatter, stylua
+      -- 'ckipp01/stylua-nvim', -- wrapper around the Lua code formatter, stylua
 
       {
         'folke/lazydev.nvim',
@@ -55,6 +55,7 @@ return {
       ----------------------
       local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
       vim.diagnostic.config {
+        virtual_lines = true,
         virtual_text = false,
         signs = {
           text = {
@@ -72,7 +73,7 @@ return {
 
       -- LSP Settings
       ---------------
-      local lspconfig = require 'lspconfig'
+      -- local lspconfig = require 'lspconfig'
 
       vim.lsp.log.set_level 'error' -- 'trace', 'debug', 'info', 'warn', 'error'
 
@@ -154,24 +155,27 @@ return {
       })
 
       -- Add additional capabilities supported by nvim-cmp
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      -- local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-      local default_lsp_config = {
-        capabilities = capabilities,
-      }
+      -- local default_lsp_config = {
+      --   capabilities = capabilities,
+      -- }
 
       -- Enable the following language servers
-      local servers = require 'kkokou.plugins.lsp.servers'(capabilities)
+      -- local servers = require 'kkokou.plugins.lsp.servers'(capabilities)
 
-      for lsp, lsp_config in pairs(servers) do
-        local merged_config = vim.tbl_deep_extend('force', default_lsp_config, lsp_config)
+      -- for lsp, lsp_config in pairs(servers) do
+      --   local merged_config = vim.tbl_deep_extend('force', default_lsp_config, lsp_config)
+      --
+      --   lspconfig[lsp].setup(merged_config)
+      -- end
 
-        lspconfig[lsp].setup(merged_config)
-      end
+vim.lsp.enable({'astro', 'bashls', 'cssls', 'cssmodules_ls', 'dockerls', 'emmet_ls', 'eslint', 'gopls',
+ 'html', 'jsonls', 'lua_ls', 'intelephense', 'pyright', 'svelte', 'tailwindcss', 'taplo', 'ts_ls',
+'vuels', 'yamlls'})
 
-      vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
-      vim.lsp.handlers['textDocument/signatureHelp'] =
-        vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
+      -- vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
+      -- vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
     end,
   },
 }

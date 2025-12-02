@@ -11,7 +11,7 @@ local function get_typescript_server_path(root_dir)
   return #new_tsdk == 0 and '' or vim.fs.dirname(new_tsdk[1])
 end
 
-return function()
+-- return function()
   return {
     -- {
     -- init_options = {
@@ -30,4 +30,5 @@ return function()
     end,
   }
   -- }
-end
+-- end
+

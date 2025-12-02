@@ -81,3 +81,5 @@ vim.opt.undofile = true
 
 -- Disable mouse and scrolling
 vim.opt.mouse = ''
+
+vim.o.winborder = 'rounded'
