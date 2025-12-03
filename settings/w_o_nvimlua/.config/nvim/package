@@ -67,18 +67,20 @@ fi
 # --- Install Rust ---
 if ! command -v rustc &> /dev/null
 then
-    echo "Installing Rust (via rustup)..."
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-    source $HOME/.cargo/env
-else
-    echo "Rust already installed."
+    read -p "Rust is not installed. Install Rust (via rustup)? [y/N]: " confirm_rust
+    if [[ "$confirm_rust" =~ ^[Yy]$ ]]; then
+        echo "Installing Rust..."
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+        source "$HOME/.cargo/env"
+    fi
 fi
 
 # --- Install Taplo ---
 if ! command -v taplo &> /dev/null
 then
-    echo "Installing Taplo..."
-    cargo install taplo-cli --locked
-else
-    echo "Taplo already installed."
+    read -p "Taplo is not installed. Install Taplo CLI? [y/N]: " confirm_taplo
+    if [[ "$confirm_taplo" =~ ^[Yy]$ ]]; then
+        echo "Installing Taplo..."
+        cargo install taplo-cli --locked
+    fi
 fi
