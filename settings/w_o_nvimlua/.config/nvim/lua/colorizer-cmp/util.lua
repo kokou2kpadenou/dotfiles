@@ -92,8 +92,8 @@ local function getTextColor(hexColor)
 end
 
 function M.colorBgFg(doc)
-  -- return nil if doc nil
-  if not doc then
+  -- return nil if doc is nil or a table
+  if (not doc) or (type(doc) == "table") then
     return nil
   end
 
