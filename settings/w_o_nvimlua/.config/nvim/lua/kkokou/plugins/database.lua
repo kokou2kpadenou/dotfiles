@@ -3,6 +3,7 @@ return {
   -- Interaction with Databases
   {
     'kristijanhusak/vim-dadbod-ui',
+    enabled = false,
     cmd = { 'DBUI', 'DBUIAddConnection', 'DBUIToggle' },
     dependencies = { 'tpope/vim-dadbod', 'kristijanhusak/vim-dadbod-completion', 'hrsh7th/nvim-cmp' },
     config = function()

@@ -19,26 +19,26 @@ return {
   },
 
   -- Color highlighter for Neovim
-  {
-    'brenoprata10/nvim-highlight-colors',
-    enabled = false,
-    event = { 'BufReadPost', 'BufNewFile' },
-    ft = {
-      'html',
-      'css',
-      'scss',
-      'astro',
-      'vue',
-      'svelte',
-      'javascript',
-      'javascriptreact',
-      'typescript',
-      'typescriptreact',
-    },
-    opts = {
-      render = 'background', -- or 'foreground' or 'first_column'
-      enable_named_colors = true,
-      enable_tailwind = true,
-    },
-  },
+--   {
+--     'brenoprata10/nvim-highlight-colors',
+--     enabled = false,
+--     event = { 'BufReadPost', 'BufNewFile' },
+--     ft = {
+--       'html',
+--       'css',
+--       'scss',
+--       'astro',
+--       'vue',
+--       'svelte',
+--       'javascript',
+--       'javascriptreact',
+--       'typescript',
+--       'typescriptreact',
+--     },
+--     opts = {
+--       render = 'background', -- or 'foreground' or 'first_column'
+--       enable_named_colors = true,
+--       enable_tailwind = true,
+--     },
+--   },
 }

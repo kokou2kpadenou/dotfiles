@@ -63,13 +63,13 @@ return {
         'html',
         'jsonls',
         'lua_ls',
-        'intelephense',
+        -- 'intelephense',
         'pyright',
-        'svelte',
+        -- 'svelte',
         'tailwindcss',
         'taplo',
         'ts_ls',
-        'vuels',
+        -- 'vuels',
         'yamlls'
       })
 

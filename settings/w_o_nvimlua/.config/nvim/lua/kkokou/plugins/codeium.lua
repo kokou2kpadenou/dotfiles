@@ -1,3 +1,4 @@
+-- TODO: https://github.com/Exafunction/windsurf.nvim
 return {
 
   -- Codeium - Copilot alternative

@@ -21,25 +21,25 @@ return {
   },
 
   -- Catppuccin
-  {
-    'catppuccin/nvim',
-    lazy = true,
-    name = 'catppuccin',
-    opts = {
-      transparent_background = true,
-    },
-  },
+  -- {
+  --   'catppuccin/nvim',
+  --   lazy = true,
+  --   name = 'catppuccin',
+  --   opts = {
+  --     transparent_background = true,
+  --   },
+  -- },
 
   -- Bluloco
-  {
-    'uloco/bluloco.nvim',
-    lazy = true,
-    name = 'bluloco',
-    dependencies = { 'rktjmp/lush.nvim' },
-    opts = {
-      style = 'dark',
-      transparent = true,
-      italics = true,
-    },
-  },
+  -- {
+  --   'uloco/bluloco.nvim',
+  --   lazy = true,
+  --   name = 'bluloco',
+  --   dependencies = { 'rktjmp/lush.nvim' },
+  --   opts = {
+  --     style = 'dark',
+  --     transparent = true,
+  --     italics = true,
+  --   },
+  -- },
 }

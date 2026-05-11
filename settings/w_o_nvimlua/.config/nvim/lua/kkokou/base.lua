@@ -107,3 +107,5 @@ vim.diagnostic.config {
 -- LSP Settings
 ---------------
 vim.lsp.log.set_level 'error'       -- 'trace', 'debug', 'info', 'warn', 'error'
+
+vim.opt.exrc = true
