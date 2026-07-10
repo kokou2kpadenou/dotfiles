@@ -1,0 +1,145 @@
+# -----------------------------
+# Package Managers
+# -----------------------------
+# brew "git"
+# brew "gh"
+# brew "curl"
+# brew "wget"
+
+# -----------------------------
+# Shell
+# -----------------------------
+# brew "zsh"
+brew "starship"
+brew "fzf"
+brew "zoxide"
+brew "eza"
+brew "bat"
+brew "ripgrep"
+brew "fd"
+brew "tree"
+brew "jq"
+brew "yq"
+brew "tmux"
+brew "stow"
+
+# -----------------------------
+# Editors
+# -----------------------------
+# brew "neovim"
+brew "lazygit"
+
+# -----------------------------
+# Build Tools
+# -----------------------------
+# brew "make"
+# brew "cmake"
+# brew "ninja"
+
+# -----------------------------
+# Node.js
+# -----------------------------
+# brew "node"
+# brew "pnpm"
+# brew "yarn"
+# brew "bun"
+
+# -----------------------------
+# Go
+# -----------------------------
+# brew "go"
+
+# -----------------------------
+# Rust
+# -----------------------------
+# brew "rustup-init"
+
+# -----------------------------
+# Python
+# -----------------------------
+# brew "python"
+
+# -----------------------------
+# Lua
+# -----------------------------
+# brew "lua"
+# brew "luarocks"
+
+# -----------------------------
+# Docker
+# -----------------------------
+# brew "docker"
+# brew "docker-compose"
+
+# -----------------------------
+# Kubernetes
+# -----------------------------
+# brew "kubectl"
+# brew "k9s"
+
+# -----------------------------
+# Databases
+# -----------------------------
+# brew "postgresql@17"
+# brew "sqlite"
+# brew "redis"
+
+# -----------------------------
+# Network Tools
+# -----------------------------
+# brew "httpie"
+# brew "nmap"
+
+# -----------------------------
+# SSL
+# -----------------------------
+# brew "openssl"
+
+# -----------------------------
+# Image Processing
+# -----------------------------
+# brew "imagemagick"
+
+# -----------------------------
+# Fonts
+# -----------------------------
+tap "homebrew/cask-fonts"
+cask "font-dejavu-sans-mono-nerd-font"
+
+# -----------------------------
+# Browsers
+# -----------------------------
+cask "google-chrome"
+cask "zen"
+# cask "firefox"
+
+# -----------------------------
+# Development Apps
+# -----------------------------
+cask "visual-studio-code"
+cask "antigravity-ide"
+# cask "iterm2"
+# cask "orbstack"
+
+# -----------------------------
+# Communication
+# -----------------------------
+# cask "slack"
+# cask "discord"
+
+# -----------------------------
+# API Testing
+# -----------------------------
+# cask "bruno"
+
+# -----------------------------
+# Database GUI
+# -----------------------------
+# cask "tableplus"
+
+# -----------------------------
+# Productivity
+# -----------------------------
+# cask "raycast"
+# cask "rectangle"
+# cask "obsidian"
