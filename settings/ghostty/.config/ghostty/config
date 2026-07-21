@@ -1,0 +1,23 @@
+# Core Theme & Typography
+theme = "Catppuccin Mocha"
+font-family = "DejaVuSansM Nerd Font"
+font-size = 14
+font-thicken = true
+
+# Window Aesthetics
+window-decoration = false
+window-padding-x = 10
+window-padding-y = 10
+window-padding-balance = true
+
+# Interaction
+cursor-style = block
+cursor-style-blink = false
+mouse-hide-while-typing = true
+
+# Performance & Features
+background-opacity = 0.85
+background-blur = true
+scrollback-limit = 100000
+
+# command = tmux new-session -A -s main
