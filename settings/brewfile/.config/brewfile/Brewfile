@@ -103,7 +103,7 @@ brew "lazygit"
 # -----------------------------
 # Fonts
 # -----------------------------
-tap "homebrew/cask-fonts"
+# tap "homebrew/cask-fonts"
 cask "font-dejavu-sans-mono-nerd-font"
 
 # -----------------------------
@@ -118,6 +118,7 @@ cask "zen"
 # -----------------------------
 cask "visual-studio-code"
 cask "antigravity-ide"
+cask "ghostty"
 # cask "iterm2"
 # cask "orbstack"
 
