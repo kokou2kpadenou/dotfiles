@@ -84,3 +84,13 @@ then
         cargo install taplo-cli --locked
     fi
 fi
+
+# --- Install Treesiter-cli ---
+if ! command -v tree-sitter &> /dev/null
+then
+    read -p "tree-sitter CLI is not installed. Install tree-sitter CLI? [y/N]: " confirm_tree_sitter
+    if [[ "$confirm_tree_sitter" =~ ^[Yy]$ ]]; then
+        echo "Installing tree-sitter CLI..."
+        cargo install --locked tree-sitter-cli
+    fi
+fi

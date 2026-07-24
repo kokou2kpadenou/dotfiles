@@ -1,18 +1,19 @@
 return {
   {
-    'nvim-treesitter/nvim-treesitter',
-    --version = false, -- last release is way too old and doesn't work on Windows
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
     lazy = false,
-    branch = 'master',
-    build = ':TSUpdate',
-    dependencies = {
-      'windwp/nvim-ts-autotag',
-      'nvim-treesitter/nvim-treesitter-context',
-    },
-    event = { 'BufReadPost', 'BufNewFile' },
+    build = ":TSUpdate",
+    config = function()
+      -- local configs = require("nvim-treesitter")
 
-    opts = {
-      ensure_installed = {
+      -- 1. Initialize the plugin directory
+      -- configs.setup({
+      --   install_dir = vim.fn.stdpath("data") .. "/site",
+      -- })
+
+      -- 2. Declaratively install your preferred language parsers
+      require('nvim-treesitter').install({
         'astro',
         'bash',
         'comment',
@@ -42,46 +43,19 @@ return {
         'typescript',
         'vue',
         'yaml',
-      },
+      })
 
-      sync_install = false,
-
-      auto_install = true,
-
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-      },
-
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = 'gnn',
-          node_incremental = 'grn',
-          scope_incremental = 'grc',
-          node_decremental = 'grm',
-        },
-      },
-
-      indent = {
-        enable = true,
-      },
-
-      autopairs = {
-        enable = true,
-      },
-    },
-
-    config = function(_, opts)
-      vim.api.nvim_create_autocmd('FileType', {
-        pattern = { 'markdown' },
-        callback = function()
-          -- treesitter-context is buggy with markdown files
-          require('treesitter-context').disable()
+      -- 3. Globally enable Treesitter syntax highlighting via Autocmd
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function(args)
+          pcall(vim.treesitter.start, args.buf)
         end,
       })
 
-      require('nvim-treesitter.configs').setup(opts)
+      -- 4. Enable native folding using Treesitter expressions
+      vim.wo.foldmethod = "expr"
+      vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
     end,
   },
 }
+

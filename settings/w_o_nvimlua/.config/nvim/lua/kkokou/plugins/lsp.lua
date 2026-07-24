@@ -51,6 +51,10 @@ return {
 
     config = function()
 
+      vim.lsp.config('html', {
+        filetypes = { 'html', 'gotmpl' },
+      })
+
       vim.lsp.enable({
         'astro',
         'bashls',
