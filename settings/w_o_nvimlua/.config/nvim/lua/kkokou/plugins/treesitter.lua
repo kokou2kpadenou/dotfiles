@@ -5,14 +5,11 @@ return {
     lazy = false,
     build = ":TSUpdate",
     config = function()
-      -- local configs = require("nvim-treesitter")
-
-      -- 1. Initialize the plugin directory
-      -- configs.setup({
-      --   install_dir = vim.fn.stdpath("data") .. "/site",
-      -- })
-
-      -- 2. Declaratively install your preferred language parsers
+      
+      require('nvim-treesitter').setup {
+        install_dir = vim.fn.stdpath('data') .. '/site'
+      }
+      -- Install Parses and Queries
       require('nvim-treesitter').install({
         'astro',
         'bash',
@@ -43,16 +40,16 @@ return {
         'typescript',
         'vue',
         'yaml',
-      })
+      }):wait(300000)
 
-      -- 3. Globally enable Treesitter syntax highlighting via Autocmd
+      -- Globally enable Treesitter syntax highlighting via Autocmd
       vim.api.nvim_create_autocmd("FileType", {
         callback = function(args)
           pcall(vim.treesitter.start, args.buf)
         end,
       })
 
-      -- 4. Enable native folding using Treesitter expressions
+      -- Enable native folding using Treesitter expressions
       vim.wo.foldmethod = "expr"
       vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
     end,
