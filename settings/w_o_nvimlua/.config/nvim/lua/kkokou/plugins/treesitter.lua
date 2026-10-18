@@ -1,22 +1,14 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    -- branch = "main",
     commit = "8b3a191",
     lazy = false,
     build = ":TSUpdate",
     config = function()
 
-      -- require('nvim-treesitter').setup {
-      --   install_dir = vim.fn.stdpath('data') .. '/site'
-      -- }
-      
       local ts = require("nvim-treesitter")
-      
-      print(vim.inspect(ts))
-      print("install =", ts.install)
-        
-      -- Install Parses and Queries   
+
+      -- Install Parses and Queries
       if ts.install then
         ts.install({
           'astro',
