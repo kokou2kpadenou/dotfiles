@@ -1,0 +1,179 @@
+[
+  {
+    "cmd": "rustc",
+    "name": "Rust (via rustup)",
+    "check_cmd": "command -v rustc",
+    "install_cmd": "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y",
+    "post_install_cmd": "source \"$HOME/.cargo/env\"",
+    "children": [
+      {
+        "cmd": "taplo",
+        "name": "Taplo CLI",
+        "check_cmd": "command -v taplo",
+        "install_cmd": "cargo install taplo-cli --locked"
+      },
+      {
+        "cmd": "tree-sitter",
+        "name": "tree-sitter CLI",
+        "check_cmd": "command -v tree-sitter",
+        "install_cmd": "cargo install tree-sitter-cli --locked"
+      }
+    ]
+  },
+  {
+    "cmd": "go",
+    "name": "Go Runtime",
+    "check_cmd": "command -v go",
+    "install_cmd": "",
+    "children": [
+      {
+        "cmd": "goimports",
+        "name": "Go Imports Formatter",
+        "check_cmd": "command -v goimports",
+        "install_cmd": "go install golang.org/x/tools/cmd/goimports@latest"
+      }
+    ]
+  },
+  {
+    "cmd": "node",
+    "name": "Node.js Runtime",
+    "check_cmd": "command -v node",
+    "install_cmd": "curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - && sudo apt install -y nodejs",
+    "post_install_cmd": "node --version && npm --version",
+    "children": [
+      {
+        "cmd": "typescript",
+        "name": "TypeScript Compiler",
+        "check_cmd": "command -v tsc",
+        "install_cmd": "pnpm add -g typescript"
+      },
+      {
+        "cmd": "typescript-language-server",
+        "name": "TypeScript Language Server",
+        "check_cmd": "command -v typescript-language-server",
+        "install_cmd": "pnpm add -g typescript-language-server"
+      },
+      {
+        "cmd": "vscode-langservers-extracted",
+        "name": "VSCode Language Servers (HTML/CSS/JSON)",
+        "check_cmd": "command -v vscode-html-language-server",
+        "install_cmd": "pnpm add -g vscode-langservers-extracted"
+      },
+      {
+        "cmd": "yaml-language-server",
+        "name": "YAML Language Server",
+        "check_cmd": "command -v yaml-language-server",
+        "install_cmd": "pnpm add -g yaml-language-server"
+      },
+      {
+        "cmd": "eslint",
+        "name": "ESLint",
+        "check_cmd": "command -v eslint",
+        "install_cmd": "pnpm add -g eslint"
+      },
+      {
+        "cmd": "prettierd",
+        "name": "Prettier Daemon",
+        "check_cmd": "command -v prettierd",
+        "install_cmd": "pnpm add -g @fsouza/prettierd"
+      },
+      {
+        "cmd": "prettier-plugin-go-template",
+        "name": "Prettier Go Template Plugin",
+        "check_cmd": "npm list -g prettier-plugin-go-template",
+        "install_cmd": "pnpm add -g prettier-plugin-go-template"
+      },
+      {
+        "cmd": "stylelint",
+        "name": "Stylelint",
+        "check_cmd": "command -v stylelint",
+        "install_cmd": "pnpm add -g stylelint"
+      },
+      {
+        "cmd": "bash-language-server",
+        "name": "Bash Language Server",
+        "check_cmd": "command -v bash-language-server",
+        "install_cmd": "pnpm add -g bash-language-server"
+      },
+      {
+        "cmd": "tailwindcss-language-server",
+        "name": "Tailwind CSS Language Server",
+        "check_cmd": "command -v tailwindcss-language-server",
+        "install_cmd": "pnpm add -g @tailwindcss/language-server"
+      },
+      {
+        "cmd": "astro-language-server",
+        "name": "Astro Language Server",
+        "check_cmd": "command -v astro-ls",
+        "install_cmd": "pnpm add -g @astrojs/language-server"
+      },
+      {
+        "cmd": "dockerfile-language-server",
+        "name": "Dockerfile Language Server",
+        "check_cmd": "command -v docker-langserver",
+        "install_cmd": "pnpm add -g dockerfile-language-server-nodejs"
+      },
+      {
+        "cmd": "cssmodules-language-server",
+        "name": "CSS Modules Language Server",
+        "check_cmd": "command -v cssmodules-language-server",
+        "install_cmd": "pnpm add -g cssmodules-language-server"
+      },
+      {
+        "cmd": "css-variables-language-server",
+        "name": "CSS Variables Language Server",
+        "check_cmd": "command -v css-variables-language-server",
+        "install_cmd": "pnpm add -g css-variables-language-server"
+      },
+      {
+        "cmd": "emmet-ls",
+        "name": "Emmet Language Server",
+        "check_cmd": "command -v emmet-ls",
+        "install_cmd": "pnpm add -g emmet-ls"
+      },
+      {
+        "cmd": "stylua",
+        "name": "Stylua Formatter (Node Wrapper)",
+        "check_cmd": "command -v stylua",
+        "install_cmd": "pnpm add -g @johnnymorganz/stylua-bin"
+      },
+      {
+        "cmd": "pyright",
+        "name": "Pyright Language Server",
+        "check_cmd": "command -v pyright",
+        "install_cmd": "pnpm add -g pyright"
+      },
+      {
+        "cmd": "svelte-language-server",
+        "name": "Svelte Language Server",
+        "check_cmd": "command -v svelteserver",
+        "install_cmd": "pnpm add -g svelte-language-server"
+      },
+      {
+        "cmd": "vls",
+        "name": "Vue Language Server",
+        "check_cmd": "command -v vls",
+        "install_cmd": "pnpm add -g vls"
+      },
+      {
+        "cmd": "stylelint-lsp",
+        "name": "Stylelint Language Server",
+        "check_cmd": "command -v stylelint-lsp",
+        "install_cmd": "pnpm add -g stylelint-lsp"
+      },
+      {
+        "cmd": "intelephense",
+        "name": "Intelephense PHP Language Server",
+        "check_cmd": "command -v intelephense",
+        "install_cmd": "pnpm add -g intelephense"
+      },
+      {
+        "cmd": "sql-formatter",
+        "name": "SQL Formatter",
+        "check_cmd": "command -v sql-formatter",
+        "install_cmd": "pnpm add -g sql-formatter"
+      }
+    ]
+  }
+]
+
